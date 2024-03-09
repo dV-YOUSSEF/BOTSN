@@ -21,6 +21,9 @@ async def reply_with_link(client, message):
 # هذه الدالة تبدأ عملية إرسال الهمسة
 @app.on_message(filters.command("start"))
 async def hms_start(client, message):
+    print("تم استدعاء دالة hms_start")  # طباعة رسالة للتحقق من استدعاء الدالة
+    print(f"نص الرسالة: {message.text}")  # طباعة نص الرسالة للتحقق من المحتوى
+    
     if message.text.split(" ", 1)[-1].startswith("hms"):
         global waiting_for_hms, hms_ids
         hms_ids = message.text
