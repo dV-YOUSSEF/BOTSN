@@ -11,7 +11,7 @@ API_ID = int(getenv("API_ID","25281175"))
 API_HASH = getenv("API_HASH","6d99cb2b60a2c519fc1f99bd19565730")
 
 # Get your token from @BotFather on Telegram.
-BOT_TOKEN = getenv("BOT_TOKEN","7061181662:AAE2EY8DYpq_pjbuLw5osuUhcshhKovnQaY")
+BOT_TOKEN = getenv("BOT_TOKEN")
 
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI","mongodb+srv://bot_vambir:Al2552001@cluster0.heabj.mongodb.net/vambir_bot?retryWrites=true&w=majority")
@@ -43,7 +43,7 @@ SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Source_Ze")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/ZeSupport")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
-AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", "BADNvmIAnWIP9iJ5DPT3bdg-WmdDr51oRoykRc_-9tCXN7DO0yKSygLafV5PzohRPi1858UXvYEYVT3abjDGhCk3Wa2fOkYHv8VbuCiQiT6q_mVAb4y8PMKa1pAeRzMYcZIvEyEGPYr7xH8IvM560KG_5mSCFMAkIhQYeeFcPg-gpKHFjZ7iCvWkXoKW47Ow_V5JA0gDhWRr9H4cMPp7Eb1Jde-QZhlU8synA735f3D_9_BbYdu74ZA1ct8pmB3h_OII-onfythjuYtvwtvTeQgu76a06lJobEW9fIABRPLl40tvoXXZpDaC43eqvCJJ53WYGfysxtlOW3SEu4vAP0VqDsYRkQAAAAGUPWwXAA"))
+AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
 
 
 # Get this credentials from https://developer.spotify.com/dashboard
