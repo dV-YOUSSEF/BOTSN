@@ -53,26 +53,6 @@ async def yas(client, message):
     )
     
 @app.on_message(
-    command(["المطور مارو","مارو","المبرمج"])
-    & filters.group
-  
-)
-async def yas(client, message):
-    usr = await client.get_chat("j_s_9")
-    name = usr.first_name
-    photo = await app.download_media(usr.photo.big_file_id)
-    await message.reply_photo(photo,       caption=f"– – – – – – – – – – – – – – – – – –\n↯︙𝖣𝖾𝗏 ↬ ⦗ {name} ⦘\n↯︙𝖴𝗌𝖤𝗋 ↬ ⦗ @{usr.username} ⦘\n↯︙𝖨𝖣 ↬ ⦗ {usr.id} ⦘\n↯︙𝖡𝗂𝖮 ↬ ⦗ {usr.bio} ⦘\n– – – – – – – – – – – – – – – – – –",  
-    reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        name, url=f"https://t.me/{usr.username}")
-                ],
-            ]
-        ),
-    )
-    
-@app.on_message(
     command(["سورس","السورس"])
 
 )
@@ -80,9 +60,9 @@ async def huhh(client: Client, message: Message):
     await message.reply_video(
         video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
         caption=f"""╭──── • ◈ • ────╮
-么 [َ ᥉᥆υᖇᥴᥱ ᥲ️ᖇꪀ᥆ρ](t.me/N_G_12)
+么 [َ ᥉᥆υᖇᥴᥱ ᥉ꪀᎥρᥱᖇ](t.me/BPHEE)
 么 [َժᥱ᥎ ꪀᥲ️ժᥱᖇ](t.me/JOO_B_R_Z)
-么 [َ ᥉υρρ᥆ᖇƚ ](t.me/Ng_333)
+么 [َ ᥉υρρ᥆ᖇƚ ](t.me/B_X_N1)
 ╰──── • ◈ • ────╯
 ⍟ 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝚂𝙾𝚄𝚁𝙲𝙴 𝙾𝙽 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼""",
         reply_markup=InlineKeyboardMarkup(
@@ -97,10 +77,7 @@ async def huhh(client: Client, message: Message):
                         " 𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅 ", url=f"https://t.me/JOO_B_R_Z"),
                   ],[
                     InlineKeyboardButton(
-                        " 𝗠𝗔𝗥𝗢 ", url=f"https://t.me/j_s_9"),
-                  ],[
-                    InlineKeyboardButton(
-                        "اضف البوت اللي مجموعتك", url=f"https://t.me/{app.username}?startgroup=true"),
+                        ".💘اضف البوت اللي مجموعتك", url=f"https://t.me/{app.username}?startgroup=true"),
                 ],
 
             ]
