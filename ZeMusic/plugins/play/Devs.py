@@ -108,7 +108,7 @@ async def khalid(client: Client, message: Message):
                         "‹ ᥉υρρ᥆ᖇƚ›", url=f"https://t.me/Ng_333"),
                 ],[
                     InlineKeyboardButton(
-                        "‹ اضف البوت لمجموعتك ›", url=f"https://t.me/A_Rn_obot?startgroup=true"),
+                        "‹ اضف البوت لمجموعتك ›", url=f"https://t.me/{username.bot}?startgroup=true"),
             ]
         ]
          ),
