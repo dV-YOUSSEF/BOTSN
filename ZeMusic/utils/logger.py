@@ -1,12 +1,10 @@
 from pyrogram.enums import ParseMode
-
 from ZeMusic import app
 from ZeMusic.utils.database import is_on_off
 from config import LOGGER_ID
 
-
 async def play_logs(message, streamtype):
-    if await is_on_off(LOG):
+    if await is_on_off(LOGGER_ID):
         if message.chat.username:
             chatusername = f"@{message.chat.username}"
         else:
@@ -29,14 +27,13 @@ async def play_logs(message, streamtype):
 **━━━━━━━━━━━━━━━**
 **💐 نوع التشغيل:** {streamtype}
 **━━━━━━━━━━━━━━━**"""
-        if message.chat.id != LOG_GROUP_ID:
+        if message.chat.id != LOGGER_ID:
             try:
                 await app.send_message(
-                    LOG_GROUP_ID,
+                    LOGGER_ID,
                     text=logger_text,
                     disable_web_page_preview=True,
                 )
             except:
                 pass
         return
-
