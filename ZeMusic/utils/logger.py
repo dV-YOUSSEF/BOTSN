@@ -8,7 +8,7 @@ from config import LOGGER_ID
 async def play_logs(message, streamtype):
     if await is_on_off(2):
         logger_text = f"""━━━━━━━━━━━━━━━
-◍ [⌞ 𝘾𝙍 𖢻 ⌯ 𝙈𝙐𝙎𝙄𝘾 ⌯ ˹🎧˼⁩ ⌝
+◍ [⌞ 𝘾𝙍 𖢻 ⌯ 𝙈𝙐𝙎𝙄𝘾 ⌯  🎧💚   
 ━━━━━━━━━━━━━━━
 🌹️ اسم المجموعة : > {message.chat.title} [{message.chat.id}]
 ━━━━━━━━━━━━━━━
