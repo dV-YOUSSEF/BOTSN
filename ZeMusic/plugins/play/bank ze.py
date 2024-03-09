@@ -973,17 +973,17 @@ def top_thieves(client, message):
 @app.on_message(command("توب فلوس"))
 def top_money(client, message):
     bank_data = load_bank_data()
-    sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
+    sorted_accounts = sorted(bank_data[accounts], key=lambda x: bank_data[accounts][x][balance], reverse=True)
     top_accounts = sorted_accounts[:10]  # احصل على أول 10 حسابات بالأموال الأعلى
     response = "أعلى الأموال في البنك:\n\n"
+    places = ["🥇", "🥈", "🥉"]
     
-    for account_id in top_accounts:
+    for i, account_id in enumerate(top_accounts):
         account_username = client.get_chat(account_id).username
-        account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"@{account_username}: {account_balance} دولار\n"
+        account_balance = bank_data[accounts][account_id][balance]
+        response += f"{places[i]} ) {account_username}: {account_balance} دولار\n"
     
     client.send_message(message.chat.id, response)
-
 
 
 
