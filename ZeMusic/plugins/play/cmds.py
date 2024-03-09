@@ -4,8 +4,8 @@ from strings.filters import command
 from pyrogram.types import InlineKeyboardButton, CallbackQuery, InlineKeyboardMarkup, Message
 from typing import Union
 from pyrogram.types import InlineKeyboardButton
-from ZeMusic import app
-from ZeMusic.misc import HAPP, SUDOERS, XCB
+from DAXXMUSIC import app
+from DAXXMUSIC.misc import HAPP, SUDOERS, XCB
 from config import OWNER_ID
 
 @app.on_message(command(["اوامر", "الاوامر"]))
@@ -41,11 +41,15 @@ async def zdatsr(client: Client, message: Message):
                         "م8 اوامر الميـوزك", callback_data="zzzll"),
                 ],[
                     InlineKeyboardButton(
+                        "م9 اوامر التنظيف", callback_data="zzyiudgk"),
+                    InlineKeyboardButton(
+                        "م8 اوامر الميـوزك", callback_data="zzzll"),
+                ],[
+                    InlineKeyboardButton(
                         "الالـعــاب", callback_data="zzzdv"),
                 ],[
                     InlineKeyboardButton(
                         "القفل / الفتح", callback_data="zzzdv"),
-                ],[
                     InlineKeyboardButton(
                         "التفعيل/ التعطيل", callback_data="zzzdv"),
                 ],[
@@ -87,11 +91,15 @@ async def zzzback(_, query: CallbackQuery):
                         "م8 اوامر الميـوزك", callback_data="zzzlml"),
                 ],[
                     InlineKeyboardButton(
+                        "م9 اوامر التنظيف", callback_data="zzyiudgk"),
+                    InlineKeyboardButton(
+                        "م8 اوامر الميـوزك", callback_data="zzzll"),
+                ],[
+                    InlineKeyboardButton(
                         "الالـعــاب", callback_data="zzzmdv"),
                 ],[
                     InlineKeyboardButton(
                         "القفل / الفتح", callback_data="zzzdsv"),
-                ],[
                     InlineKeyboardButton(
                         "التفعيل/ التعطيل", callback_data="zzzddv"),
                 ],[
