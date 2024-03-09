@@ -31,7 +31,7 @@ other_filters2 = (
 
 
 def command(commands: Union[str, List[str]]):
-    return filters.command(commands, "كنز")
+    return filters.command(commands, "")
 
 
 def load_bank_data():
