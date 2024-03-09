@@ -11,9 +11,9 @@ from pyrogram import Client, filters
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££#
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
 
-SUDOERS = [6581896306]
+SUDOERS = [6943111120]
 
-OWNER_ID = 6581896306
+OWNER_ID = 6943111120
 
 def is_sudoer(_, __, message):
 
@@ -21,11 +21,17 @@ def is_sudoer(_, __, message):
 
 def is_owner(_, __, message):
 
-    return message.from_user.id == OWN
+    return message.from_user.id == OWNER_ID
+
+
+other_filters = filters.group &  ~filters.via_bot & ~filters.forwarded
+other_filters2 = (
+    filters.private &  ~filters.via_bot & ~filters.forwarded
+)
 
 
 def command(commands: Union[str, List[str]]):
-    return filters.command(commands, "")
+    return filters.command(commands, "كنز")
 
 
 def load_bank_data():
