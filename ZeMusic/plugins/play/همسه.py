@@ -18,7 +18,7 @@ async def reply_with_link(client, message):
     await message.reply_text("\n╢ إضغط لإرسال همسه!\n", reply_markup=reply_markup)
 
 waiting_for_hms = False
-@app.on_message(filters.command("start"))
+@app.on_message(filters.command("/start"))
 async def hms_start(client, message):
     if message.text.split(" ", 1)[-1].startswith("hms"):
         global waiting_for_hms, hms_ids
