@@ -1,12 +1,14 @@
-from pyrogram import filters, Client
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from ZeMusic import app
+from config import OWNER_ID
 import asyncio
-from pyrogram.types import VideoChatEnded, Message
+import aiohttp
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-from ZeMusic.core.call import Mody
+from ZeMusic.core.call import Mody 
 from ZeMusic.utils.database import *
-from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
+from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError)
 
 # Function to create inline keyboard
 def create_keyboard():
@@ -54,6 +56,9 @@ async def strcall(client, message):
             text +=f"{k}➤{user.mention}➤{mut}\n"
         text += f"\nعددهم : {len(participants)}\n✔️"    
         await message.reply(f"{text}")
+@app.on_message(filters.video_chat_started)
+async def brah(client, message):
+       await message.reply("𖠇 تم بدء المحادثه الصوتيه..✅\n│\n└𖠇 بواسطة الادمنيه 👨‍✈️ ", reply_markup=create_keyboard())
 @app.on_message(filters.video_chat_started)
 async def brah(client, message):
        await message.reply("𖠇 تم بدء المحادثه الصوتيه..✅\n│\n└𖠇 بواسطة الادمنيه 👨‍✈️ ", reply_markup=create_keyboard())
