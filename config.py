@@ -109,3 +109,11 @@ if SUPPORT_CHAT:
         raise SystemExit(
             "[ERROR] - Your SUPPORT_CHAT url is wrong. Please ensure that it starts with https://"
         )
+
+if YOUTUBE_IMG_URL:
+    if YOUTUBE_IMG_URL != "assets/Youtube.jpeg":
+        if not re.match("(?:http|https)://", YOUTUBE_IMG_URL):
+            print(
+                "[ERROR] - Your YOUTUBE_IMG_URL url is wrong. Please ensure that it starts with https://"
+            )
+            sys.exit()
