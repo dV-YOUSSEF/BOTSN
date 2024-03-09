@@ -1,7 +1,7 @@
 from pyrogram.enums import ParseMode
 
-from MatrixMusic import app
-from MatrixMusic.utils.database import is_on_off
+from ZeMusic import app
+from ZeMusic.utils.database import is_on_off
 from config import LOGGER_ID
 
 
