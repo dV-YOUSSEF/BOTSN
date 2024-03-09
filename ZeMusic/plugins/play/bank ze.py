@@ -988,4 +988,3 @@ def top_money(client, message):
 
 
 
-
