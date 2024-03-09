@@ -1,6 +1,7 @@
 aiofiles
 aiohttp
 asyncio
+get_thumb
 beautifulsoup4
 dnspython
 ffmpeg-python
@@ -26,4 +27,3 @@ youtube-search-python
 telegraph
 pytz
 numpy
-get_thumb
