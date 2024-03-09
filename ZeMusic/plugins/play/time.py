@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from datetime import datetime
 import pytz
 from strings.filters import command
-from DAXXMUSIC import app
+from ZeMusic import app
 
 def get_current_time():
     tz = pytz.timezone('Africa/Cairo')  # تعيين التوقيت لأفريقيا/القاهرة
