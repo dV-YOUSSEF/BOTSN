@@ -7,7 +7,7 @@ import random
 from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from strings.filters import command
-from MatrixMusic import app
+from ZeMusic import app
 from random import  choice, randint
 
 def get_file_id(msg: Message):
