@@ -2,9 +2,9 @@ from pyrogram import filters, Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from unidecode import unidecode
 from strings.filters import command
-from ZeMUSIC import app
-from ZeMUSIC.misc import SUDOERS
-from ZeMUSIC.utils.database import (
+from ZeMusic import app
+from ZeMusic.misc import SUDOERS
+from ZeMusic.utils.database import (
     get_active_chats,
     get_active_video_chats,
     remove_active_chat,
