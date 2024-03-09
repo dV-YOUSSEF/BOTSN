@@ -4,6 +4,7 @@ from ZeMusic import app
 
 hmses = {}
 
+# هذه الدالة ترد على رسائل الهمسة برابط لإرسال الهمسة
 @app.on_message(filters.reply & filters.regex("همسه") & filters.group)
 async def reply_with_link(client, message):
     user_id = message.reply_to_message.from_user.id
@@ -17,8 +18,8 @@ async def reply_with_link(client, message):
     )
     await message.reply_text("\n╢ إضغط لإرسال همسه!\n", reply_markup=reply_markup)
 
-waiting_for_hms = False
-@app.on_message(filters.command("/start"))
+# هذه الدالة تبدأ عملية إرسال الهمسة
+@app.on_message(filters.command("start"))
 async def hms_start(client, message):
     if message.text.split(" ", 1)[-1].startswith("hms"):
         global waiting_for_hms, hms_ids
@@ -31,30 +32,35 @@ async def hms_start(client, message):
             ),
         )
 
+# هذه الدالة تستقبل الهمسات وترسلها للمستخدم المعني
 @app.on_message(filters.private & filters.text & ~filters.command("start"))
 async def send_hms(client, message):
     global waiting_for_hms
-    if waiting_for_hms:    
-        to_id = int(hms_ids.split("to")[-1].split("in")[0])
-        from_id = int(hms_ids.split("hms")[-1].split("to")[0])
-        in_id = int(hms_ids.split("in")[-1])
-        to_url = f"tg://openmessage?user_id={to_id}"
-        from_url = f"tg://openmessage?user_id={from_id}"
-        
-        hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
-        
-        await message.reply_text("-> تم ارسال الهمسه.\n√")
-        
-        await app.send_message(
-            chat_id=in_id,
-            text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("- اضغط لرؤية الهمسه 👀", callback_data="hms_answer")]]
-            ),
-        )
-        
-        waiting_for_hms = False
-     
+    if waiting_for_hms:
+        if "to" in hms_ids and "in" in hms_ids and "hms" in hms_ids:
+            to_id = int(hms_ids.split("to")[-1].split("in")[0])
+            from_id = int(hms_ids.split("hms")[-1].split("to")[0])
+            in_id = int(hms_ids.split("in")[-1])
+            to_url = f"tg://openmessage?user_id={to_id}"
+            from_url = f"tg://openmessage?user_id={from_id}"
+            
+            hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
+            
+            await message.reply_text("-> تم ارسال الهمسه.\n√")
+            
+            await app.send_message(
+                chat_id=in_id,
+                text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
+                reply_markup=InlineKeyboardMarkup(
+                    [[InlineKeyboardButton("- اضغط لرؤية الهمسه 👀", callback_data="hms_answer")]]
+                ),
+            )
+            
+            waiting_for_hms = False
+        else:
+            await message.reply_text("حدث خطأ في تنسيق الهمسة، يرجى إعادة المحاولة.")
+
+# هذه الدالة تعرض الهمسة للمستخدم الذي تم ارسال الهمسة له
 @app.on_callback_query(filters.regex("hms_answer"))
 async def display_hms(client, callback):
     in_id = callback.message.chat.id
@@ -65,7 +71,8 @@ async def display_hms(client, callback):
             await callback.answer(hmses.get(str(who_id))["hms"], show_alert=True)
     else:
         await callback.answer("بطل لعب ف حاجه مش بتاعتك يابابا 🗿", show_alert=True)
-        
+
+# هذه الدالة تلغي عملية إرسال الهمسة
 @app.on_callback_query(filters.regex("hms_cancel"))
 async def cancel_hms(client, callback):
     
