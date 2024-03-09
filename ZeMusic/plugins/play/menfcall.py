@@ -8,6 +8,12 @@ from ZeMusic.core.call import Mody
 from ZeMusic.utils.database import *
 from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
 
+# Function to create inline keyboard
+def create_keyboard():
+    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton(" اغلاق ", callback_data="close_vc")]])
+    return keyboard
+
+
 @app.on_message(filters.regex("^مين في الكول$"))
 async def strcall(client, message):
     assistant = await group_assistant(Mody,message.chat.id)
@@ -50,7 +56,7 @@ async def strcall(client, message):
         await message.reply(f"{text}")
 @app.on_message(filters.video_chat_started)
 async def brah(client, message):
-       await message.reply("𖠇 تم بدء المحادثه الصوتيه..☑️")
+       await message.reply("𖠇 تم بدء المحادثه الصوتيه..✅\n│\n└𖠇 بواسطة الادمنيه 👨‍✈️ ", reply_markup=create_keyboard())
 @app.on_message(filters.video_chat_ended)
 async def brah2(client, message):
     da = message.video_chat_ended.duration
@@ -58,34 +64,34 @@ async def brah2(client, message):
     ho = divmod(ma[0], 60)
     day = divmod(ho[0], 24)
     if da < 60:
-       await message.reply(f"تم انهاء مكالمة الفيديو مدتها {da} ثواني وصكرها ")        
+       await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {da} ثواني ", reply_markup=create_keyboard())        
     elif 60 < da < 3600:
         if 1 <= ma[0] < 2:
-            await message.reply(f" تم انهاء مكالمة الفيديو مدتها دقيقه")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : دقيقة ", reply_markup=create_keyboard())
         elif 2 <= ma[0] < 3:
-            await message.reply(f" تم انهاء مكالمة الفيديو مدتها دقيقتين ")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : دقيقتين ", reply_markup=create_keyboard())
         elif 3 <= ma[0] < 11:
-            await message.reply(f"تم انهاء مكالمة الفيديو مدتها {ma[0]} دقايق ")  
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {ma[0]} دقايق ", reply_markup=create_keyboard())  
         else:
-            await message.reply(f"تم إنهاء مكالمة الفيديو مدتها {ma[0]} دقيقه")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {ma[0]} دقيقه ", reply_markup=create_keyboard())
     elif 3600 < da < 86400:
         if 1 <= ho[0] < 2:
-            await message.reply(f"تم انهاء مكالمة الفيديو مدتها ساعه ")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : ساعه ", reply_markup=create_keyboard())
         elif 2 <= ho[0] < 3:
-            await message.reply(f"تم انهاء مكالمة الفيديو مدتها ساعتين ")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : ساعتين ", reply_markup=create_keyboard())
         elif 3 <= ho[0] < 11:
-            await message.reply(f"تم انهاء مكالمة الفيديو مدتها {ho[0]} ساعات ")  
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {ho[0]} ساعات ", reply_markup=create_keyboard())  
         else:
-            await message.reply(f"تم إنهاء مكالمة الفيديو مدتها {ho[0]} ساعة ")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\│\n└𖠇 وقت المحادثة : {ho[0]} ساعة ", reply_markup=create_keyboard())
     else:
         if 1 <= day[0] < 2:
-            await message.reply(f"تم انهاء مكالمة الفيديو مدتها يوم ")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : يوم ", reply_markup=create_keyboard())
         elif 2 <= day[0] < 3:
-            await message.reply(f" تم انهاء مكالمة الفيديو مدتها يومين ")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : يومين ", reply_markup=create_keyboard())
         elif 3 <= day[0] < 11:
-            await message.reply(f" تم انهاء مكالمة الفيديو مدتها {day[0]} ايام ")  
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {day[0]} ايام ", reply_markup=create_keyboard())  
         else:
-            await message.reply(f" تم إنهاء مكالمة الفيديو مدتها {day[0]} يوم")
+            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {day[0]} يوم", reply_markup=create_keyboard())
 @app.on_message(filters.video_chat_members_invited)
 async def fuckoff(client, message):
            text = f"• قــــام ← {message.from_user.mention}"
@@ -100,3 +106,4 @@ async def fuckoff(client, message):
              await message.reply(f"{text}")
            except:
              pass
+
