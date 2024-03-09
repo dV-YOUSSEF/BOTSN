@@ -4,7 +4,7 @@ from asyncio import sleep
 from pyrogram import Client, filters
 from pyrogram import enums, filters
 from strings.filters import command
-from DAXXMUSIC import app
+from ZeMusic import app
 
 @app.on_message(~filters.private & command(["/gdata","فحص الجروب"]), group=2)
 async def instatus(app, message):
