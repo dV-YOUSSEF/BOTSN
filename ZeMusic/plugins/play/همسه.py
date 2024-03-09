@@ -1,10 +1,8 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from ZeMusic import app
 
 hmses = {}
-waiting_for_hms = False
-hms_ids = ""
 
 @app.on_message(filters.reply & filters.regex("همسه") & filters.group)
 async def reply_with_link(client, message):
@@ -19,10 +17,11 @@ async def reply_with_link(client, message):
     )
     await message.reply_text("\n╢ إضغط لإرسال همسه!\n", reply_markup=reply_markup)
 
+waiting_for_hms = False
 @app.on_message(filters.command("start"))
 async def hms_start(client, message):
-    global waiting_for_hms, hms_ids
     if message.text.split(" ", 1)[-1].startswith("hms"):
+        global waiting_for_hms, hms_ids
         hms_ids = message.text
         waiting_for_hms = True
         await message.reply_text(
@@ -58,6 +57,7 @@ async def send_hms(client, message):
      
 @app.on_callback_query(filters.regex("hms_answer"))
 async def display_hms(client, callback):
+    print("Inside display_hms function")
     in_id = callback.message.chat.id
     who_id = callback.from_user.id
     
@@ -69,7 +69,7 @@ async def display_hms(client, callback):
         
 @app.on_callback_query(filters.regex("hms_cancel"))
 async def cancel_hms(client, callback):
-    
+    print("Inside cancel_hms function")
     global waiting_for_hms
     waiting_for_hms = False
     
