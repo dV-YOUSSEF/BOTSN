@@ -1,15 +1,3 @@
-# Copyright (C) 2024 by Alexa_Help @ Github, < https://github.com/TheTeamAlexa >
-# Subscribe On YT < Jankari Ki Duniya >. All rights reserved. © Alexa © Yukki.
-
-""""
-TheTeamAlexa is a project of Telegram bots with variety of purposes.
-Copyright (c) 2024 -present Team=Alexa <https://github.com/TheTeamAlexa>
-
-This program is free software: you can redistribute it and can modify
-as you want or you can collabe if you have new ideas.
-"""
-
-
 import os
 import re
 import textwrap
@@ -38,12 +26,12 @@ def add_corners(im):
     bigsize = (im.size[0] * 3, im.size[1] * 3)
     mask = Image.new("L", bigsize, 0)
     ImageDraw.Draw(mask).ellipse((0, 0) + bigsize, fill=255)
-    mask = mask.resize(im.size, Image.LANCZOS)
+    mask = mask.resize(im.size, Image.ANTIALIAS)
     mask = ImageChops.darker(mask, im.split()[-1])
     im.putalpha(mask)
 
 
-async def gen_thumb(videoid, user_id, theme):
+async def gen_thumb(videoid, user_id):
     if os.path.isfile(f"cache/{videoid}_{user_id}.png"):
         return f"cache/{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
@@ -51,7 +39,7 @@ async def gen_thumb(videoid, user_id, theme):
         results = VideosSearch(url, limit=1)
         for result in (await results.next())["result"]:
             try:
-                title = result["title"][:30]
+                title = result["title"]
                 title = re.sub("\W+", " ", title)
                 title = title.title()
             except:
@@ -78,19 +66,15 @@ async def gen_thumb(videoid, user_id, theme):
                     await f.close()
 
         try:
-            wxy = await app.download_media(
-                (await app.get_users(user_id)).photo.big_file_id,
-                file_name=f"{user_id}.jpg",
-            )
+            wxyz = await app.get_profile_photos(user_id)
+            wxy = await app.download_media(wxyz[0]['file_id'], file_name=f'{user_id}.jpg')
         except:
-            wxy = await app.download_media(
-                (await app.get_users(app.id)).photo.big_file_id,
-                file_name=f"{app.id}.jpg",
-            )
+            hehe = await app.get_profile_photos(app.id)
+            wxy = await app.download_media(hehe[0]['file_id'], file_name=f'{app.id}.jpg')
         xy = Image.open(wxy)
-        a = Image.new("L", [640, 640], 0)
+        a = Image.new('L', [640, 640], 0)
         b = ImageDraw.Draw(a)
-        b.pieslice([(0, 0), (640, 640)], 0, 360, fill=255, outline="white")
+        b.pieslice([(0, 0), (640,640)], 0, 360, fill = 255, outline = "white")
         c = np.array(xy)
         d = np.array(a)
         e = np.dstack((c, d))
@@ -98,7 +82,7 @@ async def gen_thumb(videoid, user_id, theme):
         x = f.resize((107, 107))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"Backgrounds/{theme}.PNG")
+        bg = Image.open(f"AnonX/assets/anonx.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(30))
@@ -116,7 +100,7 @@ async def gen_thumb(videoid, user_id, theme):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((520, 520), Image.LANCZOS)
+        logo.thumbnail((520, 520), Image.ANTIALIAS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
@@ -125,7 +109,7 @@ async def gen_thumb(videoid, user_id, theme):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((365, 365), Image.LANCZOS)
+        logo.thumbnail((365, 365), Image.ANTIALIAS)
         width = int((1280 - 365) / 2)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 138), mask=logo)
@@ -133,62 +117,47 @@ async def gen_thumb(videoid, user_id, theme):
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("assets/font2.ttf", 40)
-        ImageFont.truetype("assets/font2.ttf", 60)
-        arial = ImageFont.truetype("assets/font2.ttf", 25)
-        ImageFont.truetype("assets/font.ttf", 25)
+        font = ImageFont.truetype("AnonX/assets/font2.ttf", 45)
+        ImageFont.truetype("AnonX/assets/font2.ttf", 70)
+        arial = ImageFont.truetype("AnonX/assets/font2.ttf", 30)
+        ImageFont.truetype("AnonX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
-            text_w, text_h = draw.textsize(f"ALEXA MUSIC IS PLAYING OP", font=font)
             draw.text(
-                ((1280 - text_w) / 2, 30),
-                f"ALEXA MUSIC IS PLAYING OP",
-                fill="red",
+                (450, 25),
+                f"STARTED PLAYING",
+                fill="white",
+                stroke_width=3,
+                stroke_fill="grey",
                 font=font,
-            )
-            text_w, text_h = draw.textsize(
-                f"Alexa Music One Of The Most Advanced Telegram Music Bot", font=arial
-            )
-            draw.text(
-                ((1280 - text_w) / 2, 80),
-                f"Alexa Music One Of The Most Advanced Telegram Music Bot",
-                fill="green",
-                font=arial,
             )
             if para[0]:
                 text_w, text_h = draw.textsize(f"{para[0]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 550),
+                    ((1280 - text_w) / 2, 530),
                     f"{para[0]}",
-                    fill="yellow",
+                    fill="white",
                     stroke_width=1,
-                    stroke_fill="black",
+                    stroke_fill="white",
                     font=font,
                 )
             if para[1]:
                 text_w, text_h = draw.textsize(f"{para[1]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 600),
+                    ((1280 - text_w) / 2, 580),
                     f"{para[1]}",
                     fill="white",
                     stroke_width=1,
-                    stroke_fill="black",
+                    stroke_fill="white",
                     font=font,
                 )
         except:
             pass
-        text_w, text_h = draw.textsize(f"YouTube: Jankari Ki Duniya", font=arial)
-        draw.text(
-            ((1280 - text_w) / 2, 620),
-            f"YouTube: Jankari Ki Duniya",
-            fill="white",
-            font=arial,
-        )
         text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
         draw.text(
             ((1280 - text_w) / 2, 660),
             f"Duration: {duration} Mins",
-            fill="black",
+            fill="white",
             font=arial,
         )
         try:
@@ -202,7 +171,7 @@ async def gen_thumb(videoid, user_id, theme):
         return YOUTUBE_IMG_URL
 
 
-async def gen_qthumb(videoid, user_id, theme):
+async def gen_qthumb(videoid, user_id):
     if os.path.isfile(f"cache/que{videoid}_{user_id}.png"):
         return f"cache/que{videoid}_{user_id}.png"
     url = f"https://www.youtube.com/watch?v={videoid}"
@@ -210,7 +179,7 @@ async def gen_qthumb(videoid, user_id, theme):
         results = VideosSearch(url, limit=1)
         for result in (await results.next())["result"]:
             try:
-                title = result["title"][:30]
+                title = result["title"]
                 title = re.sub("\W+", " ", title)
                 title = title.title()
             except:
@@ -237,19 +206,15 @@ async def gen_qthumb(videoid, user_id, theme):
                     await f.close()
 
         try:
-            wxy = await app.download_media(
-                (await app.get_users(user_id)).photo.big_file_id,
-                file_name=f"{user_id}.jpg",
-            )
+            wxyz = await app.get_profile_photos(user_id)
+            wxy = await app.download_media(wxyz[0]['file_id'], file_name=f'{user_id}.jpg')
         except:
-            wxy = await app.download_media(
-                (await app.get_users(app.id)).photo.big_file_id,
-                file_name=f"{app.id}.jpg",
-            )
+            hehe = await app.get_profile_photos(app.id)
+            wxy = await app.download_media(hehe[0]['file_id'], file_name=f'{app.id}.jpg')
         xy = Image.open(wxy)
-        a = Image.new("L", [640, 640], 0)
+        a = Image.new('L', [640, 640], 0)
         b = ImageDraw.Draw(a)
-        b.pieslice([(0, 0), (640, 640)], 0, 360, fill=255, outline="white")
+        b.pieslice([(0, 0), (640,640)], 0, 360, fill = 255, outline = "white")
         c = np.array(xy)
         d = np.array(a)
         e = np.dstack((c, d))
@@ -257,7 +222,7 @@ async def gen_qthumb(videoid, user_id, theme):
         x = f.resize((107, 107))
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"Backgrounds/{theme}.PNG")
+        bg = Image.open(f"AnonX/assets/anonx.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(30))
@@ -275,7 +240,7 @@ async def gen_qthumb(videoid, user_id, theme):
         x2 = Xcenter + 250
         y2 = Ycenter + 250
         logo = youtube.crop((x1, y1, x2, y2))
-        logo.thumbnail((520, 520), Image.LANCZOS)
+        logo.thumbnail((520, 520), Image.ANTIALIAS)
         logo.save(f"cache/chop{videoid}.png")
         if not os.path.isfile(f"cache/cropped{videoid}.png"):
             im = Image.open(f"cache/chop{videoid}.png").convert("RGBA")
@@ -284,7 +249,7 @@ async def gen_qthumb(videoid, user_id, theme):
 
         crop_img = Image.open(f"cache/cropped{videoid}.png")
         logo = crop_img.convert("RGBA")
-        logo.thumbnail((365, 365), Image.LANCZOS)
+        logo.thumbnail((365, 365), Image.ANTIALIAS)
         width = int((1280 - 365) / 2)
         background = Image.open(f"cache/temp{videoid}.png")
         background.paste(logo, (width + 2, 138), mask=logo)
@@ -292,62 +257,47 @@ async def gen_qthumb(videoid, user_id, theme):
         background.paste(image3, (0, 0), mask=image3)
 
         draw = ImageDraw.Draw(background)
-        font = ImageFont.truetype("assets/font2.ttf", 40)
-        ImageFont.truetype("assets/font2.ttf", 60)
-        arial = ImageFont.truetype("assets/font2.ttf", 25)
-        ImageFont.truetype("assets/font.ttf", 25)
+        font = ImageFont.truetype("AnonX/assets/font2.ttf", 45)
+        ImageFont.truetype("AnonX/assets/font2.ttf", 70)
+        arial = ImageFont.truetype("AnonX/assets/font2.ttf", 30)
+        ImageFont.truetype("AnonX/assets/font.ttf", 30)
         para = textwrap.wrap(title, width=32)
         try:
-            text_w, text_h = draw.textsize(f"ALEXA ADDED THIS SONG TO QUEUE", font=font)
             draw.text(
-                ((1280 - text_w) / 2, 30),
-                f"ALEXA ADDED THIS SONG TO QUEUE",
-                fill="red",
+                (455, 25),
+                "ADDED TO QUEUE",
+                fill="white",
+                stroke_width=5,
+                stroke_fill="black",
                 font=font,
-            )
-            text_w, text_h = draw.textsize(
-                f"Alexa Music One Of The Most Advanced Telegram Music Bot", font=arial
-            )
-            draw.text(
-                ((1280 - text_w) / 2, 80),
-                f"Alexa Music One Of The Most Advanced Telegram Music Bot",
-                fill="green",
-                font=arial,
             )
             if para[0]:
                 text_w, text_h = draw.textsize(f"{para[0]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 550),
+                    ((1280 - text_w) / 2, 530),
                     f"{para[0]}",
-                    fill="yellow",
+                    fill="white",
                     stroke_width=1,
-                    stroke_fill="black",
+                    stroke_fill="white",
                     font=font,
                 )
             if para[1]:
                 text_w, text_h = draw.textsize(f"{para[1]}", font=font)
                 draw.text(
-                    ((1280 - text_w) / 2, 600),
+                    ((1280 - text_w) / 2, 580),
                     f"{para[1]}",
                     fill="white",
                     stroke_width=1,
-                    stroke_fill="black",
+                    stroke_fill="white",
                     font=font,
                 )
         except:
             pass
-        text_w, text_h = draw.textsize(f"YouTube: Jankari Ki Duniya", font=arial)
-        draw.text(
-            ((1280 - text_w) / 2, 620),
-            f"YouTube: Jankari Ki Duniya",
-            fill="white",
-            font=arial,
-        )
         text_w, text_h = draw.textsize(f"Duration: {duration} Mins", font=arial)
         draw.text(
             ((1280 - text_w) / 2, 660),
             f"Duration: {duration} Mins",
-            fill="black",
+            fill="white",
             font=arial,
         )
 
