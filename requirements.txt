@@ -25,4 +25,3 @@ youtube-search
 youtube-search-python
 telegraph
 pytz
-wget
