@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import os
 from ZeMusic import app
 
 hmses = {}
@@ -16,10 +15,10 @@ async def reply_with_link(client, message):
             [InlineKeyboardButton("- اضغط لإرسال الهمسه!", url=start_link)]
         ]
     )
-    await message.reply_text("\n╢ إضغط لإرسال همسه!\n", reply_markup=reply_markup, reply_to_message_id=message.message_id)
+    await message.reply_text("\n╢ إضغط لإرسال همسه!\n", reply_markup=reply_markup)
 
 waiting_for_hms = False
-@app.on_message(filters.command("start"), group=473)
+@app.on_message(filters.command("start"))
 async def hms_start(client, message):
     if message.text.split(" ", 1)[-1].startswith("hms"):
         global waiting_for_hms, hms_ids
@@ -27,13 +26,12 @@ async def hms_start(client, message):
         waiting_for_hms = True
         await message.reply_text(
             "-> أرسل الهمسه الآن.\n√",
-            reply_markup = InlineKeyboardMarkup ([[
-                InlineKeyboardButton ("إلغاء ❌️", callback_data="hms_cancel")
-            ]])
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("إلغاء ❌️", callback_data="hms_cancel")]]
+            ),
         )
-        return
 
-@app.on_message(filters.private & filters.text & ~filters.command("start"), group=921)
+@app.on_message(filters.private & filters.text & ~filters.command("start"))
 async def send_hms(client, message):
     global waiting_for_hms
     if waiting_for_hms:    
@@ -43,14 +41,16 @@ async def send_hms(client, message):
         to_url = f"tg://openmessage?user_id={to_id}"
         from_url = f"tg://openmessage?user_id={from_id}"
         
-        hmses[str(to_id)] = { "hms" : message.text, "bar" : in_id }
+        hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
         
         await message.reply_text("-> تم ارسال الهمسه.\n√")
         
         await app.send_message(
-            chat_id = in_id,
-            text = f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
-            reply_markup = InlineKeyboardMarkup ([[InlineKeyboardButton("- اضغط لرؤية الهمسه 👀", callback_data = "hms_answer")]])
+            chat_id=in_id,
+            text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("- اضغط لرؤية الهمسه 👀", callback_data="hms_answer")]]
+            ),
         )
         
         waiting_for_hms = False
@@ -62,9 +62,9 @@ async def display_hms(client, callback):
     
     if hmses.get(str(who_id)) is not None:
         if hmses.get(str(who_id))["bar"] == in_id:
-            await callback.answer( hmses.get(str(who_id))["hms"], show_alert = True )
+            await callback.answer(hmses.get(str(who_id))["hms"], show_alert=True)
     else:
-        await callback.answer( "بطل لعب ف حاجه مش بتاعتك يابابا 🗿", show_alert = True )
+        await callback.answer("بطل لعب ف حاجه مش بتاعتك يابابا 🗿", show_alert=True)
         
 @app.on_callback_query(filters.regex("hms_cancel"))
 async def cancel_hms(client, callback):
@@ -73,6 +73,7 @@ async def cancel_hms(client, callback):
     waiting_for_hms = False
     
     await client.edit_message_text(
-        chat_id = callback.message.chat.id,
-        message_id = callback.message.id,
-        text = "-> تم إلغاء الهمسه!\n√")
+        chat_id=callback.message.chat.id,
+        message_id=callback.message.message_id,
+        text="-> تم إلغاء الهمسه!\n√",
+    )
