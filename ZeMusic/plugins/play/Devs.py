@@ -73,23 +73,12 @@ async def yas(client, message):
     )
     
 @app.on_message(
-    command(["سورس","السورس","يا سورس"])
-    & filters.group
-    & ~(filters.photo | filters.animation | filters.audio | filters.document | filters.video | filters.video_note | filters.voice | filters.sticker)
+    command(["سورس","السورس"])
+
 )
-@app.on_message(
-    command(["سورس","السورس","يا سورس"])
-    & filters.channel
-    & ~(filters.photo | filters.animation | filters.audio | filters.document | filters.video | filters.video_note | filters.voice | filters.sticker)
-)
-@app.on_message(
-    command(["سورس","السورس","يا سورس","قناة","قناه"])
-    & filters.private
-    & ~(filters.photo | filters.animation | filters.audio | filters.document | filters.video | filters.video_note | filters.voice | filters.sticker)
-)
-async def khalid(client: Client, message: Message):
-    await message.reply_photo(
-        photo=f"https://telegra.ph/file/09e50c75b48945d209829.jpg",
+async def huhh(client: Client, message: Message):
+    await message.reply_video(
+        video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
         caption=f"""╭──── • ◈ • ────╮
 么 [َ ᥉᥆υᖇᥴᥱ ᥲ️ᖇꪀ᥆ρ](t.me/N_G_12)
 么 [َժᥱ᥎ ꪀᥲ️ժᥱᖇ](t.me/Ng_103)
@@ -97,22 +86,28 @@ async def khalid(client: Client, message: Message):
 ╰──── • ◈ • ────╯
 ⍟ 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝚂𝙾𝚄𝚁𝙲𝙴 𝙾𝙽 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼""",
         reply_markup=InlineKeyboardMarkup(
-        [
             [
+                [
                     InlineKeyboardButton(
-                        "‹ ժᥱ᥎ ꪀᥲ️ժᥱᖇ . 🕷 › ", url=f"https://t.me/Ng_103"),
-                ],[
+                        "𝙶𝚁𝙾𝚄𝙿", url=f"https://t.me/maro_pro"), 
                     InlineKeyboardButton(
-                        "‹ ᥴ𝗁ᥲ️ꪀꪀᥱᥣ›", url=f"https://t.me/N_G_12"), 
+                        "𝙲𝙷𝙰𝙽𝙽𝙴𝙻", url=f"https://t.me/BPHEE"),
+                  ],[
                     InlineKeyboardButton(
-                        "‹ ᥉υρρ᥆ᖇƚ›", url=f"https://t.me/Ng_333"),
-                ],[
+                        " 𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅 ", url=f"https://t.me/JOO_B_R_Z"),
+                  ],[
                     InlineKeyboardButton(
-                        "‹ اضف البوت لمجموعتك ›", url=f"https://t.me/A_Rn_obot?startgroup=true"),
+                        " 𝗠𝗔𝗥𝗢 ", url=f"https://t.me/j_s_9"),
+                  ],[
+                    InlineKeyboardButton(
+                        "اضف البوت اللي مجموعتك", url=f"https://t.me/{username.bot}?startgroup=true"),
+                ],
+
             ]
-        ]
-         ),
-     )
+
+        ),
+
+    )
 
 @app.on_message(command(["تخ"]) & filters.group)
 async def huhh(client, message):
