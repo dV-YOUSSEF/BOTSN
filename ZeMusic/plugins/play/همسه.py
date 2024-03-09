@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from DAXXMUSIC import app
+from ZeMusic import app
 
 hmses = {}
 waiting_for_hms = False
