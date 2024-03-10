@@ -7,7 +7,6 @@ from datetime import datetime
 import urllib3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
-from ZeMusic.plugins.play.filters import command
 from pyrogram import filters
 
 import config
