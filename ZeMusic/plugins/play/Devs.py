@@ -43,8 +43,10 @@ async def dev(client: Client, message: Message):
      username = user.username 
      bio = user.bio
      user_id = user.id
-     photo = user.photo.big_file_id
-     photo = await client.download_media(photo)
+     
+     # استخدام الرابط للفيديو
+     video_url = "https://telegra.ph/file/0beba425b2965d6dea71e.mp4"
+     
      link = f"https://t.me/{message.chat.username}"
      title = message.chat.title if message.chat.title else message.chat.first_name
      chat_title = f"User : {message.from_user.mention} \nChat Name : {title}" if message.from_user else f"Chat Name : {message.chat.title}"
@@ -53,14 +55,13 @@ async def dev(client: Client, message: Message):
       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{title}", url=f"{link}")]]))
      except:
         pass
-     await message.reply_photo(
-     photo=photo,
-     caption=f"**Developer Name : {name}** \n**Devloper Username : @{username}**\n**{bio}**",
-     reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{name}", user_id=f"{user_id}")]]))
+     
+     # إرسال الفيديو كرسالة
      try:
-       os.remove(photo)
+         await client.send_video(chat_id=message.chat.id, video=video_url, caption=f"**Developer Name : {name}** \n**Devloper Username : @{username}**\n**{bio}**",
+                                  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{name}", user_id=f"{user_id}")]]))
      except:
-        pass
+         pass
     
 @app.on_message(
     command(["سورس","السورس"])
