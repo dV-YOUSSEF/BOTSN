@@ -17,7 +17,6 @@ pykeyboard
 pyrogram==2.0.106
 python-dotenv
 pyyaml
-get_thumb
 requests
 speedtest-cli
 spotipy
@@ -30,4 +29,3 @@ telegraph
 pytz
 lyricsgenius
 wget
-get_thumb
