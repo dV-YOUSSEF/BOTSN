@@ -4,8 +4,8 @@ from strings.filters import command
 from pyrogram.types import InlineKeyboardButton, CallbackQuery, InlineKeyboardMarkup, Message
 from typing import Union
 from pyrogram.types import InlineKeyboardButton
-from ZeMusic import app
-from ZeMusic.misc import HAPP, SUDOERS, XCB
+from DAXXMUSIC import app
+from DAXXMUSIC.misc import HAPP, SUDOERS, XCB
 from config import OWNER_ID
 
 @app.on_message(command(["اوامر", "الاوامر"]))
@@ -21,29 +21,29 @@ async def zdatsr(client: Client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "م1 اوامر الحمايه ", callback_data="zzzll"),
+                        "اوامر الحمايه م1", callback_data="zzzll"),
                     InlineKeyboardButton(
-                        "م2 اوامر الادمنيه", callback_data="zzzzzad"),
+                        "اوامر الادمنيه م2", callback_data="zzzzzad"),
                 ],[
                     InlineKeyboardButton(
-                        "م4 اوامر المنشئين", callback_data="zzzch"),
+                        "اوامر المدراء م3", callback_data="zzzch"),
                     InlineKeyboardButton(
-                        "م5 اوامر المالكين", callback_data="zzzad"),
+                        "اوامر المنشئين م4", callback_data="zzzad"),
                 ],[
                     InlineKeyboardButton(
-                        "م6 اوامر التحشيش", callback_data="youssef"),
+                        "اوامـر المالكيـن م5", callback_data="youssef"),
                     InlineKeyboardButton(
-                        "م7 اوامر التسليه", callback_data="zyiusse"),
+                        "اوامر التحشيش م6", callback_data="zyiusse"),
                 ],[
                     InlineKeyboardButton(
-                        "م9 اوامر التنظيف", callback_data="zzyiudgk"),
+                        "اوامــر التسليـه م7", callback_data="zzyiudgk"),
                     InlineKeyboardButton(
-                        "م8 اوامر الميـوزك", callback_data="zzzll"),
+                        "اوامــر البنـــك م8", callback_data="zzzll"),
                 ],[
                     InlineKeyboardButton(
-                        "م9 اوامر التنظيف", callback_data="zzyiudgk"),
+                        "اوامـر المطـور م", callback_data="zzyiudgk"),
                     InlineKeyboardButton(
-                        "م8 اوامر الميـوزك", callback_data="zzzll"),
+                        "اوامـر التـشغيل", callback_data="zzzll"),
                 ],[
                     InlineKeyboardButton(
                         "الالـعــاب", callback_data="zzzdv"),
@@ -71,37 +71,37 @@ async def zzzback(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "م1 اوامر الحمايه ", callback_data="zzzlll"),
+                        "اوامر الحمايه م1", callback_data="zzzll"),
                     InlineKeyboardButton(
-                        "م2 اوامر الادمنيه", callback_data="zzzzzad"),
+                        "اوامر الادمنيه م2", callback_data="zzzzzad"),
                 ],[
                     InlineKeyboardButton(
-                        "م4 اوامر المنشئين", callback_data="zzgzch"),
+                        "اوامر المدراء م3", callback_data="zzzch"),
                     InlineKeyboardButton(
-                        "م5 اوامر المالكين", callback_data="zzzbad"),
+                        "اوامر المنشئين م4", callback_data="zzzad"),
                 ],[
                     InlineKeyboardButton(
-                        "م6 اوامر التحشيش", callback_data="youssef"),
+                        "اوامـر المالكيـن م5", callback_data="youssef"),
                     InlineKeyboardButton(
-                        "م7 اوامر التسليه", callback_data="zyiusse"),
+                        "اوامر التحشيش م6", callback_data="zyiusse"),
                 ],[
                     InlineKeyboardButton(
-                        "م9 اوامر التنظيف", callback_data="zzyiudgk"),
+                        "اوامــر التسليـه م7", callback_data="zzyiudgk"),
                     InlineKeyboardButton(
-                        "م8 اوامر الميـوزك", callback_data="zzzlml"),
+                        "اوامــر البنـــك م8", callback_data="zzzll"),
                 ],[
                     InlineKeyboardButton(
-                        "م9 اوامر التنظيف", callback_data="zzyiudgk"),
+                        "اوامـر المطـور م", callback_data="zzyiudgk"),
                     InlineKeyboardButton(
-                        "م8 اوامر الميـوزك", callback_data="zzzll"),
+                        "اوامـر التـشغيل", callback_data="zzzll"),
                 ],[
                     InlineKeyboardButton(
-                        "الالـعــاب", callback_data="zzzmdv"),
+                        "الالـعــاب", callback_data="zzzdv"),
                 ],[
                     InlineKeyboardButton(
-                        "القفل / الفتح", callback_data="zzzdsv"),
+                        "القفل / الفتح", callback_data="zzzdv"),
                     InlineKeyboardButton(
-                        "التفعيل/ التعطيل", callback_data="zzzddv"),
+                        "التفعيل/ التعطيل", callback_data="zzzdv"),
                 ],[
                     InlineKeyboardButton(
                         "𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥", url="https://t.me/BPHEE"),
