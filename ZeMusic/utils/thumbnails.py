@@ -1,6 +1,5 @@
 import random
 from pyrogram import Client, filters, idle
-from pyromod import listen
 from pyrogram import Client as app
 from time import time
 from config import OWNER, OWNER_NAME, VIDEO
