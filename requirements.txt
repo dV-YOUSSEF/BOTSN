@@ -1,3 +1,4 @@
+wget
 aiofiles
 aiohttp
 asyncio
@@ -27,3 +28,4 @@ youtube-search-python
 telegraph
 pytz
 lyricsgenius
+wget
