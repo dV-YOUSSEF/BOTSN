@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from youtube_search import YoutubeSearch
 from yt_dlp import YoutubeDL
 from strings.filters import command
-from ZeMusic import app
+from DAXXMUSIC import app
 from pyrogram import filters
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -152,7 +152,7 @@ def download_song(_, message):
             thumb=thumb_name,
             title=title,
             duration=dur,
-            caption=f"**{title}\n\nلەلایەن ➪ {message.from_user.mention}\nبینەر ➪ {views}\nکەناڵ ➪ {channel_name}**",
+            caption=f"\n❝  🎵▷ 00:00  。？❞\n\n┇‌ ⤹• 𝗠𝘂𝘀𝗶𝗰 {message.from_user.mention} .\n┇ ⤹• 𝑶𝑾𝑵𝑬𝑹 ➠ @C1_I_I . \n┇‌ ⤹• 𝐂𝐡 ➠ @ucriss . \n┇‌ ⤹•  ♡ㅤ   ❍ㅤ     ⎙ㅤ     ⌲\n ˡᶦᵏᵉ  ᶜᵒᵐᵐᵉⁿᵗ    ˢᵃᵛᵉ     ˢʰᵃʳᵉ\n━═🔴 @t_e_xbot  , ♪ 🔝═━\n\n- @t_e_xbot, 03:41",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
