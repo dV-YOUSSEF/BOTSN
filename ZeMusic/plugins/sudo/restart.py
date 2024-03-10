@@ -7,6 +7,7 @@ from datetime import datetime
 import urllib3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
+from ZeMusic.plugins.play.filters import command
 from pyrogram import filters
 
 import config
@@ -27,7 +28,7 @@ async def is_heroku():
     return "heroku" in socket.getfqdn()
 
 
-@app.on_message(filters.command(["getlog", "logs", "getlogs"]) & SUDOERS)
+@app.on_message(command(["getlog", "logs", "السجلات"]) & SUDOERS)
 @language
 async def log_(client, message, _):
     try:
