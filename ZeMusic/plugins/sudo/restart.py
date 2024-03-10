@@ -69,7 +69,7 @@ async def update_(client, message, _):
     _update_response_ = "<b>➣ يوجد تحديث جديد للبوت</b>\n➣ قم بتحديث بوتك الان\n\n<b>➣ التحديثات :</b>\n"
     _final_updates_ = _update_response_ + updates
     if len(_final_updates_) > 4096:
-        url = await ZelzalyBin(updates)
+        url = await ModyBin(updates)
         nrs = await response.edit(
             f"<b>➣ يوجد تحديث جديد للبوت</b>\n➣ قم بتحديث بوتك الان\n\n<b>➣ التحديثات :</b>\n\n<a href={url}>اضغط هنا لرؤية التحديثات</a>"
         )
