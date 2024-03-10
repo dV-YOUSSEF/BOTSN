@@ -28,7 +28,7 @@ async def is_heroku():
     return "heroku" in socket.getfqdn()
 
 
-@app.on_message(command(["getlog", "logs", "السجلات"]) & SUDOERS)
+@app.on_message(filters.command(["getlog", "logs", "السجلات"]) & SUDOERS)
 @language
 async def log_(client, message, _):
     try:
@@ -37,7 +37,7 @@ async def log_(client, message, _):
         await message.reply_text(_["server_1"])
 
 
-@app.on_message(command(["تحديث", "حدث"]) & SUDOERS)
+@app.on_message(filters.command(["تحديث", "حدث"]) & SUDOERS)
 @language
 async def update_(client, message, _):
     if await is_heroku():
@@ -111,7 +111,7 @@ async def update_(client, message, _):
         exit()
 
 
-@app.on_message(command(["اعاده تشغيل"]) & SUDOERS)
+@app.on_message(filters.command(["اعاده تشغيل"]) & SUDOERS)
 async def restart_(_, message):
     response = await message.reply_text("- جـارِ إعـادة التشغيـل ...")
     ac_chats = await get_active_chats()
