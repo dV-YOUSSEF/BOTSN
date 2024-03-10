@@ -1,10 +1,10 @@
 from pyrogram import Client, filters, raw, utils
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, Message
 from config import logger as log, logger_mode as logm, OWNER
-from SEMO.info import (get_served_chats, get_served_users, del_served_chat, del_served_user, activecall, add_active_chat, add_served_call, add_active_video_chat)
-from SEMO.Data import Bots
-from SEMO.play import (logs, join_call)
-from SEMO.Data import (get_userbot, get_dev, get_call, get_group, get_channel)
+from ZeMusic.info import (get_served_chats, get_served_users, del_served_chat, del_served_user, activecall, add_active_chat, add_served_call, add_active_video_chat)
+from ZeMusic.Data import Bots
+from ZeMusic.play import (logs, join_call)
+from ZeMusic.Data import (get_userbot, get_dev, get_call, get_group, get_channel)
 import aiohttp
 import asyncio
 from datetime import datetime
