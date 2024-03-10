@@ -32,36 +32,35 @@ def get_file_id(msg: Message):
                 setattr(obj, "message_type", message_type)
                 return obj
 
-@Client.on_message(filters.command(["المطور", "مطور","مطور البوت"], ""))
-async def dev(client: Client, message: Message):
-     if await joinch(message):
-            return
-     bot_username = client.me.username
-     dev = await get_dev(bot_username)
-     user = await client.get_chat(chat_id=dev)
-     name = user.first_name
-     username = user.username 
-     bio = user.bio
-     user_id = user.id
-     
-     # استخدام الرابط للفيديو
-     video_url = "https://telegra.ph/file/0beba425b2965d6dea71e.mp4"
-     
-     link = f"https://t.me/{message.chat.username}"
-     title = message.chat.title if message.chat.title else message.chat.first_name
-     chat_title = f"User : {message.from_user.mention} \nChat Name : {title}" if message.from_user else f"Chat Name : {message.chat.title}"
-     try:
-      await client.send_message(username, f"**هناك شخص بالحاجه اليك عزيزي المطور الأساسي**\n{chat_title}\nChat Id : `{message.chat.id}`",
-      reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{title}", url=f"{link}")]]))
-     except:
-        pass
-     
-     # إرسال الفيديو كرسالة
-     try:
-         await client.send_video(chat_id=message.chat.id, video=video_url, caption=f"**Developer Name : {name}** \n**Devloper Username : @{username}**\n**{bio}**",
-                                  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{name}", user_id=f"{user_id}")]]))
-     except:
-         pass
+@app.on_message(
+   command(["يوسف","المبرمج يوسف","جو","المطور يوسف","جولدن"])
+   
+    
+)
+async def huhh(client: Client, message: Message):
+    await message.reply_video(
+        video=f"https://telegra.ph/file/0beba425b2965d6dea71e.mp4",
+        caption=f"""**[𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥 - - ‍💻🖤](t.me/BPHEE)**\n\n**{message.from_user.mention}\n•────‌‌‏──‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏────‌‌‏──‌‌─‌‌‏─•
+    ╔═══════ YOUSSEF ═══════╗  
+
+                𝗢𝗪𝗡𝗘𝗥 ➪ @JOO_B_R_Z                       
+
+    ╚═══════ YOUSSEF ═══════╝  
+ٴ•────‌‌‏──‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─────‌‌‏──‌‌─•\nᥲ #ρᥱᖇ᥉᥆ꪀ Ꭵ᥉ #ժᥱ𝖋ᥱᥲƚᥱժ 𝖡ꪗ ƚᎻᥱ #ƚᎻᎥꪀᘜ᥉ Ꮋᥱ #ᥱꪎᥲᘜᘜᥱᖇᥲƚᥱ᥉ 𝐂𝐇 ⦂ J_GGC.t.me**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                   InlineKeyboardButton(
+                        "𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅", url=f"https://t.me/JOO_B_R_Z"), 
+                ],[
+                
+                 ],
+
+            ]
+
+        ),
+
+    )
     
 @app.on_message(
     command(["سورس","السورس"])
