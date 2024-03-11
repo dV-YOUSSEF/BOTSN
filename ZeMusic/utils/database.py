@@ -68,7 +68,7 @@ async def set_assistant_new(chat_id, number):
 
 
 async def set_assistant(chat_id):
-    from MatrixMusic.core.userbot import assistants
+    from ZeMusic.core.userbot import assistants
 
     ran_assistant = random.choice(assistants)
     assistantdict[chat_id] = ran_assistant
@@ -82,7 +82,7 @@ async def set_assistant(chat_id):
 
 
 async def get_assistant(chat_id: int) -> str:
-    from MatrixMusic.core.userbot import assistants
+    from ZeMusic.core.userbot import assistants
 
     assistant = assistantdict.get(chat_id)
     if not assistant:
@@ -109,7 +109,7 @@ async def get_assistant(chat_id: int) -> str:
 
 
 async def set_calls_assistant(chat_id):
-    from MatrixMusic.core.userbot import assistants
+    from ZeMusic.core.userbot import assistants
 
     ran_assistant = random.choice(assistants)
     assistantdict[chat_id] = ran_assistant
@@ -122,7 +122,7 @@ async def set_calls_assistant(chat_id):
 
 
 async def group_assistant(self, chat_id: int) -> int:
-    from MatrixMusic.core.userbot import assistants
+    from ZeMusic.core.userbot import assistants
 
     assistant = assistantdict.get(chat_id)
     if not assistant:
@@ -647,26 +647,17 @@ async def remove_banned_user(user_id: int):
     return await blockeddb.delete_one({"user_id": user_id})
 
 
-@app.on_message(filters.text)
-async def handle_message(client, message):
-    global muted_users
-    if message.from_user and message.from_user.id in muted_users:
-        await app.delete_messages(chat_id=message.chat.id, message_ids=message.message_id)
-        
-        
-        # database.py
-
-conn = sqlite3.connect('database.db')
-cursor = conn.cursor()
-
-def add_muted_user(user_id):
+def add_muted_user(app, user_id):
+    cursor = app.cursor()
     cursor.execute("INSERT INTO muted_users (user_id) VALUES (?)", (user_id,))
-    conn.commit()
+    app.commit()
 
-def remove_muted_user(user_id):
+def remove_muted_user(app, user_id):
+    cursor = app.cursor()
     cursor.execute("DELETE FROM muted_users WHERE user_id = ?", (user_id,))
-    conn.commit()
+    app.commit()
 
-def get_muted_users():
+def get_muted_users(app):
+    cursor = app.cursor()
     cursor.execute("SELECT user_id FROM muted_users")
     return [row[0] for row in cursor.fetchall()]
