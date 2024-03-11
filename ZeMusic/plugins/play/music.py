@@ -336,7 +336,7 @@ async def allreply_for_bot(c: Client, m: Message):
 
     # rep all sticker ====================
     # await stickerall(m, ["t"], "sticker link")
-    await stickerall(m, ["بص", "بصي", "بص كده"], "https://t.me/UURTBOT/4")
+    await stickerall(m, ["بص", "بصي", "بص كده"], "https://t.me/OR_UP/3034")
     await stickerall(m, ["اجري", "إجري", "أجري"], "https://t.me/UURTBOT/7")
     await stickerall(m, ["مكسوفة", "مكسوفه"], "https://t.me/UURTBOT/9")
     await stickerall(m, ["عاش"], "https://t.me/UURTBOT/10")
