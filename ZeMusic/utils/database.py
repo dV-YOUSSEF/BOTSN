@@ -2,8 +2,8 @@ import random
 import sqlite3
 from typing import Dict, List, Union
 
-from MatrixMusic import userbot
-from MatrixMusic.core.mongo import mongodb
+from ZeMusic import userbot
+from ZeMusic.core.mongo import mongodb
 
 authdb = mongodb.adminauth
 authuserdb = mongodb.authuser
