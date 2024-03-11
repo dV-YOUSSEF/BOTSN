@@ -2,7 +2,7 @@ import asyncio
 import requests
 import database
 from ZeMusic import app
-from ZeMusic.core.call import DAXX
+from ZeMusic.core.call import Mody
 from ZeMusic.utils.database import set_loop
 from ZeMusic.utils.decorators import AdminRightsCheck
 from datetime import datetime
