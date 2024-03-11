@@ -12,4 +12,4 @@ def get_current_time():
 @app.on_message(command(["/Time","الوقت","وقت"]))
 def send_time(client, message):
     time = get_current_time()
-    client.send_message(message.chat.id, f"**⛥━━━━━( توقيت مصر  )━━━━━━⛥\n\n{time}**")
+    client.send_message(message.chat.id, f"⛥━━━━━( توقيت مصر  )━━━━━━⛥\n\n{time}**")
