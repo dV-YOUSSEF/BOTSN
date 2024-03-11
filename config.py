@@ -117,3 +117,36 @@ if YOUTUBE_IMG_URL:
                 "[ERROR] - Your YOUTUBE_IMG_URL url is wrong. Please ensure that it starts with https://"
             )
             sys.exit()
+
+
+####################################################################################
+
+def dev():
+    lang = get_db_general_rtb("developer")
+    lang2 = get_db_general_rtb("secdeveloper")
+    if lang is None:
+        print("No Developer")
+    else:
+        for row in lang:
+            t = row[0]
+            developer.append(t)
+    if lang2 is None:
+        print("No Second Devoloper")
+    else:
+        for row in lang2:
+            t = row[0]
+            developer.append(t)
+    print(developer)
+
+
+def get_bot_information():
+    bot_inf = requests.get(
+        "https://api.telegram.org/bot" + TOKEN + "/getme")
+    bot_info = bot_inf.json()
+    result = bot_info["result"]
+    bot_id = result["id"]
+    bot_username = result["username"]
+    return bot_id, bot_username
+
+
+#####################################################################################
