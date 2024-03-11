@@ -1,7 +1,8 @@
 import asyncio
 import requests
+import database
 from ZeMusic import app
-from ZeMusic.core.call import Mody
+from ZeMusic.core.call import DAXX
 from ZeMusic.utils.database import set_loop
 from ZeMusic.utils.decorators import AdminRightsCheck
 from datetime import datetime
@@ -149,3 +150,22 @@ async def unmute_all(client, message):
         await message.reply_text(f"↢ فشل في مسح {failed_count}\nمن المكتومين\n༄")
    else:
         await message.reply_text(f"حجي هذا الامر ليس لك \n༄")
+        
+        
+        # في ملف البوت الخاص بك
+
+# عند كتم المستخدم
+async def mute_user(client, message):
+    # الكود الحالي
+    ...
+    user_id = message.reply_to_message.from_user.id
+    database.add_muted_user(user_id)
+    ...
+
+# عند إلغاء كتم المستخدم
+async def unmute_user(client, message):
+    # الكود الحالي
+    ...
+    user_id = message.reply_to_message.from_user.id
+    database.remove_muted_user(user_id)
+    ...
