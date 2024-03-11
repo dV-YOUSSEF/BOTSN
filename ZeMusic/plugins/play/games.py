@@ -10,10 +10,7 @@ from pyrogram import Client, filters
 db = Client("usess.hex")
 rdod = ["بوت", "دادي", "بووت", "بوتي", "البوت"]
 sudo   = [6943111120]#ADMIN
-@bot.message_handler(commands=["start"])
-def sta(message):
-    bot.reply_to(message, "اهلا فيك في بوت دادي!\nضيفني بكروبك، واستمتع.")
-    return
+
 @bot.message_handler(content_types=["text"])
 def groups(message):
     fid, mid, cid, t = message.from_user.id, message.message_id, message.chat.id, message.text
