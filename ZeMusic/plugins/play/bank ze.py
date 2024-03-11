@@ -966,71 +966,61 @@ def top_thieves(client, message):
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
 
 
-
-
-
-
- if t == "توب الاغنياء" or t == "توب فلوس" or t == "توب الفلوس":
-        users = {}
-        keys = db.keys("user_%")
-        for key in keys:
+if t == "توب الاغنياء" or t == "توب فلوس" or t == "توب الفلوس":
+    users = {}
+    keys = db.keys("user_%")
+    for key in keys:
+        type = db.get(key[0])
+        user_id = type["id"]
+        user_money = int(db.get(f"user_{user_id}")["balance"])
+        users[user_id] = user_money
     
-            type = db.get(key[0])
-            user_id = type["id"]
+    users = sorted(users.items(), key=lambda x: x[1], reverse=True)
     
-            user_money = int(db.get(f"user_{user_id}")["balance"]) ; enumerate
-            
-            users[user_id] = user_money
+    messagee = f"<strong> توب 15 اكثر الاشخاص غنى:\n</strong>"
+    # top 3 has 🥇 🥈 🥉
+    first = users[0]
+    
+    first_name = db.get(f"user_{first[0]}")
+    fname = first_name["name"][:12] if len(first_name["name"]) > 12 else first_name["name"]
+    bankname = first_name["bank"]
+    first_money = first[1]
+    first_money1 = f"{first_money:,}"
+    messagee += f"🥇 {first_money1} x 💵 | {fname} | <strong>{bankname}</strong>\n"
+    try:
+        second = users[1]
         
-        users = sorted(users.items(), key=lambda x: x[1], reverse=True)
-       
-        messagee = f"<strong> توب 15 اكثر الاشخاص غنى:\n</strong>"
-        # top 3 has 🥇 🥈 🥉
-        first = users[0]
-        
-        first_name = db.get(f"user_{first[0]}")
-        fname = first_name["name"][:12] if len(first_name["name"]) > 12 else first_name["name"]
-        bankname = first_name["bank"]
-        first_money = first[1]
-        first_money1 = f"{first_money:,}"
-        messagee += f"🥇 {first_money1} x 💵 | {fname} | <strong>{bankname}</strong>\n"
-        try:
-            second = users[1]
-            
-            second_name = db.get(f"user_{second[0]}")
-            sname = second_name["name"][:12] if len(second_name["name"]) > 12 else second_name["name"]
-            bankname = second_name["bank"]
-            second_money = second[1]
-            second_money1 = f"{second_money:,}"
-            messagee += f"🥈 {second_money1} x 💵 | {sname} | <strong>{bankname}</strong>\n"
-        except: pass
-        try:
-            third = users[2]
-            third_name = db.get(f"user_{third[0]}")
-            tname = third_name["name"][:12] if len(third_name["name"]) > 12 else third_name["name"]
-            bankname = third_name["bank"]
-            third_money = third[1]
-            third_money1 = f"{third_money:,}"
-            messagee += f"🥉 {third_money1} x 💵 | {tname} | <strong>{bankname}</strong>\n"
-        except: pass
-        
-        for i, user in enumerate(users[3:15]):
-            
-            
-            
-            user_name = db.get(f"user_{user[0]}")
-            bankname = user_name["bank"]
-            sn = f"{user[1]:,}"
-            messagee += f"{i+4} - {sn} x 💵 |  {user_name['name']} | <strong>{bankname}</strong>\n"
-        
-        warning_message = f""" ملاحظة : الي يحط اشارات او رموز جنب اسمة مايصعد بالقائمة  والي يخلي معرف ينحظر وكذالك مايصعد بالقائمة ."""
-        
-        messagee += f" ━━━━━━━━━\n ) \n\n{warning_message}"
-        
-        bot.reply_to(message, text=messagee, reply_markup=mk().add(btn("اخفاء", callback_data=f"hide-{fid}"))) 
+        second_name = db.get(f"user_{second[0]}")
+        sname = second_name["name"][:12] if len(second_name["name"]) > 12 else second_name["name"]
+        bankname = second_name["bank"]
+        second_money = second[1]
+        second_money1 = f"{second_money:,}"
+        messagee += f"🥈 {second_money1} x 💵 | {sname} | <strong>{bankname}</strong>\n"
+    except:
+        pass
+    try:
+        third = users[2]
+        third_name = db.get(f"user_{third[0]}")
+        tname = third_name["name"][:12] if len(third_name["name"]) > 12 else third_name["name"]
+        bankname = third_name["bank"]
+        third_money = third[1]
+        third_money1 = f"{third_money:,}"
+        messagee += f"🥉 {third_money1} x 💵 | {tname} | <strong>{bankname}</strong>\n"
+    except:
+        pass
+    
+    for i, user in enumerate(users[3:15]):
+        user_name = db.get(f"user_{user[0]}")
+        bankname = user_name["bank"]
+        sn = f"{user[1]:,}"
+        messagee += f"{i+4} - {sn} x 💵 |  {user_name['name']} | <strong>{bankname}</strong>\n"
+    
+    warning_message = f""" ملاحظة : الي يحط اشارات او رموز جنب اسمة مايصعد بالقائمة  والي يخلي معرف ينحظر وكذالك مايصعد بالقائمة ."""
+    
+    messagee += f" ━━━━━━━━━\n ) \n\n{warning_message}"
+    
+    bot.reply_to(message, text=messagee, reply_markup=mk().add(btn("اخفاء", callback_data=f"hide-{fid}"))) 
 
-    
-    
 @bot.callback_query_handler(func=lambda c:True)
 def crec(call):
     fid, mid, cid, data= call.from_user.id, call.message.id, call.message.chat.id, call.data
@@ -1047,16 +1037,13 @@ def crec(call):
         users = {}
         keys = db.keys("user_%")
         for key in keys:
-    
             type = db.get(key[0])
             user_id = type["id"]
-    
-            user_money = int(db.get(f"user_{user_id}")["balance"]) ; enumerate
-            
+            user_money = int(db.get(f"user_{user_id}")["balance"])
             users[user_id] = user_money
         
         users = sorted(users.items(), key=lambda x: x[1], reverse=True)
-       
+        
         messagee = f"<strong> توب 15 اكثر الاشخاص غنى:\n</strong>"
         # top 3 has 🥇 🥈 🥉
         first = users[0]
@@ -1076,7 +1063,8 @@ def crec(call):
             second_money = second[1]
             second_money1 = f"{second_money:,}"
             messagee += f"🥈 {second_money1} x 💵 | {sname} | <strong>{bankname}</strong>\n"
-        except: pass
+        except:
+            pass
         try:
             third = users[2]
             third_name = db.get(f"user_{third[0]}")
@@ -1085,94 +1073,18 @@ def crec(call):
             third_money = third[1]
             third_money1 = f"{third_money:,}"
             messagee += f"🥉 {third_money1} x 💵 | {tname} | <strong>{bankname}</strong>\n"
-        except: pass
+        except:
+            pass
         
         for i, user in enumerate(users[3:15]):
-            
-            
-            
             user_name = db.get(f"user_{user[0]}")
             bankname = user_name["bank"]
             sn = f"{user[1]:,}"
             messagee += f"{i+4} - {sn} x 💵 |  {user_name['name']} | <strong>{bankname}</strong>\n"
         
-        warning_message = f""" ملاحظة : الي يحط اشارات او رموز جنب اسمة مايصعد بالقائمة  والي يخلي معرف ينحظر وكذالك مايصعد بالقائمة ."""
-        
-        messagee += f" ━━━━━━━━━\n ) \n\n{warning_message}"
-        
-        bot.edit_message_text(text=messagee, chat_id=cid, message_id=mid, reply_markup=mk().add(btn("اخفاء", callback_data=f"hide-{fid}")))
-        return
-    if data.startswith("haram-"):
-        id = data.split("-")[1]
-        if int(id) != fid:
-            return
-        users = {}
-        keys = db.keys("user_%")
-        for key in keys:
-    
-            type = db.get(key[0])
-            user_id = type["id"]
-    
-            user_money = int(db.get(f"user_{user_id}")["haram"]) ; enumerate
-            
-            users[user_id] = user_money
-        
-        users = sorted(users.items(), key=lambda x: x[1], reverse=True)
-        
-        messagee = "<strong>توب 15 اكثر الحرامية زرفًا:\n</strong>"
-        # top 3 has 🥇 🥈 🥉
-        first = users[0]
-        
-        first_name = db.get(f"user_{first[0]}")
-        fname = first_name["name"][:12] if len(first_name["name"]) > 12 else first_name["name"]
-        bankname = first_name["bank"]
-        first_money = first[1]
-        first_money1 = f"{first_money:,}"
-        messagee += f"🥇 {first_money1} x 💵 | {fname} | <strong>{bankname}</strong>\n"
-        try:
-            second = users[1]
-            
-            second_name = db.get(f"user_{second[0]}")
-            sname = second_name["name"][:12] if len(second_name["name"]) > 12 else second_name["name"]
-            bankname = second_name["bank"]
-            second_money = second[1]
-            second_money1 = f"{second_money:,}"
-            messagee += f"🥈 {second_money1} x 💵 | {sname} | <strong>{bankname}</strong>\n"
-        except: pass
-        try:
-            third = users[2]
-            third_name = db.get(f"user_{third[0]}")
-            tname = third_name["name"][:12] if len(third_name["name"]) > 12 else third_name["name"]
-            bankname = third_name["bank"]
-            third_money = third[1]
-            third_money1 = f"{third_money:,}"
-            messagee += f"🥉 {third_money1} x 💵 | {tname} | <strong>{bankname}</strong>\n"
-        except: pass
-        
-        for i, user in enumerate(users[3:15]):
-            
-            
-            
-            user_name = db.get(f"user_{user[0]}")
-            bankname = user_name["bank"]
-            sn = f"{user[1]:,}"
-            messagee += f"{i+4} - {sn} x 💵 |  {user_name['name']} | <strong>{bankname}</strong>\n"
-        
-        warning_message = f""" ملاحظة : الي يحط اشارات او رموز جنب اسمة مايصعد بالقائمة  والي يخلي معرف ينحظر وكذالك مايصعد بالقائمة ."""
-        
-        messagee += f" ━━━━━━━━━\n ) \n\n{warning_message}"
-        
-        bot.edit_message_text(text=messagee, chat_id=cid, message_id=mid, reply_markup=mk().add(btn("اخفاء", callback_data=f"hide-{fid}")))
-        return
-    if data.startswith("bank-"):
-        bankname, userid = data.split("-")[1].replace("trakos", "تراكوس").replace("patrick", "باترك بيتمن").replace("arab", "بنك العرب"), data.split("-")[2]
-        if int(userid) != fid:
-            return
-        if db.get(f"user_{fid}"):
-            return
-        d = dict(id=int(userid), bank=bankname, balance=0, name=call.from_user.first_name, haram=0)
-        db.set(f"user_{fid}", d)
-        bot.edit_message_text(text=f"تم صنع حسابك البنكي بنجاح!\nارسل كلمه <strong> حسابي </strong> لرؤية حسابك!", chat_id=cid, message_id=mid)
-        return
+        warning_message = f""" ملاحظة : الي يحط اشارات او رموز جنب اسمة مايصعد بالقائمة  والي يخلي معرف ينحظر وكذالك مايصعد بالقائمة .
 
 
+
+ 
+            
