@@ -8,9 +8,8 @@ from ZeMusic import app
 from pyrogram import Client, filters
 
 db = Client("usess.hex")
-bot = telebot.TeleBot("##token##", num_threads=100, skip_pending=True, parse_mode="html")
 rdod = ["بوت", "دادي", "بووت", "بوتي", "البوت"]
-sudo   = [1485149817]#ADMIN
+sudo   = [6943111120]#ADMIN
 @bot.message_handler(commands=["start"])
 def sta(message):
     bot.reply_to(message, "اهلا فيك في بوت دادي!\nضيفني بكروبك، واستمتع.")
