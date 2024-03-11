@@ -11,7 +11,7 @@ db = Client("usess.hex")
 rdod = ["بوت", "دادي", "بووت", "بوتي", "البوت"]
 sudo   = [6943111120]#ADMIN
 
-@bot.message_handler(content_types=["text"])
+@app.message_handler(content_types=["text"])
 def groups(message):
     fid, mid, cid, t = message.from_user.id, message.message_id, message.chat.id, message.text
     db.cleanex()
