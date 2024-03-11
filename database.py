@@ -1,4 +1,5 @@
 import random
+import sqlite3
 from typing import Dict, List, Union
 
 from ZeMusic import userbot
@@ -644,3 +645,19 @@ async def remove_banned_user(user_id: int):
     if not is_gbanned:
         return
     return await blockeddb.delete_one({"user_id": user_id})
+
+
+def add_muted_user(app, user_id):
+    cursor = app.cursor()
+    cursor.execute("INSERT INTO muted_users (user_id) VALUES (?)", (user_id,))
+    app.commit()
+
+def remove_muted_user(app, user_id):
+    cursor = app.cursor()
+    cursor.execute("DELETE FROM muted_users WHERE user_id = ?", (user_id,))
+    app.commit()
+
+def get_muted_users(app):
+    cursor = app.cursor()
+    cursor.execute("SELECT user_id FROM muted_users")
+    return [row[0] for row in cursor.fetchall()]
