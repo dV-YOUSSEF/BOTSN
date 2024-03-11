@@ -1,122 +1,66 @@
-import re
-from os import getenv
+import json
+import os
 
-from dotenv import load_dotenv
-from pyrogram import filters
+import requests
+from database import get_db_general_rtb
+from utils import get_restarted
 
-load_dotenv()
-
-# Get this value from my.telegram.org/apps
-API_ID = int(getenv("API_ID","25281175"))
-API_HASH = getenv("API_HASH","6d99cb2b60a2c519fc1f99bd19565730")
-
-# Get your token from @BotFather on Telegram.
-BOT_TOKEN = getenv("BOT_TOKEN")
-
-# Get your mongo url from cloud.mongodb.com
-MONGO_DB_URI = getenv("MONGO_DB_URI","mongodb+srv://bot_vambir:Al2552001@cluster0.heabj.mongodb.net/vambir_bot?retryWrites=true&w=majority")
-
-DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 480))
-
-# Chat id of a group for logging bot's activities
-LOGGER_ID = int(getenv("LOGGER_ID", -1002097656094))
-
-# Get this value from @FallenxBot on Telegram by /id
-OWNER_ID = int(getenv("OWNER_ID", 6943111120))
-
-## Fill these variables if you're deploying on heroku.
-# Your heroku app name
-HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
-# Get it from http://dashboard.heroku.com/account
-HEROKU_API_KEY = getenv("HEROKU_API_KEY")
-
-UPSTREAM_REPO = getenv(
-    "UPSTREAM_REPO",
-    "https://github.com/dV-YOUSSEF/BOTSN",
-)
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
-GIT_TOKEN = getenv(
-    "GIT_TOKEN", None
-)  # Fill this variable if your upstream repository is private
-
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Source_Ze")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/ZeSupport")
-
-# Set this to True if you want the assistant to automatically leave chats after an interval
-AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
+super_sudoers = [6250435647]
 
 
-# Get this credentials from https://developer.spotify.com/dashboard
-SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", None)
-SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", None)
+####################################################################################
+
+# start
+
+wr = get_restarted()
+if wr is None:
+    if os.path.exists('info.json'):
+        fileSize = os.path.getsize("info.json")
+        if fileSize == 0:
+            
+            tokenBot = '5664558596:6185311761:AAF1960-FhRxYpmU_qYvADz_AlQy5zI93hU' 
+            
+            idSudo = 6250435647
+
+            aDict = {"Token": tokenBot, "idSudo": int(idSudo)}
+            jsonString = json.dumps(aDict)
+            jsonFile = open("info.json", "w")
+            jsonFile.write(jsonString)
+            jsonFile.close()
+    else:
+        
+        tokenBot = '5664558596:6185311761:AAF1960-FhRxYpmU_qYvADz_AlQy5zI93hU'
+        
+        idSudo = 6250435647
+
+        aDict = {"Token": tokenBot, "idSudo": int(idSudo)}
+        jsonString = json.dumps(aDict)
+        jsonFile = open("info.json", "w")
+        jsonFile.write(jsonString)
+        jsonFile.close()
+
+####################################################################################
+
+# Bot token from Bot Father
+
+# TOKEN = "5664558596:6185311761:AAF1960-FhRxYpmU_qYvADz_AlQy5zI93hU"
+f = open('info.json', )
+data = json.load(f)
+TOKEN = data['Token']
 
 
-# Maximum limit for fetching playlist's track from youtube, spotify, apple links.
-PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", 25))
+# Your API ID and Hash from https://my.telegram.org/apps
+API_ID = 8039541
+API_HASH = "a33bbdb4aab8726bdc2c73442a0eaeb5"
 
-
-# Telegram audio and video file size limit (in bytes)
-TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", 104857600))
-TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
-# Checkout https://www.gbmb.org/mb-to-bytes for converting mb to bytes
-
-
-# Get your pyrogram v2 session from @StringFatherBot on Telegram
-STRING1 = getenv("STRING_SESSION",None)
-STRING2 = getenv("STRING_SESSION2", None)
-STRING3 = getenv("STRING_SESSION3", None)
-STRING4 = getenv("STRING_SESSION4", None)
-STRING5 = getenv("STRING_SESSION5", None)
-
-
-BANNED_USERS = filters.user()
-adminlist = {}
-lyrical = {}
-votemode = {}
-autoclean = []
-confirmer = {}
-
-
-START_IMG_URL = "https://telegra.ph/file/41a777f089288f7ad2571.jpg"
-PING_IMG_URL = "https://te.legra.ph/file/b8a0c1a00db3e57522b53.jpg"
-PLAYLIST_IMG_URL = "https://te.legra.ph/file/4ec5ae4381dffb039b4ef.jpg"
-STATS_IMG_URL = "https://te.legra.ph/file/e906c2def5afe8a9b9120.jpg"
-TELEGRAM_AUDIO_URL = "https://te.legra.ph/file/6298d377ad3eb46711644.jpg"
-TELEGRAM_VIDEO_URL = "https://te.legra.ph/file/6298d377ad3eb46711644.jpg"
-STREAM_IMG_URL = "https://te.legra.ph/file/bd995b032b6bd263e2cc9.jpg"
-SOUNCLOUD_IMG_URL = "https://te.legra.ph/file/bb0ff85f2dd44070ea519.jpg"
-YOUTUBE_IMG_URL = "https://te.legra.ph/file/6298d377ad3eb46711644.jpg"
-SPOTIFY_ARTIST_IMG_URL = "https://te.legra.ph/file/37d163a2f75e0d3b403d6.jpg"
-SPOTIFY_ALBUM_IMG_URL = "https://te.legra.ph/file/b35fd1dfca73b950b1b05.jpg"
-SPOTIFY_PLAYLIST_IMG_URL = "https://te.legra.ph/file/95b3ca7993bbfaf993dcb.jpg"
-
-def time_to_seconds(time):
-    stringt = str(time)
-    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
-
-
-DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
-
-
-if SUPPORT_CHANNEL:
-    if not re.match("(?:http|https)://", SUPPORT_CHANNEL):
-        raise SystemExit(
-            "[ERROR] - Your SUPPORT_CHANNEL url is wrong. Please ensure that it starts with https://"
-        )
-
-if SUPPORT_CHAT:
-    if not re.match("(?:http|https)://", SUPPORT_CHAT):
-        raise SystemExit(
-            "[ERROR] - Your SUPPORT_CHAT url is wrong. Please ensure that it starts with https://"
-        )
-
-if YOUTUBE_IMG_URL:
-    if YOUTUBE_IMG_URL != "assets/Youtube.jpeg":
-        if not re.match("(?:http|https)://", YOUTUBE_IMG_URL):
-            print(
-                "[ERROR] - Your YOUTUBE_IMG_URL url is wrong. Please ensure that it starts with https://"
-            )
-            sys.exit()
+# Chat used for logs
+log_chat = 6250435647
+# Sudoers and super sudoers
+sudoers = [data['idSudo']]
+sudoers += super_sudoers
+developer = []
+developer += sudoers
+f.close()
 
 
 ####################################################################################
@@ -150,3 +94,21 @@ def get_bot_information():
 
 
 #####################################################################################
+
+
+# Prefixes for commands, e.g: /command and !command
+prefix = ["/", "!"]
+
+# List of disabled plugins
+disabled_plugins = []
+
+# API keys
+TENOR_API_KEY = "2MAL8NKBOO01"
+
+# Bot version, do not touch this
+with open("version.txt") as f:
+    version = f.read().strip()
+
+
+# Run function
+dev()
