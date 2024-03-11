@@ -663,35 +663,20 @@ def get_muted_users(app):
     return [row[0] for row in cursor.fetchall()]
 
 
-# لإضافة مستخدم إلى قائمة sudoers
-await add_sudo(123456789)
 
-# لإزالة مستخدم من قائمة sudoers
-await remove_sudo(123456789)
+# في ملف البوت الخاص بك
 
-# للحصول على قائمة المستخدمين المسموح لهم بالوصول كمسؤولين
-sudoers_list = await get_sudoers()
+async def mute_user(client, message):
+    # الكود الحالي
+    ...
+    user_id = message.reply_to_message.from_user.id
+    await add_muted_user(app, user_id)
+    ...
 
-# لإضافة مستخدم إلى قائمة المستخدمين المحظورين
-await add_banned_user(987654321)
-
-# لإزالة مستخدم من قائمة المستخدمين المحظورين
-await remove_banned_user(987654321)
-
-# للتحقق مما إذا كان مستخدم محظورًا أم لا
-is_banned = await is_banned_user(987654321)
-
-# للحصول على قائمة المستخدمين المحظورين
-banned_users_list = await get_banned_users()
-
-# للحصول على عدد المستخدمين المحظورين
-banned_users_count = await get_banned_count()
-
-# لإضافة مستخدم إلى قائمة المستخدمين المكتومين
-add_muted_user(app, 123456789)
-
-# لإزالة مستخدم من قائمة المستخدمين المكتومين
-remove_muted_user(app, 123456789)
-
-# للحصول على قائمة المستخدمين المكتومين
-muted_users_list = get_muted_users(app)
+# عند إلغاء كتم المستخدم
+async def unmute_user(client, message):
+    # الكود الحالي
+    ...
+    user_id = message.reply_to_message.from_user.id
+    await remove_muted_user(app, user_id)
+    ...
