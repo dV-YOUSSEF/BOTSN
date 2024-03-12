@@ -120,9 +120,9 @@ async def mpdtsf(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "اوامر التسليه 1⃣", callback_data="tslua1"),
+                        "اوامر التسليه 1⃣", callback_data="tsluaoih"),
                     InlineKeyboardButton(
-                        "اوامر التسليه 2⃣", callback_data="tslua2"),
+                        "اوامر التسليه 2⃣", callback_data="tsluaefgh"),
                 ],[
                     InlineKeyboardButton(
                         "القائمه الرئيسيه ⏺", callback_data="zzzback"),
@@ -195,15 +195,15 @@ async def zzzll(_, query: CallbackQuery):
 
 
 
-@app.on_callback_query(filters.regex("tslua1"))
+@app.on_callback_query(filters.regex("tsluaoih"))
 async def zzzad(_, query: CallbackQuery):
    await query.edit_message_text(
        f"""<b>🥳╖ ❬ م7 ❭ 1⃣ اوامر التسليه ⇊<b>
-<b>🔐╜ رفع «» تنزيل + الامر<b>
-<b>═══════『♡』═══════ٴ<b>
-<b>🐣╖ متوحد «» متوحده<b>
-<b>💬╢ تاج للمتوحدين<b> 
-<b>📎╜ مسح المتوحدين<b>
+🔐╜ رفع «» تنزيل + الامر
+═══════『♡』═══════ٴ
+🐣╖ متوحد «» متوحده
+💬╢ تاج للمتوحدين
+📎╜ مسح المتوحدين
 <b>•·•·•·•·•·•·•·•·•·••·•·•·••·•·•··•·•·••·•··••·•·•·ٴ<b>
 <b>💢╖ بقره<b>
 <b>💬╢ تاج للبقرات<b>
@@ -262,7 +262,7 @@ async def zzzad(_, query: CallbackQuery):
 
 
 
-@app.on_callback_query(filters.regex("tslua2"))
+@app.on_callback_query(filters.regex("tsluaefgh"))
 async def zzzch(_, query: CallbackQuery):
    await query.edit_message_text(
        f"""<b>🥳╖ ❬ م7 ❭ 2⃣ اوامر التسليه ⇊<b>
