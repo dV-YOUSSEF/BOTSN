@@ -7,7 +7,7 @@ from pyrogram.raw import types
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped
 from ZeMusic import app
-from ZeMusic.core.call import DAXX
+from ZeMusic.core.call import Mody
 from ZeMusic.utils.database import group_assistant, HighQualityAudio
 
 tz = pytz.timezone('Africa/Cairo')
