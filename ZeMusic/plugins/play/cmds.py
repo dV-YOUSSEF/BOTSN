@@ -645,7 +645,7 @@ async def zzzsu(_, query: CallbackQuery):
     )
     
     
-    @app.on_callback_query(filters.regex("zzzsu") & SUDOERS)
+@app.on_callback_query(filters.regex("zzzsu") & SUDOERS)
 async def zzzsu(_, query: CallbackQuery):
    await query.edit_message_text(
        f"""
@@ -671,7 +671,7 @@ async def zzzsu(_, query: CallbackQuery):
     )
     
     
-    @app.on_callback_query(filters.regex("zzzjosu") & SUDOERS)
+@app.on_callback_query(filters.regex("zzzjosu") & SUDOERS)
 async def zzzsu(_, query: CallbackQuery):
    await query.edit_message_text(
        f"""
