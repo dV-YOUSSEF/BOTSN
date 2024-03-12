@@ -1,4 +1,4 @@
-from ZeMusic.mongo import db
+from ZeMusic.utils.mongo import db
 
 coupledb = db.couple
 
