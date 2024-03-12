@@ -1,14 +1,20 @@
 import asyncio
+
 import os
 import time
 import requests
+from config import USER_OWNER, OWNER_ID, SUPPORT_CHANNEL, OWNER_CHANNEL
 from pyrogram import filters
 import random
 from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from strings.filters import command
+from ZeMusic import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
 from ZeMusic import app
 from random import  choice, randint
+from asyncio import gather
+from pyrogram.errors import FloodWait
+from pyrogram.enums import ParseMode, ChatMemberStatus
 
 def get_file_id(msg: Message):
     if msg.media:
