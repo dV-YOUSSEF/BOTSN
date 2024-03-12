@@ -9,6 +9,8 @@ from pyrogram.enums import *
 from strings.filters import command
 #BOT FILE NAME
 from ZeMusic import app as app
+from ZeMusic.mongo.couples_db import _get_image, get_couple
+
 
 def dt():
     now = datetime.now()
