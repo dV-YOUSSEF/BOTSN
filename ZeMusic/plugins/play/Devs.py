@@ -117,28 +117,20 @@ async def huhh(client, message):
        ]
     ),
 
-@app.on_message(
-   command(["بوت حذف"])
-   
-    
-)
-async def huhh(client: Client, message: Message):
-    await message.reply_video(
-        video=f"https://telegra.ph/file/6cf94d31056facc469167.mp4",
-        caption=f"""**[⧉• 𝗦𝗢𝗨𝗥𝗖𝗘 𝗔𝗟𝗣𝗢𝗣 - 💻🖤](t.me/SOURCE_ALPOP)**\n\n**عمك البوب يبلف 😂🩴 {message.from_user.mention}\n⛥ 𝒇𝒖𝒄𝒌 𝒎𝒚 𝒍𝒊𝒇𝒆 𝒂𝒏𝒅 𝒇𝒖𝒄𝒌 𝒚𝒐𝒖 ⛥\n⛥ 𝒎𝒚 𝒊𝒏𝒇𝒐𝒓𝒎𝒂𝒕𝒊𝒐𝒏 ‌( @ON_UP )⛥**""",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                                        InlineKeyboardButton(
-                        "⛥ 𝗔𝗟𝗣𝗢𝗣 ⛥", url=f"https://t.me/V_9_G"), 
-                 ],[
-                
-                    InlineKeyboardButton(
-                        "⛥ 𝗠𝗬 𝗡𝗘𝗘𝗗 ⛥", url=f"https://t.me/UP_OF"),
-                ],
-
-            ]
-
-        ),
-
-    )
+@app.on_message(command(["صاحب الخرابه","المالك","جروب مين","owner"]) & filters.group)
+async def gak_owne(client: Client, message: Message):
+      if len(message.command) >= 2:
+         return 
+      else:
+            chat_id = message.chat.id
+          
+            async for member in client.get_chat_members(chat_id):
+               if member.status == ChatMemberStatus.OWNER:
+                 id = member.user.id
+                 key = InlineKeyboardMarkup([[InlineKeyboardButton(member.user.first_name, user_id=id)]])
+                 m = await client.get_chat(id)
+                 if m.photo:
+                       photo = await app.download_media(m.photo.big_file_id)
+                       return await message.reply_photo(photo, caption=f"**✧ ¦  صاحب الخرابه \n\n ✧ ¦ اسمو ← {m.first_name} \n ✧ ¦ يوزر ← @{m.username} \n ✧ ¦ البايو ← {m.bio}**",reply_markup=key)
+                 else:
+                    return await message.reply("•" + member.user.mention)
