@@ -198,8 +198,7 @@ async def zzzll(_, query: CallbackQuery):
 @app.on_callback_query(filters.regex("tslua1"))
 async def zzzad(_, query: CallbackQuery):
    await query.edit_message_text(
-       f"""
-<b>🥳╖ ❬ م7 ❭ 1⃣ اوامر التسليه ⇊<b>
+       f"""<b>🥳╖ ❬ م7 ❭ 1⃣ اوامر التسليه ⇊<b>
 <b>🔐╜ رفع «» تنزيل + الامر<b>
 <b>═══════『♡』═══════ٴ<b>
 <b>🐣╖ متوحد «» متوحده<b>
@@ -266,8 +265,7 @@ async def zzzad(_, query: CallbackQuery):
 @app.on_callback_query(filters.regex("tslua2"))
 async def zzzch(_, query: CallbackQuery):
    await query.edit_message_text(
-       f"""
-<b>🥳╖ ❬ م7 ❭ 2⃣ اوامر التسليه ⇊<b>
+       f"""<b>🥳╖ ❬ م7 ❭ 2⃣ اوامر التسليه ⇊<b>
 <b>🔐╜ رفع «» تنزيل + الامر <b>
 <b>═══════『♡』═══════ٴ<b>
 <b>🐣╖ وتكه<b>
