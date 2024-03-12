@@ -125,7 +125,7 @@ async def mpdtsf(_, query: CallbackQuery):
                         "اوامر التسليه 2⃣", callback_data="tslua2"),
                 ],[
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzback"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzback"),
                 ],
             ]
         ),
@@ -187,7 +187,7 @@ async def zzzll(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzback"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzback"),
                ],
           ]
         ),
@@ -255,7 +255,7 @@ async def zzzad(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzback"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzback"),
                ],
           ]
         ),
@@ -339,7 +339,7 @@ async def zzzch(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzback"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzback"),
                ],
           ]
         ),
@@ -397,7 +397,7 @@ async def zzzup(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzback"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzback"),
                ],
           ]
         ),
@@ -430,7 +430,7 @@ async def zzzsu(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -466,7 +466,7 @@ async def zzzbn(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -492,7 +492,7 @@ async def zzzas(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -547,7 +547,7 @@ async def zzzas(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -565,7 +565,7 @@ async def zzzas(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -612,7 +612,7 @@ async def zzzbn(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzback"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzback"),
                ],
           ]
         ),
@@ -638,7 +638,7 @@ async def zzzsu(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -664,7 +664,7 @@ async def zzzsu(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -690,7 +690,7 @@ async def zzzsu(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
@@ -716,7 +716,7 @@ async def zzzsu(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "<b>القائمه الرئيسيه ⏺<b>", callback_data="zzzdv"),
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
                ],
           ]
         ),
