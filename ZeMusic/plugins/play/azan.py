@@ -6,9 +6,9 @@ from pyrogram import filters
 from pyrogram.raw import types
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped
-from DAXXMUSIC import app
-from DAXXMUSIC.core.call import DAXX
-from DAXXMUSIC.utils.database import group_assistant, HighQualityAudio
+from ZeMusic import app
+from ZeMusic.core.call import DAXX
+from ZeMusic.utils.database import group_assistant, HighQualityAudio
 
 tz = pytz.timezone('Africa/Cairo')
 chat = []
