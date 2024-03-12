@@ -8,61 +8,55 @@ from typing import Union
 from pyrogram.types import InlineKeyboardButton
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, Message, ChatJoinRequest
 
-#كسمك تحياتي😂
-REPLY_MESSAGE = "**🧑🏻‍✈️︙اهلا بك بك عزيزي العضو ♥️**\n**⤵️︙ اليـكـ كيب الاعضاء الخاص بسورس المرتجل**"
+REPLY_MESSAGE = "صلي علي النبي وتبسم ♥️✨"
 REPLY_MESSAGE_BUTTONS = [
     [
-             ("المبرمج"),                   
-             ("سورس")
+             ("• السورس •")
 
           ],
           [
-             ("ذكاء الاصطناعي"),
-              ("اصدار"),
-              ("افلام")
+             ("• المطور •"),
+             ("• مطور السورس •")
           ],
           [
-             ("لو خيروك"),
-             ("كت تويت") 
+             ("• تويت •"),
+             ("• صراحه •") 
           ],
           [
-             ("اذكار"),
-             ("صراحه") 
+             ("• معلومات دينيه •") 
           ],
           [
-             ("افاتار شباب"),
-             ("افاتار بنات") 
+             ("• اسئله •"),
+             ("• امثله •") 
           ],
           [
-             ("استوري"),
-              ("متحركه")
+             ("• نكته •"),
+             ("• فزوره •")
           ],
           [
-             ("قران"),
-              ("نقشبندي")
+             ("• المختلف •")
           ],
           [
-              ("عبدالباسط"),
-              ("تلاوات")
+              ("• اعلام •"),
+              ("• تفكيك •")
           ],
           [
-             ("غنيلي"),
-             ("سوال")         
+             ("• رمزيه •"),
+             ("• صور •")         
           ],
           [
-             ("الالعاب"),
-             ("انمي")
+             ("• عقاب •"),
+             ("• تحدي •")
           ],
           [
-             ("اقتباس"),
-             ("هيدرات")
+             ("• لو خيروك •")
           ],
           [           
-        ("❎ ¦ حذف الكيبورد")
+        ("ꨄ حذف الكيبورد ꨄ")
     ]
 ]
 
-@app.on_message(filters.command(["/almortagel"], "") & filters.private & ~BANNED_USERS)
+@app.on_message(filters.command(["start"], "") & filters.private & ~BANNED_USERS)
 async def madison(client: Client, message: Message): 
     text = REPLY_MESSAGE
     reply_markup = ReplyKeyboardMarkup(REPLY_MESSAGE_BUTTONS, one_time_keyboard=True, resize_keyboard=True)
@@ -71,7 +65,7 @@ async def madison(client: Client, message: Message):
         reply_markup=reply_markup
     )
 
-@app.on_message(filters.command(["❎ ¦ حذف الكيبورد"], ""))
+@app.on_message(filters.command(["ꨄ حذف الكيبورد ꨄ"], ""))
 async def upbkgt(client: Client, message: Message):
     await message.reply_text(
         text="""❎ ¦ تم حذف الكيبورد بنجاح""",
