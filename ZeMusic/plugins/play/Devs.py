@@ -111,3 +111,29 @@ async def huhh(client, message):
            ],
        ]
     ),
+
+@app.on_message(
+   command(["بوت حذف"])
+   
+    
+)
+async def huhh(client: Client, message: Message):
+    await message.reply_video(
+        video=f"https://telegra.ph/file/6cf94d31056facc469167.mp4",
+        caption=f"""**[⧉• 𝗦𝗢𝗨𝗥𝗖𝗘 𝗔𝗟𝗣𝗢𝗣 - 💻🖤](t.me/SOURCE_ALPOP)**\n\n**عمك البوب يبلف 😂🩴 {message.from_user.mention}\n⛥ 𝒇𝒖𝒄𝒌 𝒎𝒚 𝒍𝒊𝒇𝒆 𝒂𝒏𝒅 𝒇𝒖𝒄𝒌 𝒚𝒐𝒖 ⛥\n⛥ 𝒎𝒚 𝒊𝒏𝒇𝒐𝒓𝒎𝒂𝒕𝒊𝒐𝒏 ‌( @ON_UP )⛥**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                                        InlineKeyboardButton(
+                        "⛥ 𝗔𝗟𝗣𝗢𝗣 ⛥", url=f"https://t.me/V_9_G"), 
+                 ],[
+                
+                    InlineKeyboardButton(
+                        "⛥ 𝗠𝗬 𝗡𝗘𝗘𝗗 ⛥", url=f"https://t.me/UP_OF"),
+                ],
+
+            ]
+
+        ),
+
+    )
