@@ -196,7 +196,7 @@ async def ihd(client: Client, message: Message):
 
 @app.on_message(filters.command(["لعيبة", "لاعيبه"], ""))
 async def ihd(client: Client, message: Message):
-    rl = random.randint(3,153)
+    rl = random.randint(2,75)
     url = f"https://t.me/zZzZUUzZz/{rl}"
     await client.send_photo(message.chat.id,url,caption="وش اسم اللعيب؟🙈",
     reply_markup=InlineKeyboardMarkup(
