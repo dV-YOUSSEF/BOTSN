@@ -55,7 +55,7 @@ async def ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason, t
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
 
-    msg_text += f"**دەرکرا: {user_mention}\nلەلایەن: {admin_mention}**"
+    msg_text += f"**⇐ تم كتم المستخدم بنجاح💚.\n\n[ {first_name} ]**"
     
     if reason:
         msg_text += f"**هۆکار: `{reason}`\n**"
@@ -253,7 +253,7 @@ async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason):
         else:
             return f"حدث خطأ أثناء محاولة كتم المستخدم: {error_message}", False
 
-@app.on_message(filters.command(["/mute"], prefixes=[""]))
+@app.on_message(filters.command(["/mute","كتم"], prefixes=[""]))
 async def mute_command_handler(client, message):
     chat = message.chat
     chat_id = chat.id
@@ -312,7 +312,7 @@ async def mute_command_handler(client, message):
         await message.reply_text(msg_text)
 
 
-@app.on_message(filters.command(["unmute"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
+@app.on_message(filters.command(["/unmute","الغاء كتم","الغاء الكتم"], prefixes=[""]))
 async def unmute_command_handler(client, message):
     chat = message.chat
     chat_id = chat.id
