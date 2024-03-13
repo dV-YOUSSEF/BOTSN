@@ -240,17 +240,17 @@ async def unban_command_handler(client, message):
     await message.reply_text(msg_text)
 
 
-
-
-BOT_DEVELOPER_ID = 6943111120  # استبدل بمعرف المطور الخاص بك
-
 async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason):
     # الكود الخاص بتنفيذ عملية الكتم هنا
     try:
         await app.restrict_chat_member(chat_id, user_id, ChatPermissions())
         return "تم كتم المستخدم بنجاح 🖤•", True
     except Exception as e:
-        return f"حدث خطأ أثناء محاولة كتم المستخدم: {str(e)}", False
+        error_message = str(e)
+        if "USER_ADMIN_INVALID" in error_message:
+            return "لا يمكنك كتم المشرفين أو المديرين في المجموعة 🚫", False
+        else:
+            return f"حدث خطأ أثناء محاولة كتم المستخدم: {error_message}", False
 
 @app.on_message(filters.command(["/mute"], prefixes=[""]))
 async def mute_command_handler(client, message):
