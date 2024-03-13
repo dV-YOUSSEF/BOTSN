@@ -107,7 +107,7 @@ async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason, 
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
 
-    msg_text += f"**میوت کرا: {user_mention}\nلەلایەن: {admin_mention}**"
+    msg_text += f"**⇐ تم الغاء كتم المستخدم بنجاح💚.\n\n[ {first_name} ]**"
     
     if reason:
         msg_text += f"**هۆکار: `{reason}`\n**"
