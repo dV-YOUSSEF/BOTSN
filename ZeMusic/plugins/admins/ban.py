@@ -245,7 +245,7 @@ BOT_DEVELOPER_ID = 6943111120  # استبدل بمعرف المطور الخاص
 async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason):
     try:
         await app.restrict_chat_member(chat_id, user_id, ChatPermissions())
-        return f"تم كتم المستخدم {first_name} بنجاح 🖤•", True
+        return f"⇐ تم كتم المستخدم بنجاح💚.\n\n[ {first_name} ]", True
     except Exception as e:
         error_message = str(e)
         if "USER_ADMIN_INVALID" in error_message:
