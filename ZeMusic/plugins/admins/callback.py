@@ -393,4 +393,11 @@ async def markup_timer():
                 continue
 
 
+@Client.on_callback_query(filters.regex("arbic"))
+async def arbic(_, query: CallbackQuery):
+    await query.answer("home start")
+    await query.edit_message_text("Your edited message here")
+    # يمكنك إضافة المزيد من الخطوط هنا لتنفيذ المزيد من الإجراءات إذا لزم الأمر
+
+
 asyncio.create_task(markup_timer())
