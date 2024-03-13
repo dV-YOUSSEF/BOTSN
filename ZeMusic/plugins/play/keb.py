@@ -11,7 +11,7 @@ from pyrogram.types import (
     InputMediaPhoto,
     Message,
 )
-from AFROTOMusic import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
+from ZeMusic import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
 
 
 REPLY_MESSAGE = "صلي علي النبي وتبسم ♥️✨"
