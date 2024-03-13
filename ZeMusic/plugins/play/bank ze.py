@@ -970,7 +970,7 @@ def top_thieves(client, message):
 
 
 
-@app.on_message(command("توب 20 اغنى اشخاص"))
+@app.on_message(command("توب فلوس"))
 def top_money(client, message):
     bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
@@ -989,6 +989,14 @@ def top_money(client, message):
     response += "\n- القائمة تتحدث كل 5:00 دقائق"
     
     client.send_message(message.chat.id, response)
+
+def load_bank_data():
+    # افتراضي هنا يمكنك استبداله بالكود الخاص بك لتحميل بيانات البنك
+    # على سبيل المثال:
+    # bank_data = database.query("SELECT * FROM bank_data")
+    # return bank_data
+    pass
+    
     
 
 
