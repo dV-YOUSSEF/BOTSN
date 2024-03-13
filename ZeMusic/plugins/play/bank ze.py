@@ -977,13 +977,34 @@ def top_money(client, message):
     top_accounts = sorted_accounts[:10]  # احصل على أول 10 حسابات بالأموال الأعلى
     response = "أعلى الأموال في البنك:\n\n"
     
-    for account_id in top_accounts:
+    for i in range(len(top_accounts)):
+        account_id = top_accounts[i]
         account_username = client.get_chat(account_id).username
         account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"@{account_username}: {account_balance} دولار\n"
+        response += f"مركز {arabic_number(i+1)}: @{account_username}: {account_balance} دولار\n"
+    
+    # إضافة مركز جديد
+    account_id = message.chat.id
+    account_position = sorted_accounts.index(account_id) + 1
+    response += f"\nمركز الحساب الخاص بك: {arabic_number(account_position)}\n"
     
     client.send_message(message.chat.id, response)
 
+def arabic_number(number):
+    arabic_numbers = {
+        1: "الأول",
+        2: "الثاني",
+        3: "الثالث",
+        4: "الرابع",
+        5: "الخامس",
+        6: "السادس",
+        7: "السابع",
+        8: "الثامن",
+        9: "التاسع",
+        10: "العاشر"
+    }
+    return arabic_numbers.get(number, str(number))
+    
 
 
 
