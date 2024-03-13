@@ -242,6 +242,16 @@ async def unban_command_handler(client, message):
 
 
 
+BOT_DEVELOPER_ID = 6943111120  # استبدل بمعرف المطور الخاص بك
+
+async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason):
+    # الكود الخاص بتنفيذ عملية الكتم هنا
+    try:
+        await app.restrict_chat_member(chat_id, user_id, ChatPermissions())
+        return "تم كتم المستخدم بنجاح 🖤•", True
+    except Exception as e:
+        return f"حدث خطأ أثناء محاولة كتم المستخدم: {str(e)}", False
+
 @app.on_message(filters.command(["/mute"], prefixes=[""]))
 async def mute_command_handler(client, message):
     chat = message.chat
@@ -259,7 +269,7 @@ async def mute_command_handler(client, message):
         msg_text = "**تۆ ڕۆڵت نییە کەسێك میوت بکەیت🖤•**"
         return await message.reply_text(msg_text)
 
-    # Extract the user ID from the command or reply
+    # استخراج معرف المستخدم من الأمر أو الرد
     if len(message.command) > 1:
         if message.reply_to_message:
             user_id = message.reply_to_message.from_user.id
@@ -268,7 +278,7 @@ async def mute_command_handler(client, message):
         else:
             try:
                 user_id = int(message.command[1])
-                first_name = "User"
+                first_name = "المستخدم"
             except:
                 user_obj = await get_userid_from_username(message.command[1])
                 if user_obj == None:
@@ -289,9 +299,13 @@ async def mute_command_handler(client, message):
         await message.reply_text("**تکایە یوزەری بەکارهێنەر بنووسە لەگەڵ فەرمان یان وەڵامی نامەی ئەو بەکارهێنەرە بدەرەوە🖤•**")
         return
     
+    if user_id == BOT_DEVELOPER_ID:
+        return await message.reply_text("هذا المطور 🖤•")
+    
     msg_text, result = await mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason)
     if result == True:
         await message.reply_text(msg_text)
+        await message.reply_text("تم كتم الشخص بنجاح 🖤•")
            
     if result == False:
         await message.reply_text(msg_text)
