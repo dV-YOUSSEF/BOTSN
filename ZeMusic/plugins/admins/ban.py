@@ -141,7 +141,7 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
     
-    msg_text = f"**میوتی لادرا: {user_mention}\nلەلایەن: {admin_mention}**"
+    msg_text = f"**⇐ تم الغاء كتم المستخدم بنجاح💚.\n\n[ {first_name} ]**"
     return msg_text
     
 
@@ -432,5 +432,3 @@ async def tmute_command_handler(client, message):
         await message.reply_text(msg_text)
     if result == False:
         await message.reply_text(msg_text)
-
-
