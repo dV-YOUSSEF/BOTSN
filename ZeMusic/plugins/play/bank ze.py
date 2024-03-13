@@ -986,6 +986,7 @@ def top_thieves(client, message):
 
 
 
+# دالة للحصول على قائمة المستخدمين الذين قاموا بإنشاء حسابات بنكية في الدردشة الحالية
 def get_user_bank_accounts(chat_id):
     bank_data = load_bank_data()
     if 'accounts' in bank_data:
@@ -993,6 +994,7 @@ def get_user_bank_accounts(chat_id):
     else:
         return []
 
+# أمر لعرض أعلى المستخدمين حسب الرصيد
 @app.on_message(command("توب فلوس"))
 def top_money(client, message):
     user_chat_id = message.chat.id
@@ -1021,6 +1023,7 @@ def top_money(client, message):
     
     client.send_message(message.chat.id, response)
 
+# دالة للحصول على رمز الترتيب
 def get_rank_symbol(rank):
     rank_symbols = {
         1: "🥇",
@@ -1029,9 +1032,7 @@ def get_rank_symbol(rank):
     }
     return rank_symbols.get(rank, f"{rank}")
 
-# وظائف load_bank_data() والأخرى يجب أن تكون هنا
-
-# عند إنشاء حساب بنكي، أضف chat_id في البيانات الخاصة بالحساب
+# أمر لإنشاء حساب بنكي
 @app.on_message(command('انشاء حساب بنكي'))
 def create_account(client, message):
     user_id = message.from_user.id
