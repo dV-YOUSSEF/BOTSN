@@ -78,7 +78,7 @@ async def unban_user(user_id, first_name, admin_id, admin_name, chat_id):
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
     
-    msg_text = f"**دەرکردنی لەسەر لادرا: {user_mention}\nلەلایەن: {admin_mention}**"
+    msg_text = f"**⇐ تم الغاء كتم المستخدم بنجاح💚.\n\n[ {first_name} ]**"
     return msg_text
 
 
