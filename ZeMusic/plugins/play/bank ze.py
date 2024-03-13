@@ -393,19 +393,20 @@ def create_account(client, message):
     username = message.from_user.username
     bank_data = load_bank_data()
     account_number = random.randint(100000000000000, 999999999999999)
-    
-    bank_types = ["ميكي ماوس", "بلو سكاي", "كريديت"]
-    bank_options = "\n".join([f"⇠ {bank}" for bank in bank_types])
-
     if 'accounts' not in bank_data:
         bank_data['accounts'] = {}
     
     if str(user_id) in bank_data['accounts']:
         client.send_message(message.chat.id, 'لديك بالفعل حساب بنكي')
     else:
-        message_text = 'عشان تسوي حساب لازم تختار بنك:\n\n' + bank_options
-        client.send_message(message.chat.id, message_text)
-        # يمكنك هنا تنفيذ الخطوات لاختيار البنك من قبل المستخدم وتخزينه في البيانات المصرفية
+        bank_data['accounts'][str(user_id)] = {
+            'username': username,
+            'balance': 50,
+            'account_number': account_number,
+            'thief': 0
+        }
+        save_bank_data(bank_data)
+        client.send_message(message.chat.id, 'تم إنشاء حساب بنكي بنجاح اكتب بنكي لترى حسابك 😇')
 
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££#
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
