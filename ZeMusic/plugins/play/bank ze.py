@@ -979,9 +979,10 @@ def top_money(client, message):
     
     for i in range(len(top_accounts)):
         account_id = top_accounts[i]
-        account_username = client.get_chat(account_id).username
-        account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"🥇 ) {account_balance}‎ 💸 l @{account_username}\n"
+        account_info = bank_data['accounts'][account_id]
+        account_username = account_info['username']
+        account_balance = account_info['balance']
+        response += f"{get_rank_symbol(i+1)} ) {account_balance}‎ 💸 l {account_username}\n"
     
     response += "━━━━━━━━━\n"
     response += "# You ) 0 💸 l @{message.from_user.username}\n"
@@ -990,12 +991,15 @@ def top_money(client, message):
     
     client.send_message(message.chat.id, response)
 
-def load_bank_data():
-    # افتراضي هنا يمكنك استبداله بالكود الخاص بك لتحميل بيانات البنك
-    # على سبيل المثال:
-    # bank_data = database.query("SELECT * FROM bank_data")
-    # return bank_data
-    pass
+def get_rank_symbol(rank):
+    rank_symbols = {
+        1: "🥇",
+        2: "🥈",
+        3: "🥉",
+    }
+    return rank_symbols.get(rank, f"{rank}")
+
+# وظائف load_bank_data() والأخرى يجب أن تكون هنا
     
     
 
