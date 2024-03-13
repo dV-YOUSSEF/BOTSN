@@ -45,15 +45,15 @@ async def vgdg(client: Client, message: Message):
         
 
 array = []
-@app.on_message(command(["@all", "تاك","تاك للكل"]) & ~filters.private)
+@app.on_message(command([""]) & ~filters.private)
 async def nummmm(client: app, message):
   if message.chat.id in array:
      return await message.reply_text("**التاك قيد التشغيل حالياً ،**")
   chek = await client.get_chat_member(message.chat.id, message.from_user.id)
   if not chek.status in ["administrator", "creator"]:
-    await message.reply("**يجب انت تكون مشرف لاستخدام الامر 🐉**")
+    await message.reply("**يجب انت تكون مشرف لاستخدام الامر 🖱️**")
     return
-  await message.reply_text("**لايقاف الامر اضغط **\n /cancel او اكتب ايقاف")
+  await message.reply_text("**جاري بدأ المنشن ، لايقاف الامر اضغط **\n /cancel او اكتب بس منشن")
   i = 0
   txt = ""
   zz = message.text
@@ -91,18 +91,18 @@ async def nummmm(client: app, message):
   array.remove(message.chat.id)
 
 
-@app.on_message(command(["ايقاف تاك", "/cancel","بس منشن"]))
+@app.on_message(command(["بس المنشن", "/cancel","بس منشن"]))
 async def stop(client, message):
   chek = await client.get_chat_member(message.chat.id, message.from_user.id)
   if not chek.status in ["administrator", "creator"]:
-    await message.reply("**يجب انت تكون مشرف لاستخدام الامر 🐉")
+    await message.reply("**يجب انت تكون مشرف لاستخدام الامر 🖱️")
     return
   if message.chat.id not in array:
      await message.reply("**المنشن متوقف بالفعل**")
      return 
   if message.chat.id in array:
     array.remove(message.chat.id)
-    await message.reply("**تم ايقاف المنشن بنجاح*\n√*")
+    await message.reply("**تم ايقاف المنشن بنجاح✅**")
     return
 
 
