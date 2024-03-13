@@ -264,10 +264,10 @@ async def mute_command_handler(client, message):
         if member.privileges.can_restrict_members:
             pass
         else:
-            msg_text = "**تۆ ڕۆڵت نییە کەسێك میوت بکەیت🖤•**"
+            msg_text = "هذا الامر يخص ❪ الادمن وفوق ❫ 🥺❤️."
             return await message.reply_text(msg_text)
     else:
-        msg_text = "**تۆ ڕۆڵت نییە کەسێك میوت بکەیت🖤•**"
+        msg_text = "هذا الامر يخص ❪ الادمن وفوق ❫ 🥺❤️."
         return await message.reply_text(msg_text)
 
     # استخراج معرف المستخدم من الأمر أو الرد
