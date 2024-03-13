@@ -393,20 +393,19 @@ def create_account(client, message):
     username = message.from_user.username
     bank_data = load_bank_data()
     account_number = random.randint(100000000000000, 999999999999999)
+    
+    bank_types = ["ميكي ماوس", "بلو سكاي", "كريديت"]
+    bank_options = "\n".join([f"⇠ {bank}" for bank in bank_types])
+
     if 'accounts' not in bank_data:
         bank_data['accounts'] = {}
     
     if str(user_id) in bank_data['accounts']:
         client.send_message(message.chat.id, 'لديك بالفعل حساب بنكي')
     else:
-        bank_data['accounts'][str(user_id)] = {
-            'username': username,
-            'balance': 50,
-            'account_number': account_number,
-            'thief': 0
-        }
-        save_bank_data(bank_data)
-        client.send_message(message.chat.id, 'تم إنشاء حساب بنكي بنجاح اكتب بنكي لترى حسابك 😇')
+        message_text = 'عشان تسوي حساب لازم تختار بنك:\n\n' + bank_options
+        client.send_message(message.chat.id, message_text)
+        # يمكنك هنا تنفيذ الخطوات لاختيار البنك من قبل المستخدم وتخزينه في البيانات المصرفية
 
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££#
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
@@ -418,10 +417,26 @@ def check_balance(client, message):
     bank_data = load_bank_data()
     
     if str(user_id) in bank_data['accounts']:
-        balance = bank_data['accounts'][str(user_id)]['balance']
-        client.send_message(message.chat.id, f'رصيدك الحالي هو: {balance} دولار')
+        if bank_data['accounts'][str(user_id)]['balance'] > 0:
+            balance = bank_data['accounts'][str(user_id)]['balance']
+            client.send_message(message.chat.id, f'فلوسك هي: {balance} دولار')
+        else:
+            client.send_message(message.chat.id, 'ليس لديك فلوس، ابدأ باللعب واجمع!')
     else:
-        client.send_message(message.chat.id, 'ليس لديك حساب بنكي')
+        client.send_message(message.chat.id, 'ليس لديك حساب بنكي!')
+
+@app.on_message(command('ابدا بلعب واجمع'))
+def start_playing(client, message):
+    user_id = message.from_user.id
+    bank_data = load_bank_data()
+    
+    if str(user_id) in bank_data['accounts']:
+        if bank_data['accounts'][str(user_id)]['balance'] == 0:
+            client.send_message(message.chat.id, 'ابدأ باللعب وجمع الفلوس!')
+        else:
+            client.send_message(message.chat.id, 'أنت بالفعل تمتلك فلوس، يمكنك اللعب وجمع المزيد!')
+    else:
+        client.send_message(message.chat.id, 'ابدأ بفتح حساب بنكي لتبدأ في اللعب وجمع الفلوس.')
 
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££#
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
@@ -1002,8 +1017,3 @@ def get_rank_symbol(rank):
 # وظائف load_bank_data() والأخرى يجب أن تكون هنا
     
     
-
-
-
-
-
