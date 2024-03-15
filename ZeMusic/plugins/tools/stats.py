@@ -20,7 +20,6 @@ from ZeMusic.utils.inline.stats import back_stats_buttons, stats_buttons
 from config import BANNED_USERS
 
 from pyrogram import Client
-from pyrogram import filters
 from pyrogram.types import Message
 
 api_id = '22436827'
