@@ -8,7 +8,7 @@ import requests
 import json
 
 
-token = (7061181662:AAH4sLGZJIXczwGC-96LJmeVXkWSpAbteI8)
+token = (BOT_TOKEN)
 
 bot_id = app.bot_token.split(":")[0]
 dev_owner = int(6943111120)
