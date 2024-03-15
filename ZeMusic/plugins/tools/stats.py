@@ -19,13 +19,6 @@ from ZeMusic.utils.decorators.language import language, languageCB
 from ZeMusic.utils.inline.stats import back_stats_buttons, stats_buttons
 from config import BANNED_USERS
 
-from pyrogram import Client
-from pyrogram.types import Message
-
-api_id = '22436827'
-api_hash = 'ae33895f64e85359e2ed9c7c0ce3e95e'
-
-app = Client("my_account", api_id, api_hash)
 
 # Function to get statistics
 def get_statistics():
