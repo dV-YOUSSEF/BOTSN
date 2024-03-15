@@ -1,3 +1,10 @@
+import asyncio
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
+from typing import Union
+from ZeMusic import app
+import re
+import sys
 from pyrogram import Client, filters
 from random import choice
 from pyrogram.types import (
