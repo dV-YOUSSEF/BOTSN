@@ -141,10 +141,6 @@ async def gen_thumb(videoid, photo):
     except Exception:
         return ahmed
 
-
-mongodb = _mongo_client_(MONGO_DB_URL)
-
-
 db = {}
 
 async def add(
