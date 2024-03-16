@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
-from config import DEVELOPER_ID, BANNED_USERS
+from config import OWNER_ID, BANNED_USERS
 
 # تحديد الرسالة التي ستُرسل في حالة الرد على الأمر "start"
 REPLY_MESSAGE = "صلي علي النبي وتبسم ♥️✨"
