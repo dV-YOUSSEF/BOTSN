@@ -9,7 +9,7 @@ from PIL import (Image, ImageDraw, ImageEnhance, ImageFilter,
 from unidecode import unidecode
 from youtubesearchpython.__future__ import VideosSearch
 
-from ZeMusic.utils import get_thumb
+from ZeMusic.utils.thumbnails import get_thumb
 from ZeMusic import app
 from config import YOUTUBE_IMG_URL
 
