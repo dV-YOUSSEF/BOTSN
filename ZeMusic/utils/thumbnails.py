@@ -179,5 +179,4 @@ async def add(
     return
     
     def get_thumb():
-    # يمكنك كتابة جسم الوظيفة هنا
     pass
