@@ -146,58 +146,21 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
     
 
 
-@app.on_message(filters.command(["ban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
-async def ban_command_handler(client, message):
+@app.on_message(filters.command(["طرد البوتات"], prefixes=[""]))
+async def kick_bots_command_handler(client, message):
     chat = message.chat
-    chat_id = chat.id
     admin_id = message.from_user.id
     admin_name = message.from_user.first_name
+    if not message.chat.type == "supergroup":
+        return await message.reply_text("**هەموو تەنها لە گرووپەکان بەکاربهینی🖤•**")
+
     member = await chat.get_member(admin_id)
-    if member.status == enums.ChatMemberStatus.ADMINISTRATOR or member.status == enums.ChatMemberStatus.OWNER:
-        if member.privileges.can_restrict_members:
-            pass
-        else:
-            msg_text = "**تۆ ڕۆڵت نییە کەسێك دەربکەیت یان باند بکەیت🖤•**"
-            return await message.reply_text(msg_text)
-    else:
-        msg_text = "**تۆ ڕۆڵت نییە کەسێك دەربکەیت یان باند بکەیت🖤•**"
-        return await message.reply_text(msg_text)
+    if member.status not in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.CREATOR]:
+        return await message.reply_text("**تۆ دەربارەی ڕۆڵەکەی ئادمین یان سەرپەرشتیەکەت نییە بەم گرووپە🖤•**")
 
-    # Extract the user ID from the command or reply
-    if len(message.command) > 1:
-        if message.reply_to_message:
-            user_id = message.reply_to_message.from_user.id
-            first_name = message.reply_to_message.from_user.first_name
-            reason = message.text.split(None, 1)[1]
-        else:
-            try:
-                user_id = int(message.command[1])
-                first_name = "User"
-            except:
-                user_obj = await get_userid_from_username(message.command[1])
-                if user_obj == None:
-                    return await message.reply_text("**ناتوانم کەسەکە بدۆزمەوە🖤•**")
-                user_id = user_obj[0]
-                first_name = user_obj[1]
-
-            try:
-                reason = message.text.partition(message.command[1])[2]
-            except:
-                reason = None
-
-    elif message.reply_to_message:
-        user_id = message.reply_to_message.from_user.id
-        first_name = message.reply_to_message.from_user.first_name
-        reason = None
-    else:
-        await message.reply_text("**تکایە یوزەری بەکارهێنەر بنووسە لەگەڵ فەرمان یان وەڵامی نامەی ئەو بەکارهێنەرە بدەرەوە🖤•**")
-        return
-        
-    msg_text, result = await ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason)
-    if result == True:
-        await message.reply_text(msg_text)
-    if result == False:
-        await message.reply_text(msg_text)
+    async for user in app.iter_chat_members(chat.id, filter="bots"):
+        await user.kick(reason="Bot in group")
+    await message.reply_text("**هەموو بۆتەکان لە گرووپ بەسەرکەوتوویی دچە🖤•**")
 
 
 @app.on_message(filters.command(["unban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
