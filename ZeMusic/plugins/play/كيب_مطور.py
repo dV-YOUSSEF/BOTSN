@@ -2,7 +2,10 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from config import OWNER_ID, BANNED_USERS
 
+app = Client("my_bot")
+
 # تحديد الرسالة التي ستُرسل في حالة الرد على الأمر "start"
+
 REPLY_MESSAGE = "صلي علي النبي وتبسم ♥️✨"
 
 # تحديد الأزرار التي ستظهر في الكيبورد
