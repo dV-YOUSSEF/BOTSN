@@ -168,7 +168,6 @@ async def ban_bots(client, message):
 async def ban_bots_command_handler(client, message):
     await ban_bots(client, message)
 
-app.run()
 
 @app.on_message(filters.command(["unban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
 async def unban_command_handler(client, message):
