@@ -15,12 +15,13 @@ from ZeMusic.utils.database import (
 )
 from ZeMusic.utils.decorators.language import language
 from ZeMusic.utils.formatters import alpha_to_int
+from ZeMusic.plugins.play.filters import command
 from config import adminlist
 
 IS_BROADCASTING = False
 
 
-@app.on_message(filters.command("broadcast") & SUDOERS)
+@app.on_message(command(["اذاعه", "/broadcast"]) & SUDOERS)
 @language
 async def braodcast_message(client, message, _):
     global IS_BROADCASTING
@@ -31,8 +32,8 @@ async def braodcast_message(client, message, _):
         if len(message.command) < 2:
             return await message.reply_text(_["broad_2"])
         query = message.text.split(None, 1)[1]
-        if "-pin" in query:
-            query = query.replace("-pin", "")
+        if "بالتثبيت" in query:
+            query = query.replace("بالتثبيت", "")
         if "-nobot" in query:
             query = query.replace("-nobot", "")
         if "-pinloud" in query:
