@@ -984,25 +984,17 @@ def top_thieves(client, message):
 
 
 
-
-
-# دالة للحصول على قائمة المستخدمين الذين قاموا بإنشاء حسابات بنكية في الدردشة الحالية
-def get_user_bank_accounts(chat_id):
-    bank_data = load_bank_data()
-    if 'accounts' in bank_data:
-        return [user_id for user_id in bank_data['accounts'] if bank_data['accounts'][user_id]['chat_id'] == chat_id]
-    else:
-        return []
-
-# أمر لعرض أعلى المستخدمين حسب الرصيد
 @app.on_message(command("توب فلوس"))
 def top_money(client, message):
+    print("تم استدعاء الأمر 'توب فلوس' بنجاح.")
     user_chat_id = message.chat.id
     user_bank_accounts = get_user_bank_accounts(user_chat_id)
     
     if not user_bank_accounts:
         client.send_message(message.chat.id, "لم تقم بإنشاء حساب بنكي في هذه الدردشة بعد.")
         return
+    
+    print("تم العثور على حسابات المستخدم بنجاح.")
     
     bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
@@ -1022,14 +1014,5 @@ def top_money(client, message):
     response += "\n- القائمة تتحدث كل 5:00 دقائق"
     
     client.send_message(message.chat.id, response)
-
-# دالة للحصول على رمز الترتيب
-def get_rank_symbol(rank):
-    rank_symbols = {
-        1: "🥇",
-        2: "🥈",
-        3: "🥉",
-    }
-    return rank_symbols.get(rank, f"{rank}")
 
     
