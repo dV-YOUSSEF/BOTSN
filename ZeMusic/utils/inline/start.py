@@ -1,69 +1,38 @@
-from typing import Union
-
 from pyrogram.types import InlineKeyboardButton
 
+import config
 from ZeMusic import app
 
 
-def start_pannel(_):
+def start_panel(_):
     buttons = [
         [
-            InlineKeyboardButton(
-                text=_["S_B_1"],
-                url=f"https://t.me/{app.username}?start=help",
-            ),
-            InlineKeyboardButton(
-                text=_["S_B_2"], callback_data="settings_helper"
-            ),
+            InlineKeyboardButton(text="𖣂 👤 مطور البوت 𖣂", user_id=config.OWNER_ID),
+            InlineKeyboardButton(text="𖣂 الدعم 𖣂", url=config.SUPPORT_CHAT),
+        ],
+        [
+            InlineKeyboardButton(text="𖣂 قناة السورس 𖣂", url=f"https://t.me/{app.username}?startgroup=true"),
         ],
     ]
-    if SUPPORT_CHANNEL and SUPPORT_GROUP:
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text=_["S_B_4"], url=f"{SUPPORT_CHANNEL}"
-                ),
-                InlineKeyboardButton(
-                    text=_["S_B_3"], url=f"{SUPPORT_GROUP}"
-                ),
-            ]
-        )
-    else:
-        if SUPPORT_CHANNEL:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text=_["S_B_4"], url=f"{SUPPORT_CHANNEL}"
-                    )
-                ]
-            )
-        if SUPPORT_GROUP:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text=_["S_B_3"], url=f"{SUPPORT_GROUP}"
-                    )
-                ]
-            )
     return buttons
 
 
-def private_panel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
+def private_panel(_):
     buttons = [
         [
             InlineKeyboardButton(
-                text=_["S_B_8"],
-                callback_data=f"arbic",
-            ),
-            InlineKeyboardButton(
-                text=_["S_B_6"],
-                callback_data=f"english",
-            ),
+                text="𖣂 ضيفني 𖣂",
+                url=f"https://t.me/{app.username}?startgroup=true",
+            )
+        ],
+        [InlineKeyboardButton(text="𖣂 **الـاوامر** 𖣂", callback_data="settings_back_helper")],
+        [
+            InlineKeyboardButton(text="𖣂 👤 مطور البوت 𖣂", user_id=config.OWNER_ID),
+            InlineKeyboardButton(text="𖣂 الدعم 𖣂", url=config.SUPPORT_CHAT),
         ],
         [
-                    InlineKeyboardButton(
-                        text=_["S_B_7"], user_id=OWNER
-            ),
+            InlineKeyboardButton(text="𖣂 قناة المطور 𖣂", url=config.SUPPORT_CHANNEL),
+            InlineKeyboardButton(text="𖣂 قناة السورس 𖣂", url=f"https://t.me/Source_Ze"),
         ],
     ]
     return buttons
