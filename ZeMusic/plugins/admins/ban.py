@@ -151,8 +151,8 @@ async def kick_bots_command_handler(client, message):
     chat = message.chat
     admin_id = message.from_user.id
     admin_name = message.from_user.first_name
-    if not message.chat.type == "supergroup":
-        return await message.reply_text("**هەموو تەنها لە گرووپەکان بەکاربهینی🖤•**")
+    if message.chat.type != "supergroup":
+        return await message.reply_text("**فقط يمكن استخدامها في المجموعات جميعاً 🖤•**")
 
     member = await chat.get_member(admin_id)
     if member.status not in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.CREATOR]:
