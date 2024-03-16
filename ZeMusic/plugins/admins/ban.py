@@ -146,28 +146,6 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
     return msg_text
     
 
-app = Client("my_account")
-
-async def ban_bots(client, message):
-    chat = message.chat
-    chat_id = chat.id
-    admin_id = message.from_user.id
-    admin_name = message.from_user.first_name
-    if message.chat.type != "supergroup":
-        return await message.reply_text("**فقط يمكن استخدامها في المجموعات جميعاً 🖤•**")
-
-    member = await chat.get_member(admin_id)
-    if member.status not in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.CREATOR]:
-        return await message.reply_text("**تۆ دەربارەی ڕۆڵەکەی ئادمین یان سەرپەرشتیەکەت نییە بەم گرووپە🖤•**")
-
-    async for user in app.iter_chat_members(chat.id, filter="bots"):
-        await user.kick(reason="Bot in group")
-    await message.reply_text("**تم طرد جميع البوتات بنجاح 🖤•**")
-
-@app.on_message(filters.command(["ban_bots"], prefixes=["/"]))
-async def ban_bots_command_handler(client, message):
-    await ban_bots(client, message)
-
 
 @app.on_message(filters.command(["unban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
 async def unban_command_handler(client, message):
@@ -401,3 +379,19 @@ async def tmute_command_handler(client, message):
         await message.reply_text(msg_text)
     if result == False:
         await message.reply_text(msg_text)
+
+app = Client("my_account")
+
+@app.on_message(filters.command(["طرد_البوتات"]))
+async def kick_bots(client, message):
+    chat_id = message.chat.id
+    if message.chat.type != "supergroup":
+        await message.reply_text("هذا الأمر يمكن استخدامه فقط في المجموعات.")
+        return
+
+    async for member in app.iter_chat_members(chat_id, filter="bots"):
+        await app.kick_chat_member(chat_id, member.user.id)
+    
+    await message.reply_text("تم طرد جميع البوتات بنجاح.")
+
+app.run()
