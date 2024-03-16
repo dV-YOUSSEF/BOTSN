@@ -19,7 +19,7 @@ from config import adminlist
 
 IS_BROADCASTING = False
 
-@app.on_message(command(["اذاعة","/forward", "اذاعه", "ذيع"]) & SUDOERS)
+@app.on_message(command(["اذاعة","/forward", "اذاعه", "ذيع"]) & (filters.group | filters.private) & SUDOERS)
 @language
 async def broadcast_message(client, message, _):
     global IS_BROADCASTING
