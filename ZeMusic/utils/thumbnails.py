@@ -1,10 +1,11 @@
 import os
 import re
-
+import textwrap
+import asyncio
 import aiofiles
 import aiohttp
-from googletrans import Translator
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
+from PIL import (Image, ImageDraw, ImageEnhance, ImageFilter,
+                 ImageFont, ImageOps)
 from unidecode import unidecode
 from youtubesearchpython.__future__ import VideosSearch
 
@@ -141,33 +142,3 @@ async def gen_thumb(videoid, photo):
         return f"{photo}.png"
     except Exception:
         return ahmed
-
-db = {}
-
-async def add(
-    chat_id,
-    bot_username,
-    file_path,
-    link,
-    title,
-    duration,
-    videoid,
-    vid,
-    user_id):
-    put = {
-        "title": title,
-        "dur": duration,
-        "user_id": user_id,
-        "chat_id": chat_id,
-        "vid": vid,
-        "file_path": file_path,
-        "link": link,
-        "videoid": videoid,
-        "played": 0,
-    }
-    chat_id = f"{bot_username}{chat_id}"
-    i = db.get(chat_id)
-    if not i:
-      db[chat_id] = []
-    db[chat_id].append(put)
-    return
