@@ -177,6 +177,6 @@ async def add(
       db[chat_id] = []
     db[chat_id].append(put)
     return
-    
-    def get_thumb():
+
+def get_thumb():
     pass
