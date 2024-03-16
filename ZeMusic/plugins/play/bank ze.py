@@ -983,15 +983,6 @@ def top_thieves(client, message):
 
 
 
-
-# دالة للحصول على قائمة المستخدمين الذين قاموا بإنشاء حسابات بنكية في الدردشة الحالية
-def get_user_bank_accounts(chat_id, bank_data):
-    if 'accounts' in bank_data:
-        return [user_id for user_id in bank_data['accounts'] if bank_data['accounts'][user_id]['chat_id'] == chat_id]
-    else:
-        return []
-
-# أمر لعرض أعلى المستخدمين حسب الرصيد
 @app.on_message(command("توب فلوس"))
 def top_money(client, message):
     user_chat_id = message.chat.id
