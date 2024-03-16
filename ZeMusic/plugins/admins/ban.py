@@ -145,22 +145,37 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
     return msg_text
     
 
+app = Client("my_account")
 
-@app.on_message(filters.command(["طرد البوتات"], prefixes=[""]))
-async def kick_bots_command_handler(client, message):
+async def ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason=None):
+    try:
+        await app.kick_chat_member(chat_id, user_id)
+        if reason:
+            msg_text = f"تم طرد {first_name} ({user_id}) من قبل {admin_name} ({admin_id}) لسبب: {reason}"
+        else:
+            msg_text = f"تم طرد {first_name} ({user_id}) من قبل {admin_name} ({admin_id})"
+        return msg_text, True
+    except Exception as e:
+        print("Error:", e)
+        return "حدث خطأ أثناء محاولة الطرد.", False
+
+@app.on_message(filters.text & filters.group)
+async def check_and_ban_bots(client, message):
     chat = message.chat
+    chat_id = chat.id
     admin_id = message.from_user.id
     admin_name = message.from_user.first_name
     if message.chat.type != "supergroup":
-        return await message.reply_text("**فقط يمكن استخدامها في المجموعات جميعاً 🖤•**")
+        return
 
     member = await chat.get_member(admin_id)
     if member.status not in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.CREATOR]:
-        return await message.reply_text("**تۆ دەربارەی ڕۆڵەکەی ئادمین یان سەرپەرشتیەکەت نییە بەم گرووپە🖤•**")
+        return
 
-    async for user in app.iter_chat_members(chat.id, filter="bots"):
-        await user.kick(reason="Bot in group")
-    await message.reply_text("**هەموو بۆتەکان لە گرووپ بەسەرکەوتوویی دچە🖤•**")
+    if "طرد البوتات" in message.text:
+        async for user in app.iter_chat_members(chat.id, filter="bots"):
+            await user.kick(reason="Bot in group")
+        await message.reply_text("**تم طرد جميع البوتات بنجاح 🖤•**")
 
 
 @app.on_message(filters.command(["unban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
