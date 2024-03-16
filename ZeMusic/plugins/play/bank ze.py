@@ -987,43 +987,41 @@ def top_thieves(client, message):
 
 
 # دالة للحصول على قائمة المستخدمين الذين قاموا بإنشاء حسابات بنكية في الدردشة الحالية
-def get_user_bank_accounts(chat_id):
-    bank_data = load_bank_data()
+def load_bank_data():
+    # تحميل بيانات البنك من قاعدة البيانات أو أي مصدر آخر
+    pass
+
+def get_user_bank_accounts(chat_id, bank_data):
     if 'accounts' in bank_data:
         return [user_id for user_id in bank_data['accounts'] if bank_data['accounts'][user_id]['chat_id'] == chat_id]
     else:
         return []
 
-# أمر لعرض أعلى المستخدمين حسب الرصيد
-@app.on_message(command("توب فلوس"))
-def top_money(client, message):
+def top_money(client, message, bank_data):
     user_chat_id = message.chat.id
-    user_bank_accounts = get_user_bank_accounts(user_chat_id)
+    user_bank_accounts = get_user_bank_accounts(user_chat_id, bank_data)
     
     if not user_bank_accounts:
         client.send_message(message.chat.id, "لم تقم بإنشاء حساب بنكي في هذه الدردشة بعد.")
         return
     
-    bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
-    top_accounts = sorted_accounts[:20]  # احصل على أول 20 حساب بالأموال الأعلى
+    top_accounts = sorted_accounts[:20]
     response = "توب 20 أغنى أشخاص:\n\n"
     
-    for i in range(len(top_accounts)):
-        account_id = top_accounts[i]
+    for i, account_id in enumerate(top_accounts, 1):
         account_info = bank_data['accounts'][account_id]
         account_username = account_info['username']
         account_balance = account_info['balance']
-        response += f"{get_rank_symbol(i+1)} ) {account_balance}‎ 💸 l {account_username}\n"
+        response += f"{get_rank_symbol(i)} ) {account_balance}‎ 💸 l {account_username}\n"
     
     response += "━━━━━━━━━\n"
-    response += "# You ) 0 💸 l @{message.from_user.username}\n"
+    response += f"# You ) 0 💸 l @{message.from_user.username}\n"
     
     response += "\n- القائمة تتحدث كل 5:00 دقائق"
     
     client.send_message(message.chat.id, response)
 
-# دالة للحصول على رمز الترتيب
 def get_rank_symbol(rank):
     rank_symbols = {
         1: "🥇",
@@ -1032,29 +1030,4 @@ def get_rank_symbol(rank):
     }
     return rank_symbols.get(rank, f"{rank}")
 
-# أمر لإنشاء حساب بنكي
-@app.on_message(command('انشاء حساب بنكي'))
-def create_account(client, message):
-    user_id = message.from_user.id
-    username = message.from_user.username
-    chat_id = message.chat.id  # قم بالحصول على chat_id
-    bank_data = load_bank_data()
-    account_number = random.randint(100000000000000, 999999999999999)
-    
-    if 'accounts' not in bank_data:
-        bank_data['accounts'] = {}
-    
-    if str(user_id) in bank_data['accounts']:
-        client.send_message(message.chat.id, 'لديك بالفعل حساب بنكي')
-    else:
-        bank_data['accounts'][str(user_id)] = {
-            'username': username,
-            'balance': 50,
-            'account_number': account_number,
-            'thief': 0,
-            'chat_id': chat_id  # أضف chat_id للحساب
-        }
-        save_bank_data(bank_data)
-        client.send_message(message.chat.id, 'تم إنشاء حساب بنكي بنجاح، اكتب "بنكي" لترى حسابك 😇')
-    
     
