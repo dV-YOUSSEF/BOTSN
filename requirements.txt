@@ -11,6 +11,7 @@ heroku3
 motor
 pillow
 psutil
+googletrans==4.0.0-rc1
 py-tgcalls==0.9.7
 numpy==1.24.2
 pykeyboard
