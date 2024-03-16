@@ -987,41 +987,43 @@ def top_thieves(client, message):
 
 
 # دالة للحصول على قائمة المستخدمين الذين قاموا بإنشاء حسابات بنكية في الدردشة الحالية
-def load_bank_data():
-    # تحميل بيانات البنك من قاعدة البيانات أو أي مصدر آخر
-    pass
-
-def get_user_bank_accounts(chat_id, bank_data):
+def get_user_bank_accounts(chat_id):
+    bank_data = load_bank_data()
     if 'accounts' in bank_data:
         return [user_id for user_id in bank_data['accounts'] if bank_data['accounts'][user_id]['chat_id'] == chat_id]
     else:
         return []
 
-def top_money(client, message, bank_data):
+# أمر لعرض أعلى المستخدمين حسب الرصيد
+@app.on_message(command("توب فلوس"))
+def top_money(client, message):
     user_chat_id = message.chat.id
-    user_bank_accounts = get_user_bank_accounts(user_chat_id, bank_data)
+    user_bank_accounts = get_user_bank_accounts(user_chat_id)
     
     if not user_bank_accounts:
         client.send_message(message.chat.id, "لم تقم بإنشاء حساب بنكي في هذه الدردشة بعد.")
         return
     
+    bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
-    top_accounts = sorted_accounts[:20]
+    top_accounts = sorted_accounts[:20]  # احصل على أول 20 حساب بالأموال الأعلى
     response = "توب 20 أغنى أشخاص:\n\n"
     
-    for i, account_id in enumerate(top_accounts, 1):
+    for i in range(len(top_accounts)):
+        account_id = top_accounts[i]
         account_info = bank_data['accounts'][account_id]
         account_username = account_info['username']
         account_balance = account_info['balance']
-        response += f"{get_rank_symbol(i)} ) {account_balance}‎ 💸 l {account_username}\n"
+        response += f"{get_rank_symbol(i+1)} ) {account_balance}‎ 💸 l {account_username}\n"
     
     response += "━━━━━━━━━\n"
-    response += f"# You ) 0 💸 l @{message.from_user.username}\n"
+    response += "# You ) 0 💸 l @{message.from_user.username}\n"
     
     response += "\n- القائمة تتحدث كل 5:00 دقائق"
     
     client.send_message(message.chat.id, response)
 
+# دالة للحصول على رمز الترتيب
 def get_rank_symbol(rank):
     rank_symbols = {
         1: "🥇",
