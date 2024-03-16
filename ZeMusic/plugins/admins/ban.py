@@ -382,16 +382,24 @@ async def tmute_command_handler(client, message):
 
 app = Client("my_account")
 
-@app.on_message(filters.command(["طرد_البوتات"]))
-async def kick_bots(client, message):
-    chat_id = message.chat.id
+async def ban_bots(client, message):
+    chat = message.chat
+    chat_id = chat.id
+
     if message.chat.type != "supergroup":
-        await message.reply_text("هذا الأمر يمكن استخدامه فقط في المجموعات.")
-        return
+        return await message.reply_text("**فقط يمكن استخدامها في المجموعات جميعاً 🖤•**")
 
     async for member in app.iter_chat_members(chat_id, filter="bots"):
         await app.kick_chat_member(chat_id, member.user.id)
     
-    await message.reply_text("تم طرد جميع البوتات بنجاح.")
+    await message.reply_text("**تم طرد جميع البوتات بنجاح 🖤•**")
 
-app.run()
+@app.on_message(filters.command(["طرد_البوتات"]))
+async def kick_bots_command_handler(client, message):
+    await ban_bots(client, message)
+
+try:
+    app.run()
+except RuntimeError as e:
+    print(f"تم تجاهل خطأ: {e}")
+    
