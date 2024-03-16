@@ -68,7 +68,7 @@ async def madison(client: Client, message: Message):
         )
 
 # دالة لحذف الكيبورد
-@app.on_message(filters.command(["ꨄ حذف الكيبورد ꨄ"], "") & filters.user(DEVELOPER_ID))
+@app.on_message(filters.command(["ꨄ حذف الكيبورد ꨄ"], "") & filters.user(OWNER_ID))
 async def upbkgt(client: Client, message: Message):
     await message.reply_text(
         text="""❎ ¦ تم حذف الكيبورد بنجاح""",
