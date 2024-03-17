@@ -7,10 +7,10 @@ import random
 from datetime import datetime
 import requests
 import pytz
-from ZeMusic.core.call import Mody
+from ZeMusic.core.call import Anony
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-from ZeMusic.core.call import Mody
+from ZeMusic.core.call import Anony
 from ZeMusic.utils.database import *
 from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
 from pyrogram.errors import (
@@ -19,13 +19,76 @@ from pyrogram.errors import (
     UserNotParticipant,
 )
 
-# تعريف المنطقة الزمنية للقاهرة
 tz = pytz.timezone('Africa/Cairo')
-
-# قائمة لتخزين معرفات المحادثات التي تم تفعيل الأذان فيها
 chat = []
 
-# تفعيل وتعطيل الأذان
+async def kill():
+    for i in chat:
+        await Anony.force_stop_stream(i)
+
+async def play(i):
+    assistant = await group_assistant(Anony, i)
+    file_path = "./ZeMusic/assets/azan.m4a"
+    stream = AudioPiped(file_path, audio_parameters=HighQualityAudio())
+    try:
+        await assistant.join_group_call(
+            i,
+            stream,
+            stream_type=StreamType().pulse_stream,
+        )
+    except NoActiveGroupCall:
+        try:
+            await Anony.join_assistant(i, i)
+        except Exception as e:
+            await app.send_message(i, f"{e}")
+    except TelegramServerError:
+        await app.send_message(i, "في خطا ف سيرفرات التليجرام")
+    except AlreadyJoinedError:
+        await kill()
+        try:
+            await assistant.join_group_call(
+                i,
+                stream,
+                stream_type=StreamType().pulse_stream,
+            )
+        except Exception as e:
+            await app.send_message(i, f"{e}")
+
+async def azkar():
+    while True:
+        await asyncio.sleep(2)
+        prayer = prayer_time()
+        if prayer:
+            await kill()
+            for i in chat:
+                await app.send_message(i, f"حان الآن وقت الأذان لصلاة {prayer} بالتوقيت المحلي للقاهرة 🥰♥️")
+                await play(i)
+            await asyncio.sleep(174)
+            await kill()
+
+def prayer_time():
+    try:
+        prayer = requests.get("http://api.aladhan.com/timingsByAddress?address=Cairo&method=4&school=0")
+        prayer = prayer.json()
+        fajr = datetime.strptime(prayer['data']['timings']['Fajr'], '%H:%M').strftime('%H:%M')
+        dhuhr = datetime.strptime(prayer['data']['timings']['Dhuhr'], '%H:%M').strftime('%H:%M')
+        asr = datetime.strptime(prayer['data']['timings']['Asr'], '%H:%M').strftime('%H:%M')
+        maghrib = datetime.strptime(prayer['data']['timings']['Maghrib'], '%H:%M').strftime('%H:%M')
+        isha = datetime.strptime(prayer['data']['timings']['Isha'], '%H:%M').strftime('%H:%M')
+        current_time = datetime.now(tz).strftime('%H:%M')
+        if current_time == fajr:
+            return "الفجر"
+        elif current_time == dhuhr:
+            return "الظهر"
+        elif current_time == asr:
+            return "العصر"
+        elif current_time == maghrib:
+            return "المغرب"
+        elif current_time == isha:
+            return "العشاء"
+    except Exception as e:
+        print(e)
+
 @app.on_message(filters.text & ~filters.private, group=20)
 async def azaan(c, msg):
     if msg.text == "تفعيل الاذان":
@@ -41,67 +104,6 @@ async def azaan(c, msg):
         else:
             return await msg.reply_text("- الاذان متعطل هنا من قبل 🥰♥️")
 
-# توقيت الصلاة
-def prayer_time():
-    try:
-        # استدعاء API للحصول على توقيتات الصلاة
-        prayer = requests.get("http://api.aladhan.com/timingsByAddress?address=Cairo&method=4&school=0")
-        prayer = prayer.json()
-        
-        # تحويل توقيتات الصلاة إلى التنسيق المناسب
-        fajr = datetime.strptime(prayer['data']['timings']['Fajr'], '%H:%M').strftime('%I:%M %p')
-        dhuhr = datetime.strptime(prayer['data']['timings']['Dhuhr'], '%H:%M').strftime('%I:%M %p')
-        asr = datetime.strptime(prayer['data']['timings']['Asr'], '%H:%M').strftime('%I:%M %p')
-        maghrib = datetime.strptime(prayer['data']['timings']['Maghrib'], '%H:%M').strftime('%I:%M %p')
-        isha = datetime.strptime(prayer['data']['timings']['Isha'], '%H:%M').strftime('%I:%M %p')
-        
-        # الوقت الحالي بتوقيت القاهرة
-        now_time = datetime.now(tz).strftime('%I:%M %p')
-        
-        # تحديد الصلاة الحالية
-        if now_time == fajr:
-            return "الفجر"
-        elif now_time == dhuhr:
-            return "الظهر"
-        elif now_time == asr:
-            return "العصر"
-        elif now_time == maghrib:
-            return "المغرب"
-        elif now_time == isha:
-            return "العشاء"
-    except Exception as e:
-        print(e)
-
-# تشغيل الأذان
-async def play(i):
-    assistant = await group_assistant(Mody, i)
-    file_path = "./ZeMusic/assets/azan.m4a"
-    stream = AudioPiped(file_path, audio_parameters=HighQualityAudio())
-    try:
-        await assistant.join_group_call(
-            i,
-            stream,
-            stream_type=StreamType().pulse_stream,
-        )
-    except Exception as e:
-        await app.send_message(i, f"{e}")
-
-# إرسال رسالة بوقت الأذان وتشغيل الأذان
-async def azkar():
-    while True:
-        if prayer_time():
-            prayer = prayer_time()
-            # إرسال إشعار بوقت الصلاة للمحادثات التي تم تفعيل الأذان فيها
-            await asyncio.gather(*[app.send_message(i, f"حان الان وقت اذان {prayer} بتوقيت القاهرة 🥰♥️") for i in chat])
-            # تشغيل الأذان للمحادثات التي تم تفعيل الأذان فيها
-            await asyncio.gather(*[play(i) for i in chat])
-        # انتظار 174 ثانية (حوالي 3 دقائق) قبل التحقق مرة أخرى من وقت الصلاة
-        await asyncio.sleep(174)
-
-# تشغيل وظيفة الأذان
-async def main():
-    await azkar()
-
-# تشغيل البرنامج
-if name == "main":
-    asyncio.run(main())
+asyncio.create_task(azkar())
+#مواعيد الصلاه بس الي سارقها بقيت الكود كتابتي هي اكيد كتابه معاقه بس عادي م مهم رايك انا مبسوط بيها يوزري للاعمال الخاصه @z0hary
+     
