@@ -1,32 +1,78 @@
-from ZeMusic import app
+import asyncio
 from pyrogram import Client, filters
-from pyrogram.types import Message
-from pyrogram.enums import ChatMemberStatus
-
-stiklok = []
-
-@app.on_message(
-    filters.command(["قفل_الملصقات", "تعطيل_الملصقات"])
+from strings.filters import command
+from ZeMusic.utils.decorators import AdminActual
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    ReplyKeyboardMarkup,
+    ReplyKeyboardRemove,
+    InputMediaPhoto,
+    Message,
 )
-async def block_stickers(client: Client, message: Message):
-    get = await client.get_chat_member(message.chat.id, message.from_user.id)
-    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
-        if message.chat.id in stiklok:
-            return await message.reply_text(f"يا {message.from_user.mention} الملصقات مقفلة من قبل")
-        stiklok.append(message.chat.id)
-        return await message.reply_text(f"تم قفل الملصقات \n\n من قبل ←{message.from_user.mention}")
-    else:
-        return await message.reply_text(f"يا {message.from_user.mention} أنت لست مشرفا")
+from ZeMusic import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
 
-@app.on_message(
-    filters.command(["فتح_الملصقات", "تفعيل_الملصقات"])
-)
-async def unblock_stickers(client: Client, message: Message):
-    get = await client.get_chat_member(message.chat.id, message.from_user.id)
-    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
-        if message.chat.id not in stiklok:
-            return await message.reply_text(f"يا {message.from_user.mention} الملصقات مفتوحة من قبل")
-        stiklok.remove(message.chat.id)
-        return await message.reply_text(f"تم فتح الملصقات \n\n من قبل ←{message.from_user.mention}")
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
+
+# تحديد المطور
+developer = 6943111120  # قم بتغييره إلى معرف المطور الخاص بك
+
+# إنشاء العميل
+app = Client("my_bot")
+
+# دالة بدء البوت للمطور
+@app.on_message(filters.command("start") & filters.user(developer))
+async def startsudo(c: Client, m: Message):
+    if m.chat.type == "private":
+        t = """💌╖اهلا بيك حبيبي آلمـطـور
+⚙️╢ تقدر تتحكم باوامر البوت عن طريق
+🔍╢ الكيبور اللي ظهرلك تحت ↘️
+🔰╜ للدخول لقناة السورس [دوس هنا](https://t.me/BPHEE)"""
+        keyboard = ReplyKeyboardMarkup(keyboard=[
+            [KeyboardButton("تعطيل التواصل 🔰")] +
+            [KeyboardButton("تفعيل التواصل ⚡️")],
+            [KeyboardButton("تعطيل الاذاعه 🔕")] +
+            [KeyboardButton("تفعيل الاذاعه 🔔")],
+            [KeyboardButton("تعطيل اليوتيوب 🛠")] +
+            [KeyboardButton("تفعيل اليوتيوب ⚙️")],
+            [KeyboardButton("المطورين 🔱")],
+            [KeyboardButton("اذاعه خاص 🔊")] +
+            [KeyboardButton("اذاعه بالمجموعات 📡")],
+            [KeyboardButton("اذاعه بالتوجيه خاص 👤")] +
+            [KeyboardButton("اذاعه بالتوجيه للمجموعات ⁦♻️⁩")],
+            [KeyboardButton("اذاعه موجهه بالتثبيت ⁦♻️⁩")] +
+            [KeyboardButton("اذاعه بالتثبيت 📎")],
+            [KeyboardButton("الاحصائيات 📊")],
+            [KeyboardButton("المشتركين ⁦🗣️⁩")] +
+            [KeyboardButton("الجروبات 📢")],
+            [KeyboardButton("حذف الاعضاء الفيك ⚡️")] +
+            [KeyboardButton("حذف الجروبات الفيك ⚡️")],
+            [KeyboardButton("حذف رد عام 🚫")] +
+            [KeyboardButton("اضف رد عام 💬")],
+            [KeyboardButton("الردود العامه 📝")],
+            [KeyboardButton("قائمه الكتم العام 🛑")] +
+            [KeyboardButton("قائمه الحظر العام 🚫")],
+            [KeyboardButton("ضع اسم للبوت 🤖")],
+            [KeyboardButton("معلومات السيرفر ℹ️")] +
+            [KeyboardButton("سرعه السيرفر 🚀️")],
+            [KeyboardButton("جلب نسخه احتياطيه اساسيه 📬")],
+            [KeyboardButton("رفع نسخه احتياطيه ⛓")],
+            [KeyboardButton("الاصدار ⁦⚙️⁩")] +
+            [KeyboardButton("تحديث السورس 📥")],
+            [KeyboardButton("رستر البوت 🕹")],
+            [KeyboardButton("الغاء ⁦🛠️⁩")],
+        ],
+            resize_keyboard=True,
+            one_time_keyboard=False
+        )
+        await m.reply_text(t, reply_markup=keyboard, parse_mode="Markdown")
     else:
-        return await message.reply_text(f"يا {message.from_user.mention} أنت لست مشرفا")
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton("بدء الدردشة", url=f"https://t.me/{(await app.get_me()).username}?start=start")]
+        ])
+        await m.reply_text("البوت متاح فقط في الرسائل الخاصة.", reply_markup=keyboard)
+
+# تشغيل البوت
+app.run()
