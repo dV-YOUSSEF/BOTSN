@@ -24,41 +24,18 @@ from dotenv import load_dotenv
 import re
 
 
-@app.on_message(command(["كيب", "✭ رجوع"], "") & SUDOERS)
-
+@app.on_message(filters.command(["كيب", "✭ رجوع"]) & filters.user(SUDOERS))
 async def crsourceowner(client: Client, message: Message):
-    text = REPLY_MESSAGE
-    reply_markup = ReplyKeyboardMarkup(REPLY_MESSAGE_BUTTONS, one_time_keyboard=True, resize_keyboard=True)
-    await message.reply(
-        text=text,
-        reply_markup=reply_markup
-    )
+    REPLY_MESSAGE = "**👋︙مـرحـبـا بـك عـزيـزي الـمـطـور ♥️**\n**✨︙فــي قـائـمـة التحـكـم بـالـبـوت💞**"
+
+    REPLY_MESSAGE_BUTTONS = [
+        [("✭ WELCOME IN SOURCE  𝙰𝙻𝙼𝙾𝚁𝚃𝙰𝙶𝙴𝙻 ✭")],
+        [("✭ قسم الاذاعه"), ("✭ تحكم الحساب المساعد")],
+        [("✭ قسم الجروبات"), ("✭ قسم المطورين")],
+        [("✭ السورس")],
+    ]
 
 
-REPLY_MESSAGE = "**👋︙مـرحـبـا بـك عـزيـزي الـمـطـور ♥️**\n**✨︙فــي قـائـمـة التحـكـم بـالـبـوت💞**"
-
-REPLY_MESSAGE_BUTTONS = [
-    [
-        ("✭ WELCOME IN SOUCE  𝙰𝙻𝙼𝙾𝚁𝚃𝙰𝙶𝙴𝙻 ✭"),
-    ],
-    [
-        ("✭ قسم الاذاعه"),
-        ("✭ تحكم الحساب المساعد"),
-    ],
-    [
-        
-        ("✭ قسم الجروبات"),
-        ("✭ قسم المطورين"),
-       
-    ],
-    [
-        ("✭ السورس"),
-    ],
-]
-
-
-
-    
 @app.on_message(filters.command(["✭ قسم الاذاعه"], "") & SUDOERS)
 async def cast(client: app, message):
     kep = ReplyKeyboardMarkup([["✭ اذاعه عام","✭ اذاعه بالتوجيه"],["✭ رجوع"]], resize_keyboard=True)
