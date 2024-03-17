@@ -62,7 +62,7 @@ REPLY_MESSAGE_BUTTONS = [
 @app.on_message(filters.command(["start"], "") & filters.private & ~BANNED_USERS)
 async def madison(client: Client, message: Message): 
     # التحقق مما إذا كان المرسل مطور البوت
-    if message.from_user.id == :
+    if message.from_user.id == OWNER_ID:
         text = REPLY_MESSAGE
         reply_markup = ReplyKeyboardMarkup(REPLY_MESSAGE_BUTTONS, one_time_keyboard=True, resize_keyboard=True)
         await message.reply(
