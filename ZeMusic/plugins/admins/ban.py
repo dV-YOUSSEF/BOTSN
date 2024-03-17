@@ -164,9 +164,9 @@ async def ban_bots_command_handler(client, message):
         if member.status == enums.ChatMemberStatus.ADMINISTRATOR or member.status == enums.ChatMemberStatus.OWNER:
             continue
         if not member.privileges.can_restrict_members:  # تحقق من صلاحيات البوت قبل طرده
-            await kick_user(member.user.id, member.user.first_name, admin_id, admin_name, chat_id, "Bot detected")
+            await ban_user(member.user.id, chat_id)
             await asyncio.sleep(1)  # تأخير لتجنب حد الفيض
-    await message.reply_text("**تم طرد جميع البوتات التي ليس لديها صلاحية المشرفين بنجاح🤖**")
+    await message.reply_text("**تم حظر جميع البوتات التي ليس لديها صلاحية المشرفين بنجاح🤖**")
 
 
 @app.on_message(filters.command(["unban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
