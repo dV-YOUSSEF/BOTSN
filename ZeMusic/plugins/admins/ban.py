@@ -146,8 +146,6 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
     
 
 
-import asyncio
-
 @app.on_message(filters.command(["طرد البوتات"], prefixes=[""]))
 async def ban_bots_command_handler(client, message):
     chat = message.chat
@@ -155,10 +153,8 @@ async def ban_bots_command_handler(client, message):
     admin_id = message.from_user.id
     admin_name = message.from_user.first_name
     member = await chat.get_member(admin_id)
-    if member.status not in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER]:
-        await message.reply_text("**تۆ ڕۆڵت نییە کەسێك دەربکەیت یان باند بکەیت🖤•**")
-        return
-    if not member.privileges.can_restrict_members:
+    
+    if member.status not in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER] or not member.privileges.can_restrict_members:
         await message.reply_text("**تۆ ڕۆڵت نییە کەسێك دەربکەیت یان باند بکەیت🖤•**")
         return
     
@@ -167,9 +163,9 @@ async def ban_bots_command_handler(client, message):
             continue
         if member.status == enums.ChatMemberStatus.ADMINISTRATOR or member.status == enums.ChatMemberStatus.OWNER:
             continue
-        await kick_user(member.user.id, member.user.first_name, admin_id, admin_name, chat_id, "Bot detected")
-        await asyncio.sleep(1)  # Delay to avoid flood limit
-        
+        if not member.privileges.can_restrict_members:  # تحقق من صلاحيات البوت قبل طرده
+            await kick_user(member.user.id, member.user.first_name, admin_id, admin_name, chat_id, "Bot detected")
+            await asyncio.sleep(1)  # تأخير لتجنب حد الفيض
     await message.reply_text("**تم طرد جميع البوتات التي ليس لديها صلاحية المشرفين بنجاح🤖**")
 
 
