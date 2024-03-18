@@ -434,15 +434,20 @@ async def tmute_command_handler(client, message):
         await message.reply_text(msg_text)
         
 # تعريف الأمر
-@app.on_message(filters.command(["warn", "dwarn", "تحذير", "انذار"], "") & filters.group & filters.create(lambda _, __, update: update.from_user and update.chat.permissions.can_restrict_members))
+@app.on_message(filters.command(["warn", "dwarn", "تحذير", "انذار"], "") & filters.group)
 async def warn_user(client, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     chat_id = message.chat.id
+    
+    # التحقق من صلاحيات المستخدم
+    if message.from_user and not message.chat.permissions.can_restrict_members:
+        return await message.reply_text("You don't have permission to restrict members in this chat.")
+    
     if not user_id:
         return await message.reply_text("I can't find that user.")
     if user_id == BOT_ID:
         return await message.reply_text(
-            "I can't warn myself, i can leave if you want."
+            "I can't warn myself, I can leave if you want."
         )
     if user_id in SUDOERS:
         return await message.reply_text(
@@ -450,7 +455,7 @@ async def warn_user(client, message: Message):
         )
     if user_id in (await list_admins(chat_id)):
         return await message.reply_text(
-            "I can't warn an admin, You know the rules, so do i."
+            "I can't warn an admin, You know the rules, so do I."
         )
     user, warns = await asyncio.gather(
         app.get_users(user_id),
