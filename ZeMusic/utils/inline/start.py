@@ -7,11 +7,9 @@ from ZeMusic import app
 def start_panel(_):
     buttons = [
         [
-            InlineKeyboardButton(text="𖣂 👤 مطور البوت 𖣂", user_id=config.OWNER_ID),
-            InlineKeyboardButton(text="𖣂 الدعم 𖣂", url=config.SUPPORT_CHAT),
-        ],
-        [
-            InlineKeyboardButton(text="𖣂 قناة السورس 𖣂", url=f"https://t.me/{app.username}?startgroup=true"),
+            InlineKeyboardButton(
+                text="اضف البوت اللي مجموعتك 💚.", url=f"https://t.me/{app.username}?startgroup=true"
+            ),
         ],
     ]
     return buttons
@@ -21,18 +19,20 @@ def private_panel(_):
     buttons = [
         [
             InlineKeyboardButton(
-                text="𖣂 ضيفني 𖣂",
+                text="اضف البوت اللي مجموعتك 💚.",
                 url=f"https://t.me/{app.username}?startgroup=true",
             )
         ],
-        [InlineKeyboardButton(text="𖣂 **الـاوامر** 𖣂", callback_data="settings_back_helper")],
         [
-            InlineKeyboardButton(text="𖣂 👤 مطور البوت 𖣂", user_id=config.OWNER_ID),
-            InlineKeyboardButton(text="𖣂 الدعم 𖣂", url=config.SUPPORT_CHAT),
+            InlineKeyboardButton(text="**طريقة التشغيل**", callback_data="kdkdklodas"),
+            InlineKeyboardButton(text="**طريقة التفعيل**", callback_data="kdkdodas"),
         ],
         [
-            InlineKeyboardButton(text="𖣂 قناة المطور 𖣂", url=config.SUPPORT_CHANNEL),
-            InlineKeyboardButton(text="𖣂 قناة السورس 𖣂", url=f"https://t.me/Source_Ze"),
+            InlineKeyboardButton(text="الجروب", url=f"https://t.me/B_X_N1"),
+            InlineKeyboardButton(text="القناة", url=f"https://t.me/BPHEE"),
+        ],
+        [
+            InlineKeyboardButton(text="𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅", user_id=config.OWNER_ID),
         ],
     ]
     return buttons
