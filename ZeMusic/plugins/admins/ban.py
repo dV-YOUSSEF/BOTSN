@@ -434,9 +434,7 @@ async def tmute_command_handler(client, message):
         await message.reply_text(msg_text)
         
  
-@app.on_message(filters.command(["warn", "dwarn", "تحذير", "انذار"], "") & filters.group
-)
-@adminsOnly("can_restrict_members")
+@app.on_message(filters.command(["warn", "dwarn", "تحذير", "انذار"], "") & filters.group)
 async def warn_user(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     chat_id = message.chat.id
@@ -481,4 +479,3 @@ async def warn_user(_, message: Message):
 **التحذيرات المتبقيه:** {warns + 1}/3"""
         await message.reply_text(msg, reply_markup=keyboard)
         await add_warn(chat_id, await int_to_alpha(user_id), warn)
-        
