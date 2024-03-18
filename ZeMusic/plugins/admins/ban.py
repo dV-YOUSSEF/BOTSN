@@ -433,48 +433,49 @@ async def tmute_command_handler(client, message):
     if result == False:
         await message.reply_text(msg_text)
         
-@app.on_message(
-    (filters.command("ابلاغ")
-            | filters.command(["admins", "admin"], prefixes="@")
-    )
-   
-    & filters.group
-)
-@capture_err
-async def report_user(_, message):
-    if not message.reply_to_message:
+@app.on_message(filters.command(["warn", "dwarn", "تحذير", "انذار"], "") & filters.group)
+async def warn_user(_, message: Message):
+    user_id, reason = await extract_user_and_reason(message)
+    chat_id = message.chat.id
+    if not user_id:
+        return await message.reply_text("I can't find that user.")
+    if user_id == BOT_ID:
         return await message.reply_text(
-            "Reply to a message to report that user."
+            "I can't warn myself, i can leave if you want."
         )
-
-    reply = message.reply_to_message
-    reply_id = reply.from_user.id if reply.from_user else reply.sender_chat.id
-    user_id = message.from_user.id if message.from_user else message.sender_chat.id
-    if reply_id == user_id:
-        return await message.reply_text("Why are you reporting yourself ?")
-
-    list_of_admins = await list_admins(message.chat.id)
-    linked_chat = (await app.get_chat(message.chat.id)).linked_chat
-    if linked_chat is not None:
-        if reply_id in list_of_admins or reply_id == message.chat.id or reply_id == linked_chat.id:
-            return await message.reply_text(
-                "Do you know that the user you are replying is an admin ?"
-            )
+    if user_id in SUDOERS:
+        return await message.reply_text(
+            "You Wanna Warn The Elevated One?, RECONSIDER!"
+        )
+    if user_id in (await list_admins(chat_id)):
+        return await message.reply_text(
+            "I can't warn an admin, You know the rules, so do i."
+        )
+    user, warns = await asyncio.gather(
+        app.get_users(user_id),
+        get_warn(chat_id, await int_to_alpha(user_id)),
+    )
+    mention = user.mention
+    keyboard = ikb({"🚨  حذف التحذير  🚨": f"unwarn_{user_id}"})
+    if warns:
+        warns = warns["warns"]
     else:
-        if reply_id in list_of_admins or reply_id == message.chat.id:
-            return await message.reply_text(
-                "Do you know that the user you are replying is an admin ?"
-            )
-
-    user_mention = reply.from_user.mention if reply.from_user else reply.sender_chat.title
-    text = f"Reported {user_mention} to admins!"
-    admin_data = await app.get_chat_members(
-        chat_id=message.chat.id, filter="administrators"
-    )  # will it giv floods ?
-    for admin in admin_data:
-        if admin.user.is_bot or admin.user.is_deleted:
-            # return bots or deleted admins
-            continue
-        text += f"[\u2063](tg://user?id={admin.user.id})"
-
-    await message.reply_to_message.reply_text(text)
+        warns = 0
+    if message.command[0][0] == "d":
+        await message.reply_to_message.delete()
+    if warns >= 2:
+        await message.chat.ban_member(user_id)
+        await message.reply_text(
+            f"Number of warns of {mention} exceeded, BANNED!"
+        )
+        await remove_warns(chat_id, await int_to_alpha(user_id))
+    else:
+        warn = {"warns": warns + 1}
+        msg = f"""
+**حذرت :** {mention}
+**يا:** {message.from_user.mention if message.from_user else 'Anony'}
+**السبب:** {reason or 'No Reason Provided.'}
+**التحذيرات المتبقيه:** {warns + 1}/3"""
+        await message.reply_text(msg, reply_markup=keyboard)
+        await add_warn(chat_id, await int_to_alpha(user_id), warn)
+        
