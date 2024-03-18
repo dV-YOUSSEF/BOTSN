@@ -120,7 +120,6 @@ async def braodcast_message(client, message, _):
         text = _["broad_6"]
         from ZeMusic.core.userbot import assistants
 
-        total_groups = 0  # Initialize the counter for total groups
         for num in assistants:
             sent = 0
             client = await get_client(num)
@@ -132,7 +131,6 @@ async def braodcast_message(client, message, _):
                         dialog.chat.id, text=query
                     )
                     sent += 1
-                    total_groups += 1  # Increment the counter for each group
                     await asyncio.sleep(3)
                 except FloodWait as fw:
                     flood_time = int(fw.value)
@@ -144,7 +142,6 @@ async def braodcast_message(client, message, _):
             text += _["broad_7"].format(num, sent)
         try:
             await aw.edit_text(text)
-            await message.reply_text(f"تم الإنتهاء من الإذاعة في {total_groups} مجموعة.")
         except:
             pass
     IS_BROADCASTING = False
