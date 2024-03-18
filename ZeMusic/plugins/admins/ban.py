@@ -432,4 +432,3 @@ async def tmute_command_handler(client, message):
         await message.reply_text(msg_text)
     if result == False:
         await message.reply_text(msg_text)
-        
