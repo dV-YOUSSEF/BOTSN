@@ -24,8 +24,8 @@ def private_panel(_):
             )
         ],
         [
-            InlineKeyboardButton(text="**طريقة التشغيل**", callback_data="kdkdklodas"),
-            InlineKeyboardButton(text="**طريقة التفعيل**", callback_data="kdkdodas"),
+            InlineKeyboardButton(text="طريقة التشغيل", callback_data="kdkdklodas"),
+            InlineKeyboardButton(text="طريقة التفعيل", callback_data="kdkdodas"),
         ],
         [
             InlineKeyboardButton(text="الجروب", url=f"https://t.me/B_X_N1"),
