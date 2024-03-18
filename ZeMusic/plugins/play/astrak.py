@@ -7,6 +7,7 @@ from ZeMusic import app
 
 channel = "BPHEE"
 async def subscription(_, __: Client, message: Message):
+    user_id = message.from_user.id
     try: await app.get_chat_member(channel, user_id)
     except UserNotParticipant: return False
     return True
@@ -22,7 +23,7 @@ async def checker(_: Client, message: Message):
         [Button("𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥", url=f"https://t.me/{channel}")]
     ])
     await message.reply(
-        f"عذرًا عزيزي {user}عليك الإشتراك بقناة السورس أولا.",
+        f"عذرًا عزيزي {user}عليك الإشتراك بقناة السور أولا.",
         reply_markup = markup
     )
     
