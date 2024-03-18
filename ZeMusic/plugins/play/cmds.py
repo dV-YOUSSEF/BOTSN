@@ -719,3 +719,28 @@ async def zzzsu(_, query: CallbackQuery):
           ]
         ),
     )
+
+@app.on_callback_query(filters.regex("kdkdodas") & SUDOERS)
+async def zzzas(_, query: CallbackQuery):
+   await query.edit_message_text(
+       f"""
+↯︙<b>قائمة اوامر المطور :</b>
+– – – – – – – – – – – – – – – – – –
+<b>↯︙قائمة اوامر المساعد :</b>
+– – – – – – – – – – – – – – – – – –
+السجل ⦗ تفعيل / تعطيل ⦘
+<b>- ل تفعيل/تعطيل اشعارات مجموعة سجل البوت</b>
+– – – – – – – – – – – – – – – – – –
+⦗ المغادره التلقائيه ⦗ تفعيل / تعطيل
+<b>- ل تفعيل/تعطيل المغادره التلقائيه ل الحساب المساعد من المجموعات عند عدم استخدام الميوزك</b>
+
+""",
+       reply_markup=InlineKeyboardMarkup(
+          [
+               [
+                    InlineKeyboardButton(
+                        "القائمه الرئيسيه ⏺", callback_data="zzzdv"),
+               ],
+          ]
+        ),
+   )
