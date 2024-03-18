@@ -1,46 +1,53 @@
+import asyncio
+
+from pyrogram import filters
+from pyrogram.enums import ChatMembersFilter
+from pyrogram.errors import FloodWait
+
+from ZeMusic import app
+from ZeMusic.misc import SUDOERS
+from ZeMusic.utils.database import (
+    get_active_chats,
+    get_authuser_names,
+    get_client,
+    get_served_chats,
+    get_served_users,
+)
+from ZeMusic.utils.decorators.language import language
+from ZeMusic.utils.formatters import alpha_to_int
+from ZeMusic.plugins.play.filters import command
+from config import adminlist
+
+IS_BROADCASTING = False
+
+
 @app.on_message(command(["اذاعه", "/broadcast", "ذيع"]) & SUDOERS)
 @language
-async def broadcast_message(client, message, _):
+async def braodcast_message(client, message, _):
     global IS_BROADCASTING
     if message.reply_to_message:
-        if hasattr(message.reply_to_message, 'message_id'):
-            x = message.reply_to_message.message_id
-            y = message.chat.id
-        else:
-            # إذا لم يكن للرسالة رد، أو إذا كانت الرسالة الرد عليها ليست من نوع Message
-            return await message.reply_text("يرجى الرد على الرسالة التي ترغب في إرسالها.")
+        x = message.reply_to_message.id
+        y = message.chat.id
     else:
-        # في حالة عدم وجود رسالة رد
-        return await message.reply_text("يرجى الرد على الرسالة التي ترغب في إرسالها.")
-
-    if len(message.command) < 2:
-        return await message.reply_text(_["broad_2"])
-
-    query = message.text.split(None, 1)[1]
-    pin_message = False
-    forward_message = False
-    if "بالتثبيت" in query:
-        query = query.replace("بالتثبيت", "")
-        pin_message = True
-    elif "بالتحويل" in query:
-        query = query.replace("بالتحويل", "")
-        forward_message = True
-
-    if "-nobot" in query:
-        query = query.replace("-nobot", "")
-    if "-pinloud" in query:
-        query = query.replace("-pinloud", "")
-    if "-assistant" in query:
-        query = query.replace("-assistant", "")
-    if "-user" in query:
-        query = query.replace("-user", "")
-    if query == "":
-        return await message.reply_text(_["broad_8"])
+        if len(message.command) < 2:
+            return await message.reply_text(_["broad_2"])
+        query = message.text.split(None, 1)[1]
+        if "بالتثبيت" in query:
+            query = query.replace("بالتثبيت", "")
+        if "-nobot" in query:
+            query = query.replace("-nobot", "")
+        if "-pinloud" in query:
+            query = query.replace("-pinloud", "")
+        if "-assistant" in query:
+            query = query.replace("-assistant", "")
+        if "-user" in query:
+            query = query.replace("-user", "")
+        if query == "":
+            return await message.reply_text(_["broad_8"])
 
     IS_BROADCASTING = True
     await message.reply_text(_["broad_1"])
 
-    # إرسال الرسالة وتحديد السلوك المطلوب
     if "-nobot" not in message.text:
         sent = 0
         pin = 0
@@ -55,12 +62,18 @@ async def broadcast_message(client, message, _):
                     if message.reply_to_message
                     else await app.send_message(i, text=query)
                 )
-                if pin_message:
+                if "-pin" in message.text:
                     try:
                         await m.pin(disable_notification=True)
                         pin += 1
-                    except Exception as e:
-                        print(f"Failed to pin message: {e}")
+                    except:
+                        continue
+                elif "-pinloud" in message.text:
+                    try:
+                        await m.pin(disable_notification=False)
+                        pin += 1
+                    except:
+                        continue
                 sent += 1
                 await asyncio.sleep(0.2)
             except FloodWait as fw:
@@ -68,15 +81,13 @@ async def broadcast_message(client, message, _):
                 if flood_time > 200:
                     continue
                 await asyncio.sleep(flood_time)
-            except Exception as e:
-                print(f"Failed to send message: {e}")
+            except:
                 continue
         try:
             await message.reply_text(_["broad_3"].format(sent, pin))
         except:
             pass
 
-    # إذا كانت هناك كلمة مفتاحية -user في الرسالة
     if "-user" in message.text:
         susr = 0
         served_users = []
@@ -104,12 +115,12 @@ async def broadcast_message(client, message, _):
         except:
             pass
 
-    # إذا كانت هناك كلمة مفتاحية -assistant في الرسالة
     if "-assistant" in message.text:
         aw = await message.reply_text(_["broad_5"])
         text = _["broad_6"]
         from ZeMusic.core.userbot import assistants
 
+        total_groups = 0  # Initialize the counter for total groups
         for num in assistants:
             sent = 0
             client = await get_client(num)
@@ -121,6 +132,7 @@ async def broadcast_message(client, message, _):
                         dialog.chat.id, text=query
                     )
                     sent += 1
+                    total_groups += 1  # Increment the counter for each group
                     await asyncio.sleep(3)
                 except FloodWait as fw:
                     flood_time = int(fw.value)
@@ -132,6 +144,30 @@ async def broadcast_message(client, message, _):
             text += _["broad_7"].format(num, sent)
         try:
             await aw.edit_text(text)
+            await message.reply_text(f"تم الإنتهاء من الإذاعة في {total_groups} مجموعة.")
         except:
             pass
     IS_BROADCASTING = False
+
+
+async def auto_clean():
+    while not await asyncio.sleep(10):
+        try:
+            served_chats = await get_active_chats()
+            for chat_id in served_chats:
+                if chat_id not in adminlist:
+                    adminlist[chat_id] = []
+                    async for user in app.get_chat_members(
+                        chat_id, filter=ChatMembersFilter.ADMINISTRATORS
+                    ):
+                        if user.privileges.can_manage_video_chats:
+                            adminlist[chat_id].append(user.user.id)
+                    authusers = await get_authuser_names(chat_id)
+                    for user in authusers:
+                        user_id = await alpha_to_int(user)
+                        adminlist[chat_id].append(user_id)
+        except:
+            continue
+
+
+asyncio.create_task(auto_clean())
