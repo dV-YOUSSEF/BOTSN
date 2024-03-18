@@ -433,8 +433,9 @@ async def tmute_command_handler(client, message):
     if result == False:
         await message.reply_text(msg_text)
         
-@app.on_message(filters.command(["warn", "dwarn", "تحذير", "انذار"], "") & filters.group)
-async def warn_user(_, message: Message):
+# تعريف الأمر
+@app.on_message(filters.command(["warn", "dwarn", "تحذير", "انذار"], "") & filters.group & filters.create(lambda _, __, update: update.from_user and update.chat.permissions.can_restrict_members))
+async def warn_user(client, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     chat_id = message.chat.id
     if not user_id:
