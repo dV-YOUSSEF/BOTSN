@@ -21,12 +21,12 @@ from config import adminlist
 IS_BROADCASTING = False
 
 
-@app.on_message(command(["اذاعه", "/broadcast"]) & SUDOERS)
+@app.on_message(command(["اذاعه", "/broadcast", "ذيع"]) & SUDOERS)
 @language
-async def braodcast_message(client, message, _):
+async def broadcast_message(client, message, _):
     global IS_BROADCASTING
     if message.reply_to_message:
-        x = message.reply_to_message.id
+        x = message.reply_to_message.message_id
         y = message.chat.id
     else:
         if len(message.command) < 2:
@@ -34,6 +34,13 @@ async def braodcast_message(client, message, _):
         query = message.text.split(None, 1)[1]
         if "بالتثبيت" in query:
             query = query.replace("بالتثبيت", "")
+            pin_message = True
+        elif "بالتحويل" in query:
+            query = query.replace("بالتحويل", "")
+            forward_message = True
+        else:
+            pin_message = False
+            forward_message = False
         if "-nobot" in query:
             query = query.replace("-nobot", "")
         if "-pinloud" in query:
@@ -48,6 +55,7 @@ async def braodcast_message(client, message, _):
     IS_BROADCASTING = True
     await message.reply_text(_["broad_1"])
 
+    # إرسال الرسالة وتحديد السلوك المطلوب
     if "-nobot" not in message.text:
         sent = 0
         pin = 0
@@ -62,18 +70,12 @@ async def braodcast_message(client, message, _):
                     if message.reply_to_message
                     else await app.send_message(i, text=query)
                 )
-                if "-pin" in message.text:
+                if pin_message:
                     try:
                         await m.pin(disable_notification=True)
                         pin += 1
-                    except:
-                        continue
-                elif "-pinloud" in message.text:
-                    try:
-                        await m.pin(disable_notification=False)
-                        pin += 1
-                    except:
-                        continue
+                    except Exception as e:
+                        print(f"Failed to pin message: {e}")
                 sent += 1
                 await asyncio.sleep(0.2)
             except FloodWait as fw:
@@ -81,13 +83,15 @@ async def braodcast_message(client, message, _):
                 if flood_time > 200:
                     continue
                 await asyncio.sleep(flood_time)
-            except:
+            except Exception as e:
+                print(f"Failed to send message: {e}")
                 continue
         try:
             await message.reply_text(_["broad_3"].format(sent, pin))
         except:
             pass
 
+    # إذا كانت هناك كلمة مفتاحية -user في الرسالة
     if "-user" in message.text:
         susr = 0
         served_users = []
@@ -115,6 +119,7 @@ async def braodcast_message(client, message, _):
         except:
             pass
 
+    # إذا كانت هناك كلمة مفتاحية -assistant في الرسالة
     if "-assistant" in message.text:
         aw = await message.reply_text(_["broad_5"])
         text = _["broad_6"]
