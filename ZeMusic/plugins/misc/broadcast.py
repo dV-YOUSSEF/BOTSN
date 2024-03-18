@@ -26,31 +26,39 @@ IS_BROADCASTING = False
 async def broadcast_message(client, message, _):
     global IS_BROADCASTING
     if message.reply_to_message:
-        x = message.reply_to_message.message_id
-        y = message.chat.id
-    else:
-        if len(message.command) < 2:
-            return await message.reply_text(_["broad_2"])
-        query = message.text.split(None, 1)[1]
-        if "بالتثبيت" in query:
-            query = query.replace("بالتثبيت", "")
-            pin_message = True
-        elif "بالتحويل" in query:
-            query = query.replace("بالتحويل", "")
-            forward_message = True
+        if hasattr(message.reply_to_message, 'message_id'):
+            x = message.reply_to_message.message_id
+            y = message.chat.id
         else:
-            pin_message = False
-            forward_message = False
-        if "-nobot" in query:
-            query = query.replace("-nobot", "")
-        if "-pinloud" in query:
-            query = query.replace("-pinloud", "")
-        if "-assistant" in query:
-            query = query.replace("-assistant", "")
-        if "-user" in query:
-            query = query.replace("-user", "")
-        if query == "":
-            return await message.reply_text(_["broad_8"])
+            # إذا لم يكن للرسالة رد، أو إذا كانت الرسالة الرد عليها ليست من نوع Message
+            return await message.reply_text("يرجى الرد على الرسالة التي ترغب في إرسالها.")
+    else:
+        # في حالة عدم وجود رسالة رد
+        return await message.reply_text("يرجى الرد على الرسالة التي ترغب في إرسالها.")
+        
+    if len(message.command) < 2:
+        return await message.reply_text(_["broad_2"])
+    
+    query = message.text.split(None, 1)[1]
+    pin_message = False
+    forward_message = False
+    if "بالتثبيت" in query:
+        query = query.replace("بالتثبيت", "")
+        pin_message = True
+    elif "بالتحويل" in query:
+        query = query.replace("بالتحويل", "")
+        forward_message = True
+
+    if "-nobot" in query:
+        query = query.replace("-nobot", "")
+    if "-pinloud" in query:
+        query = query.replace("-pinloud", "")
+    if "-assistant" in query:
+        query = query.replace("-assistant", "")
+    if "-user" in query:
+        query = query.replace("-user", "")
+    if query == "":
+        return await message.reply_text(_["broad_8"])
 
     IS_BROADCASTING = True
     await message.reply_text(_["broad_1"])
