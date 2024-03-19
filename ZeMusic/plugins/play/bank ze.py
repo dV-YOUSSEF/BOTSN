@@ -977,6 +977,9 @@ def top_accounts(client, message):
         num_accounts = int(command_parts[1])
     except IndexError:
         num_accounts = 20  # افتراضيًا، إذا لم يتم تحديد عدد الحسابات، سيتم عرض أول 20 حسابًا
+    except ValueError:
+        client.send_message(message.chat.id, "يرجى استخدام رقم صحيح.")
+        return
 
     bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
