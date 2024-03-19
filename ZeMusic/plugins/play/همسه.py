@@ -46,12 +46,12 @@ async def send_hms(client, message):
         await message.reply_text("-> تم ارسال الهمسة.\n√")
         
         await app.send_message(
-            chat_id=in_id,
-            text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسة من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
-            ),
-        )
+    chat_id=in_id,
+    text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}](tg://openmessage?user_id={to_id})\n╢ لديك همسة من البني آدم دا [{(await app.get_chat(from_id)).first_name}](tg://openmessage?user_id={from_id})\n╜انت فقط من يستطيع رؤيتها 🔐",
+    reply_markup=InlineKeyboardMarkup(
+        [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
+    ),
+)
         
         waiting_for_hms = False
      
