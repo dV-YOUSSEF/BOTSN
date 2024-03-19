@@ -57,14 +57,12 @@ async def muid(client, message):
     bioo = user.bio
     photo = user.photo.big_file_id
     photo = await app.download_media(photo)
-    if not id.get(message.from_user.id):
-        id[user.id] = []
-    idd = len(id[user.id])
+    idd = len(id.get(user_id, []))
     await message.reply_photo(
         photo=photo,
         caption=f"**name : {first_name}\nid : {user_id}\nuser : [@{username}]\nbio : {bioo}**",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton(f"{idd} ❤️", callback_data=f"heart{user_id}")],]
+            [[InlineKeyboardButton(f"{idd} 🤍", callback_data=f"heart{user_id}")],]
         ),
     )
 
@@ -74,17 +72,17 @@ id = {}
 async def heart(_, query: CallbackQuery):
     callback_data = query.data.strip()
     callback_request = callback_data.replace("heart", "")
-    username = int(callback_request)
-    usr = await app.get_chat(username)
-    if not query.from_user.mention in id[usr.id]:
-        id[usr.id].append(query.from_user.mention)
+    user_id = int(callback_request)
+    user = await app.get_chat(user_id)
+    if not query.from_user.mention in id.get(user_id, []):
+        id[user_id] = id.get(user_id, []) + [query.from_user.mention]
     else:
-        id[usr.id].remove(query.from_user.mention)
-    idd = len(id[usr.id])
+        id[user_id].remove(query.from_user.mention)
+    idd = len(id.get(user_id, []))
     await query.edit_message_text(
-        f"**name : {usr.first_name}\nid : {usr.id}\nuser : [@{usr.username}]\nbio : {usr.bio}**",
+        f"**name : {user.first_name}\nid : {user_id}\nuser : [@{user.username}]\nbio : {user.bio}**",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton(f"{idd} ❤️", callback_data=f"heart{usr.id}")]]
+            [[InlineKeyboardButton(f"{idd} 🤍", callback_data=f"heart{user_id}")]]
         ),
     )
 
