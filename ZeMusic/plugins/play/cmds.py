@@ -743,7 +743,7 @@ async def mpdtsf(_, query: CallbackQuery):
                     InlineKeyboardButton(text="الجروب", url=f"https://t.me/B_X_N1"),
                     InlineKeyboardButton(text="القناة", url=f"https://t.me/BPHEE"),
                 ],[
-                    InlineKeyboardButton(text="𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅", user_id=config.OWNER_ID),
+                    InlineKeyboardButton(text="𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅", url=f"https://t.me/JOO_B_R_Z"),
                 ],
             ]
         ),
@@ -765,7 +765,7 @@ async def zzzas(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "القائمه الرئيسيه ⏺", callback_data="start_1"),
+                        "القائمه الرئيسيه ⏺", callback_data="snaiper"),
                ],
           ]
         ),
