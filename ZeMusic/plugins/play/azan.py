@@ -21,8 +21,26 @@ from pyrogram.errors import (
 
 cairo_timezone = pytz.timezone('Africa/Cairo')
 
-
 azan_enabled_chats = []
+
+async def stop_azan(client, loop):
+    for chat_id in azan_enabled_chats:
+        calll = await get_call(client.me.username)
+        await loop.run_until_complete(calll.leave_group_call(chat_id))
+
+async def play_azan(client, message, loop):
+    calll = await get_call(client.me.username)
+    user = await get_userbot(client.me.username)
+    try:
+        await loop.run_until_complete(calll.join_group_call(message.chat.id, AudioPiped("./ZeMusic/assets/azan.m4a"), stream_type=StreamType().pulse_stream))
+        await asyncio.sleep(5)
+        await loop.run_until_complete(calll.leave_group_call(message.chat.id))
+    except NoActiveGroupCall:
+        await message.reply("❌ عذرًا، المكالمة غير مفتوحة حاليًا.")
+    except AlreadyJoinedError:
+        await message.reply("🔄 برجاء كتابة ريلود أو استخدام الأمر /reload.")
+    except TelegramServerError:
+        await message.reply("❗ حدثت مشكلة، من فضلك حاول مرة أخرى.")
 
 @app.on_message(filters.text & ~filters.private, group=20)
 async def handle_azan_command(c, msg):
@@ -40,24 +58,6 @@ async def handle_azan_command(c, msg):
         else:
             await msg.reply_text("الأذان معطل بالفعل في هذه المجموعة")
 
-async def stop_azan(client):
-    for chat_id in azan_enabled_chats:
-        calll = await get_call(client.me.username)
-        await calll.leave_group_call(chat_id)
-
-async def play_azan(client, message):
-    calll = await get_call(client.me.username)
-    user = await get_userbot(client.me.username)
-    try:
-        await calll.join_group_call(message.chat.id, AudioPiped("./ZeMusic/assets/azan.m4a"), stream_type=StreamType().pulse_stream)  
-        await asyncio.sleep(5)
-        await calll.leave_group_call(message.chat.id)
-    except NoActiveGroupCall:
-        await message.reply("❌ عذرًا، المكالمة غير مفتوحة حاليًا.")
-    except AlreadyJoinedError:
-        await message.reply("🔄 برجاء كتابة ريلود أو استخدام الأمر /reload.")
-    except TelegramServerError:
-        await message.reply("❗ حدثت مشكلة، من فضلك حاول مرة أخرى.")
 def get_prayer_time():
     try:
         prayer_times_response = requests.get("http://api.aladhan.com/timingsByAddress?address=Cairo&method=4&school=0").json()
@@ -83,14 +83,16 @@ def get_prayer_time():
         asyncio.sleep(4)
         print(e)
 
-async def azan_scheduler():
+async def azan_scheduler(loop):
     while True:
         prayer_time = get_prayer_time()
         if prayer_time:
-            await stop_azan()
+            await stop_azan(app, loop)
             for chat_id in azan_enabled_chats:
                 await app.send_message(chat_id, f"حان الآن وقت {prayer_time}، جاري تشغيل الآذان...")
-                await play_azan(chat_id)
+                await play_azan(app, chat_id, loop)
             await asyncio.sleep(177)
         await asyncio.sleep(2)
-asyncio.create_task(azan_scheduler())
+
+loop = asyncio.get_event_loop()
+asyncio.create_task(azan_scheduler(loop))
