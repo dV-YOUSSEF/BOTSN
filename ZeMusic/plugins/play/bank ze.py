@@ -973,13 +973,14 @@ def top_thieves(client, message):
 @app.on_message(command("توب"))
 def top_accounts(client, message):
     command_parts = message.text.split()
-    try:
-        num_accounts = int(command_parts[1])
-    except IndexError:
-        num_accounts = 20  # افتراضيًا، إذا لم يتم تحديد عدد الحسابات، سيتم عرض أول 20 حسابًا
-    except ValueError:
-        client.send_message(message.chat.id, "يرجى استخدام رقم صحيح.")
-        return
+    num_accounts = 20  # الحد الأقصى لعدد الحسابات الافتراضي
+
+    if len(command_parts) > 1:
+        try:
+            num_accounts = min(int(command_parts[1]), 20)  # لا يمكن تجاوز 20 حسابًا
+        except ValueError:
+            client.send_message(message.chat.id, "يرجى استخدام رقم صحيح.")
+            return
 
     bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
@@ -991,12 +992,6 @@ def top_accounts(client, message):
         account_balance = bank_data['accounts'][account_id]['balance']
         response += f"{get_medal_emoji(i)} ) {account_balance}‎ 💸 l @{account_username}\n"
     
-    response += "\n━━━━━━━━━\n# أنت ) "
-    current_user_id = message.sender.id
-    current_user_balance = bank_data['accounts'].get(current_user_id, {}).get('balance', 0)
-    current_user_username = client.get_chat(current_user_id).username
-    response += f"{current_user_balance} 💸 l @{current_user_username}"
-
     client.send_message(message.chat.id, response)
 
 def get_medal_emoji(rank):
