@@ -18,23 +18,23 @@ async def reply_with_link(client, message):
     await message.reply_text("\n╢ إضغط لإرسال همسه!\n", reply_markup=reply_markup)
 
 waiting_for_hms = False
-@app.on_message(filters.command("start"),group=89)
+@app.on_message(filters.command("start"), group=89)
 async def hms_start(client, message):
     if message.text.split(" ", 1)[-1].startswith("hms"):
         global waiting_for_hms, hms_ids
         hms_ids = message.text
         waiting_for_hms = True
         await message.reply_text(
-            "-> أرسل الهمسه الآن.\n√",
+            "-> أرسل الهمسة الآن.\n√",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("إلغاء ❌️", callback_data="hms_cancel")]]
             ),
         )
 
-@app.on_message(filters.private & filters.text & ~filters.command("start"),group=88)
+@app.on_message(filters.private & filters.text & ~filters.command("start"), group=88)
 async def send_hms(client, message):
     global waiting_for_hms
-    if waiting_for_hms:    
+    if waiting_for_hms:
         to_id = int(hms_ids.split("to")[-1].split("in")[0])
         from_id = int(hms_ids.split("hms")[-1].split("to")[0])
         in_id = int(hms_ids.split("in")[-1])
@@ -43,13 +43,13 @@ async def send_hms(client, message):
         
         hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
         
-        await message.reply_text("-> تم ارسال الهمسه.\n√")
+        await message.reply_text("-> تم ارسال الهمسة.\n√")
         
         await app.send_message(
             chat_id=in_id,
-            text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
+            text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسة من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("- اضغط لرؤية الهمسه 👀", callback_data="hms_answer")]]
+                [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
             ),
         )
         
