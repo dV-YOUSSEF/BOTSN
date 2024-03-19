@@ -9,10 +9,7 @@ import pytz
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.exceptions import NoActiveGroupCall, TelegramServerError, AlreadyJoinedError
-from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
-
-from ZeMusic.Data import get_call, get_userbot
-
+from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipan
 
 cairo_timezone = pytz.timezone('Africa/Cairo')
 
