@@ -972,21 +972,16 @@ def top_thieves(client, message):
 
 @app.on_message(command("توب"))
 def top_accounts(client, message):
-    # Get the number from the command message
+    command_parts = message.text.split()
     try:
-        command_parts = message.text.split()
         num_accounts = int(command_parts[1])
     except IndexError:
-        client.send_message(message.chat.id, "يرجى تحديد عدد الحسابات المراد عرضها.")
-        return
-    except ValueError:
-        client.send_message(message.chat.id, "يرجى استخدام رقم صحيح.")
-        return
+        num_accounts = 20  # افتراضيًا، إذا لم يتم تحديد عدد الحسابات، سيتم عرض أول 20 حسابًا
 
     bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
-    top_accounts = sorted_accounts[:num_accounts]  # Get the top accounts based on the specified number
-    response = "أعلى الحسابات بالأموال:\n\n"
+    top_accounts = sorted_accounts[:num_accounts]
+    response = f"أعلى {num_accounts} أشخاص بأموال:\n\n"
     
     for i, account_id in enumerate(top_accounts, 1):
         account_username = client.get_chat(account_id).username
