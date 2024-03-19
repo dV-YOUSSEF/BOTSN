@@ -6,7 +6,6 @@ from pyrogram import filters
 import datetime
 from ZeMusic import app
 from pyrogram import Client, filters
-import schedule
 
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££#
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
