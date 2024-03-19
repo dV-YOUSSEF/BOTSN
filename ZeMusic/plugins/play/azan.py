@@ -83,7 +83,8 @@ def get_prayer_time():
         asyncio.sleep(4)
         print(e)
 
-async def azan_scheduler(loop):
+async def azan_scheduler():
+    loop = asyncio.get_running_loop()
     while True:
         prayer_time = get_prayer_time()
         if prayer_time:
@@ -94,5 +95,4 @@ async def azan_scheduler(loop):
             await asyncio.sleep(177)
         await asyncio.sleep(2)
 
-loop = asyncio.get_event_loop()
-asyncio.create_task(azan_scheduler(loop))
+asyncio.run(azan_scheduler())
