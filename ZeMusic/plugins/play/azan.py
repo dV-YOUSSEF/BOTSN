@@ -2,14 +2,22 @@ import asyncio
 from pyrogram import filters
 from pyrogram.errors import FloodWait
 from pyrogram.raw import types
-from pyrogram import Client as app
+from ZeMusic import app
+import random
 from datetime import datetime
 import requests
 import pytz
+from ZeMusic.core.call import Mody
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-from pytgcalls.exceptions import NoActiveGroupCall, TelegramServerError, AlreadyJoinedError
-from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipan
+from ZeMusic.core.call import Mody
+from ZeMusic.utils.database import *
+from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
+from pyrogram.errors import (
+    ChatAdminRequired,
+    UserAlreadyParticipant,
+    UserNotParticipant,
+)
 
 cairo_timezone = pytz.timezone('Africa/Cairo')
 
@@ -41,7 +49,7 @@ async def play_azan(client, message):
     calll = await get_call(client.me.username)
     user = await get_userbot(client.me.username)
     try:
-        await calll.join_group_call(message.chat.id, AudioPiped("./ZeMusic/assets/azan.m4a"), stream_type=StreamType().pulse_stream)  
+        await calll.join_group_call(message.chat.id, AudioPiped("./source/azan.mp3"), stream_type=StreamType().pulse_stream)  
         await asyncio.sleep(5)
         await calll.leave_group_call(message.chat.id)
     except NoActiveGroupCall:
