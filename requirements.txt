@@ -3,7 +3,6 @@ aiofiles
 aiohttp
 asyncio
 beautifulsoup4
-schedule
 dnspython
 ffmpeg-python
 gitpython
