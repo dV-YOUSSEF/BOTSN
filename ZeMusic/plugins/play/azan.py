@@ -44,7 +44,7 @@ async def play_azan(client, message):
     calll = await get_call(client.me.username)
     user = await get_userbot(client.me.username)
     try:
-        await calll.join_group_call(message.chat.id, AudioPiped("./source/azan.mp3"), stream_type=StreamType().pulse_stream)  
+        await calll.join_group_call(message.chat.id, AudioPiped("./ZeMusic/assets/azan.m4a"), stream_type=StreamType().pulse_stream)  
         await asyncio.sleep(5)
         await calll.leave_group_call(message.chat.id)
     except NoActiveGroupCall:
