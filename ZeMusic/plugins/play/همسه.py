@@ -18,25 +18,20 @@ async def reply_with_link(client, message):
     await message.reply_text("\n╢ إضغط لإرسال همسه!\n", reply_markup=reply_markup)
 
 waiting_for_hms = False
-@app.on_message(filters.command("start"))
+@app.on_message(filters.command("start"),group=89)
 async def hms_start(client, message):
     if message.text.split(" ", 1)[-1].startswith("hms"):
-        hms_1= message.text.split(" ", 1)[-1].startswith("hms")
-        hms_id = hms_1.split("to")[0]
-        hms_rep_id = hms_1.split("to")[1].split("in")[0]
-        hms_chat_id = hms_1.split("to")[1].split("in")[1]
-        to_url = f"tg://openmessage?user_id={hms_id}"
-        from_url = f"tg://openmessage?user_id={hms_rep_id}"
-        await message.reply_text("-> تم ارسال الهمسه.\n√")
-        await app.send_message(
-            chat_id=hms_chat_id,
-            text=f"╖ المستخدم [{(await app.get_chat(hms_id)).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{(await app.get_chat(hms_rep_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
+        global waiting_for_hms, hms_ids
+        hms_ids = message.text
+        waiting_for_hms = True
+        await message.reply_text(
+            "-> أرسل الهمسه الآن.\n√",
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("- اضغط لرؤية الهمسه 👀", callback_data="hms_answer")]]
+                [[InlineKeyboardButton("إلغاء ❌️", callback_data="hms_cancel")]]
             ),
         )
 
-@app.on_message(filters.private & filters.text & ~filters.command("start"))
+@app.on_message(filters.private & filters.text & ~filters.command("start"),group=88)
 async def send_hms(client, message):
     global waiting_for_hms
     if waiting_for_hms:    
