@@ -6,7 +6,7 @@ from pyrogram import filters
 import datetime
 from ZeMusic import app
 from pyrogram import Client, filters
-
+import schedule
 
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££#
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
@@ -982,29 +982,32 @@ def top_accounts(client, message):
             client.send_message(message.chat.id, "يرجى استخدام رقم صحيح.")
             return
 
+    send_top_accounts(client, message, num_accounts)
+
+def send_top_accounts(client, message, num_accounts):
     bank_data = load_bank_data()
-    sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
+    sorted_accounts = sorted(bank_data[accounts], key=lambda x: bank_data[accounts][x][balance], reverse=True)
     top_accounts = sorted_accounts[:num_accounts]
     response = f"أعلى {num_accounts} أشخاص بأموال:\n\n"
     
     for i, account_id in enumerate(top_accounts, 1):
         account_username = client.get_chat(account_id).username
-        account_balance = bank_data['accounts'][account_id]['balance']
+        account_balance = bank_data[accounts][account_id][balance]
         response += f"{get_medal_emoji(i)} ) {account_balance}‎ 💸 l @{account_username}\n"
+    
+    # إضافة السطر الفاصل بين قائمة الأشخاص ورسالة التحديث
+    response += "━━━━━━━━━\n"
     
     client.send_message(message.chat.id, response)
 
-def get_medal_emoji(rank):
-    if rank == 1:
-        return "🥇"
-    elif rank == 2:
-        return "🥈"
-    elif rank == 3:
-        return "🥉"
-    else:
-        return f"{rank}"
+    # إضافة رسالة بتحديث القائمة كل 5 دقائق
+    client.send_message(message.chat.id, "القائمة ستتحدث كل 5 دقائق.")
 
+def reload_top_accounts():
+    send_top_accounts(client, message, 20)
 
+schedule.every(5).minutes.do(reload_top_accounts)
 
-
-
+while True:
+    schedule.run_pending()
+    time.sleep(1)
