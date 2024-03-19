@@ -765,7 +765,7 @@ async def zzzas(_, query: CallbackQuery):
           [
                [
                     InlineKeyboardButton(
-                        "القائمه الرئيسيه ⏺", callback_data="snaiper"),
+                        "القائمه الرئيسيه ⏺", callback_data="start_1"),
                ],
           ]
         ),
