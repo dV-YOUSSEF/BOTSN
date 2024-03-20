@@ -418,26 +418,10 @@ def check_balance(client, message):
     bank_data = load_bank_data()
     
     if str(user_id) in bank_data['accounts']:
-        if bank_data['accounts'][str(user_id)]['balance'] > 0:
-            balance = bank_data['accounts'][str(user_id)]['balance']
-            client.send_message(message.chat.id, f'فلوسك هي: {balance} دولار')
-        else:
-            client.send_message(message.chat.id, 'ليس لديك فلوس، ابدأ باللعب واجمع!')
+        balance = bank_data['accounts'][str(user_id)]['balance']
+        client.send_message(message.chat.id, f'رصيدك الحالي هو: {balance} دولار')
     else:
-        client.send_message(message.chat.id, 'ليس لديك حساب بنكي!')
-
-@app.on_message(command('ابدا بلعب واجمع'))
-def start_playing(client, message):
-    user_id = message.from_user.id
-    bank_data = load_bank_data()
-    
-    if str(user_id) in bank_data['accounts']:
-        if bank_data['accounts'][str(user_id)]['balance'] == 0:
-            client.send_message(message.chat.id, 'ابدأ باللعب وجمع الفلوس!')
-        else:
-            client.send_message(message.chat.id, 'أنت بالفعل تمتلك فلوس، يمكنك اللعب وجمع المزيد!')
-    else:
-        client.send_message(message.chat.id, 'ابدأ بفتح حساب بنكي لتبدأ في اللعب وجمع الفلوس.')
+        client.send_message(message.chat.id, 'ليس لديك حساب بنكي')
 
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££#
 #######£££££££££££££££#######££££££££££#############££££££££££#########££££
@@ -983,38 +967,46 @@ def top_thieves(client, message):
 
 
 
-@app.on_message(command("توب فلوس"))
-def top_money(client, message):
-    user_chat_id = message.chat.id
+
+
+
+@app.on_message(command("توب"))
+def top_accounts(client, message):
+    command_parts = message.text.split()
+    try:
+        num_accounts = int(command_parts[1])
+    except IndexError:
+        num_accounts = 20  # افتراضيًا، إذا لم يتم تحديد عدد الحسابات، سيتم عرض أول 20 حسابًا
+
     bank_data = load_bank_data()
-    user_bank_accounts = get_user_bank_accounts(user_chat_id, bank_data)
-    
-    if not user_bank_accounts:
-        client.send_message(message.chat.id, "لم تقم بإنشاء حساب بنكي في هذه الدردشة بعد.")
-        return
-    
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
-    top_accounts = sorted_accounts[:20]  # احصل على أول 20 حساب بالأموال الأعلى
-    response = "توب 20 أغنى أشخاص:\n\n"
+    top_accounts = sorted_accounts[:num_accounts]
+    response = f"أعلى {num_accounts} أشخاص بأموال:\n\n"
     
-    for i in range(len(top_accounts)):
-        account_id = top_accounts[i]
-        account_info = bank_data['accounts'][account_id]
-        account_username = account_info['username']
-        account_balance = account_info['balance']
-        response += f"{get_rank_symbol(i+1)} ) {account_balance}‎ 💸 l {account_username}\n"
+    for i, account_id in enumerate(top_accounts, 1):
+        account_username = client.get_chat(account_id).username
+        account_balance = bank_data['accounts'][account_id]['balance']
+        response += f"{get_medal_emoji(i)} ) {account_balance}‎ 💸 l @{account_username}\n"
     
-    # إضافة المستخدم الحالي إلى القائمة إذا كان لديه حساب بنكي
-    if user_chat_id in bank_data['accounts']:
-        user_balance = bank_data['accounts'][user_chat_id]['balance']
-        response += f"{get_rank_symbol(0)} ) {user_balance}‎ 💸 l @{message.from_user.username}\n"
-    else:
-        response += f"{get_rank_symbol(0)} ) 0 ‎💸 l @{message.from_user.username}\n"
-    
-    response += "━━━━━━━━━\n"
-    
-    response += "\n- القائمة تتحدث كل 5:00 دقائق"
-    
+    response += "\n━━━━━━━━━\n# أنت ) "
+    current_user_id = message.sender.id
+    current_user_balance = bank_data['accounts'].get(current_user_id, {}).get('balance', 0)
+    current_user_username = client.get_chat(current_user_id).username
+    response += f"{current_user_balance} 💸 l @{current_user_username}"
+
     client.send_message(message.chat.id, response)
 
-    
+def get_medal_emoji(rank):
+    if rank == 1:
+        return "🥇"
+    elif rank == 2:
+        return "🥈"
+    elif rank == 3:
+        return "🥉"
+    else:
+        return f"{rank}"
+
+
+
+
+
