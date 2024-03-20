@@ -988,14 +988,14 @@ def top_money(client, message):
             continue
         account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
         account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"{get_medal(index)} ) {account_balance} ‎💸 l @{account_username}\n"
+        response += f"{get_medal(index)} ) {account_balance} ‎💸 l @{account_first_name}\n"
     
     response += "━━━━━━━━━\n# You )"
     your_account_id = message.from_user.id
     if your_account_id in bank_data['accounts']:
         your_balance = bank_data['accounts'][your_account_id]['balance']
         your_username = message.from_user.username if message.from_user.username else "مجهول"
-        response += f" {your_balance} ‎💸 l @{your_username}\n"
+        response += f" {your_balance} ‎💸 l @{your_first_name}\n"
     else:
         response += "لم يتم العثور على حسابك.\n"
     
@@ -1007,9 +1007,3 @@ def get_medal(index):
         return medals[index - 1]
     else:
         return f" {index:2d}"
-
-
-
-
-
-
