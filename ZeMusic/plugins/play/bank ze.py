@@ -970,7 +970,7 @@ def top_thieves(client, message):
 
 
 
-@app.on_message(command("توب"))
+@app.on_message(filters.command("توب"))
 def top_accounts(client, message):
     command_parts = message.text.split()
     try:
