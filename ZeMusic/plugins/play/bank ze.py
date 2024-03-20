@@ -973,20 +973,31 @@ def top_thieves(client, message):
 @app.on_message(command("توب فلوس"))
 def top_money(client, message):
     bank_data = load_bank_data()
+
+    if 'accounts' not in bank_data:
+        client.send_message(message.chat.id, "لا يوجد حسابات متاحة حاليًا.")
+        return
+
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
 
     top_accounts = sorted_accounts[:20]  # احصل على أول 20 حسابًا بأعلى أموال
     response = "توب 20 أغنى شخص:\n\n"
 
     for index, account_id in enumerate(top_accounts, start=1):
-        account_username = client.get_chat(account_id).username
+        if account_id not in bank_data['accounts']:
+            continue
+        account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
         account_balance = bank_data['accounts'][account_id]['balance']
         response += f"{get_medal(index)} ) {account_balance} ‎💸 l @{account_username}\n"
     
     response += "━━━━━━━━━\n# You )"
     your_account_id = message.from_user.id
-    your_balance = bank_data['accounts'][your_account_id]['balance']
-    response += f" {your_balance} ‎💸 l @{message.from_user.username}\n"
+    if your_account_id in bank_data['accounts']:
+        your_balance = bank_data['accounts'][your_account_id]['balance']
+        your_username = message.from_user.username if message.from_user.username else "مجهول"
+        response += f" {your_balance} ‎💸 l @{your_username}\n"
+    else:
+        response += "لم يتم العثور على حسابك.\n"
     
     client.send_message(message.chat.id, response)
 
