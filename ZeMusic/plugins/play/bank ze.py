@@ -978,20 +978,22 @@ def top_accounts(client, message):
     except IndexError:
         num_accounts = 20  # افتراضيًا، إذا لم يتم تحديد عدد الحسابات، سيتم عرض أول 20 حسابًا
 
+    num_accounts = min(num_accounts, 20)  # تحديد الحد الأقصى لعدد الحسابات
+
     bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
     top_accounts = sorted_accounts[:num_accounts]
     response = f"أعلى {num_accounts} أشخاص بأموال:\n\n"
     
     for i, account_id in enumerate(top_accounts, 1):
-        account_username = client.get_chat(account_id).username
+        account_username = bank_data['accounts'][account_id]['username']
         account_balance = bank_data['accounts'][account_id]['balance']
         response += f"{get_medal_emoji(i)} ) {account_balance}‎ 💸 l @{account_username}\n"
     
     response += "\n━━━━━━━━━\n# أنت ) "
     current_user_id = message.sender.id
     current_user_balance = bank_data['accounts'].get(current_user_id, {}).get('balance', 0)
-    current_user_username = client.get_chat(current_user_id).username
+    current_user_username = message.from_user.username
     response += f"{current_user_balance} 💸 l @{current_user_username}"
 
     client.send_message(message.chat.id, response)
