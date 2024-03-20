@@ -1,4 +1,3 @@
-schedule
 wget
 aiofiles
 aiohttp
