@@ -988,7 +988,7 @@ def top_money(client, message):
             continue
         account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
         account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"{get_medal(index)} ) {account_balance} ‎💸 l @{account_first_name}\n"
+        response += f"{get_medal(index)} ) {account_balance} ‎💸 l {user_name[ name ]} | <strong>{bankname}</strong>\n"
     
     response += "━━━━━━━━━\n# You )"
     your_account_id = message.from_user.id
