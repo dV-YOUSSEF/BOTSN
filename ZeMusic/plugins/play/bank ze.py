@@ -975,7 +975,7 @@ def top_accounts(client, message):
     command_parts = message.text.split()
     try:
         if len(command_parts) == 2:
-            num_accounts = int(command_parts[1])
+            num_accounts = min(int(command_parts[1]), 20)
         else:
             num_accounts = 20  # افتراضيًا، إذا لم يتم تحديد عدد الحسابات، سيتم عرض أول 20 حسابًا
     except ValueError:
@@ -993,6 +993,8 @@ def top_accounts(client, message):
     if len(sorted_accounts) == 0:
         response += "لا يوجد حسابات مسجلة في اللعبة."
     else:
+        if len(sorted_accounts) < num_accounts:
+            num_accounts = len(sorted_accounts)
         for i, account_id in enumerate(sorted_accounts[:num_accounts], 1):
             account_username = bank_data['accounts'][account_id]['username']
             account_balance = bank_data['accounts'][account_id]['balance']
@@ -1012,7 +1014,6 @@ def get_medal_emoji(rank):
         return "🥉"
     else:
         return f"{rank}"
-
 
 
 
