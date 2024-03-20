@@ -970,50 +970,35 @@ def top_thieves(client, message):
 
 
 
-@app.on_message(filters.command(["توب", "توب_فلوس"]))
-def top_accounts(client, message):
-    command_parts = message.text.split()
-    try:
-        if len(command_parts) == 2:
-            num_accounts = min(int(command_parts[1]), 20)
-        else:
-            num_accounts = 20  # افتراضيًا، إذا لم يتم تحديد عدد الحسابات، سيتم عرض أول 20 حسابًا
-    except ValueError:
-        client.send_message(message.chat.id, "الرجاء تحديد عدد صحيح.")
-        return
-
+@app.on_message(command("توب فلوس"))
+def top_money(client, message):
     bank_data = load_bank_data()
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
+
+    top_accounts = sorted_accounts[:20]  # احصل على أول 20 حسابًا بأعلى أموال
+    response = "توب 20 أغنى شخص:\n\n"
+
+    for index, account_id in enumerate(top_accounts, start=1):
+        account_username = client.get_chat(account_id).username
+        account_balance = bank_data['accounts'][account_id]['balance']
+        response += f"{get_medal(index)} ) {account_balance} ‎💸 l @{account_username}\n"
     
-    if "فلوس" in message.text:
-        response = f"أغنى {num_accounts} أشخاص في اللعبة:\n\n"
-    else:
-        response = f"أعلى {num_accounts} أشخاص بأموال:\n\n"
-
-    if len(sorted_accounts) == 0:
-        response += "لا يوجد حسابات مسجلة في اللعبة."
-    else:
-        if len(sorted_accounts) < num_accounts:
-            num_accounts = len(sorted_accounts)
-        for i, account_id in enumerate(sorted_accounts[:num_accounts], 1):
-            account_username = bank_data['accounts'][account_id]['username']
-            account_balance = bank_data['accounts'][account_id]['balance']
-            if "فلوس" in message.text:
-                response += f"{get_medal_emoji(i)} ) {account_balance}‎ 💸 l @{account_username}\n"
-            else:
-                response += f"{get_medal_emoji(i)} ) @{account_username} - {account_balance}‎ 💸\n"
-
+    response += "━━━━━━━━━\n# You )"
+    your_account_id = message.from_user.id
+    your_balance = bank_data['accounts'][your_account_id]['balance']
+    response += f" {your_balance} ‎💸 l @{message.from_user.username}\n"
+    
     client.send_message(message.chat.id, response)
 
-def get_medal_emoji(rank):
-    if rank == 1:
-        return "🥇"
-    elif rank == 2:
-        return "🥈"
-    elif rank == 3:
-        return "🥉"
+def get_medal(index):
+    medals = ["🥇", "🥈", "🥉"]
+    if index <= 3:
+        return medals[index - 1]
     else:
-        return f"{rank}"
+        return f" {index:2d}"
+
+
+
 
 
 
