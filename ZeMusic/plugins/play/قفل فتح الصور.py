@@ -55,4 +55,5 @@ async def open_photos(client: Client, message: Message):
         lokrf.remove(message.chat.id)
         return await message.reply_text(f"**تم فتح إرسال الصور بنجاح\n\nبواسطة {rotba} ← {message.from_user.mention}**")
 
-app.run()
+if __name__ == "__main__":
+    app.run()
