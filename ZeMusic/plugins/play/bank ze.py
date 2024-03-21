@@ -991,15 +991,18 @@ def top_money(client, message):
         response += f"<b>{get_medal(index)}) {account_balance} ‎💸 l @{account_username}\n</b>"
     
     response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>"
-    your_account_id = message.from_user.id
-    if your_account_id in bank_data['accounts']:
-        your_balance = bank_data['accounts'][your_account_id]['balance']
-        your_username = message.from_user.username if message.from_user.username else "مجهول"
-        response += f" {your_balance} ‎💸 l @{your_username}\n"
-    else:
-        response += ""
+
+    # إضافة رصيد لمستخدم الذي كتب "توب فلوس"
+    user_id = message.from_user.id
+    if user_id in bank_data['accounts']:
+        # قم بتحديث الرصيد هنا، على سبيل المثال، زيادة 100 وحدة
+        bank_data['accounts'][user_id]['balance'] += 100
+        save_bank_data(bank_data)
+        user_username = message.from_user.username if message.from_user.username else "مجهول"
+        response += f"تم إضافة 100 ‎💸 إلى حسابك، @{user_username}\n"
     
-    client.send_message(message.chat.id, response)
+    # إرسال الرد بدون إشارة إلى الشخص الذي كتب "توب فلوس"
+    client.send_message(message.chat.id, response, mention=False)
 
 def get_medal(index):
     medals = ["🥇", "🥈", "🥉"]
