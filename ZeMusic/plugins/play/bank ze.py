@@ -973,26 +973,27 @@ def top_thieves(client, message):
 def top_money(client, message):
     bank_data = load_bank_data()
 
-    if  accounts  not in bank_data:
+    # تحقق من وجود الحسابات في بيانات البنك
+    if 'accounts' not in bank_data:
         client.send_message(message.chat.id, "<b>لا يوجد حسابات متاحة حاليًا.</b>")
         return
 
-    sorted_accounts = sorted(bank_data[ accounts ], key=lambda x: bank_data[ accounts ][x][ balance ], reverse=True)
+    sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
 
     top_accounts = sorted_accounts[:20]  # احصل على أول 20 حسابًا بأعلى أموال
     response = "<b>توب 20 أغنى شخص:</b>\n\n"
 
     for index, account_id in enumerate(top_accounts, start=1):
-        if account_id not in bank_data[ accounts ]:
+        if account_id not in bank_data['accounts']:
             continue
         account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
-        account_balance = bank_data[ accounts ][account_id][ balance ]
-        response += f"<b>{get_medal(index)} ) {account_balance} ‎💸 l @{account_username}\n</b>"
+        account_balance = bank_data['accounts'][account_id]['balance']
+        response += f"<b>{get_medal(index)}) {account_balance} ‎💸 l @{account_username}\n</b>"
     
     response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>)"
     your_account_id = message.from_user.id
-    if your_account_id in bank_data[ accounts ]:
-        your_balance = bank_data[ accounts ][your_account_id][ balance ]
+    if your_account_id in bank_data['accounts']:
+        your_balance = bank_data['accounts'][your_account_id]['balance']
         your_username = message.from_user.username if message.from_user.username else "مجهول"
         response += f" {your_balance} ‎💸 l @{your_username}\n"
     else:
@@ -1005,5 +1006,4 @@ def get_medal(index):
     if index <= 3:
         return medals[index - 1]
     else:
-
-        return f" {index:2d}"
+        return f"{index:2d}"
