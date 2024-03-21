@@ -968,45 +968,37 @@ def top_thieves(client, message):
 
 
 
+
 @app.on_message(command("توب فلوس"))
 def top_money(client, message):
     bank_data = load_bank_data()
 
     # تحقق من وجود الحسابات في بيانات البنك
     if 'accounts' not in bank_data:
-        client.send_message(message.chat.id, "لا يوجد حسابات متاحة حاليًا.")
+        client.send_message(message.chat.id, "<b>لا يوجد حسابات متاحة حاليًا.</b>")
         return
 
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
 
     top_accounts = sorted_accounts[:20]  # احصل على أول 20 حسابًا بأعلى أموال
-    response = "توب 20 أغنى شخص:\n\n"
+    response = "<b>توب 20 أغنى شخص:</b>\n\n"
 
     for index, account_id in enumerate(top_accounts, start=1):
         if account_id not in bank_data['accounts']:
             continue
         account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
         account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"{get_medal(index)}) {account_balance} ‎💸 l @{account_username}\n"
+        response += f"<b>{get_medal(index)}) {account_balance} ‎💸 l @{account_username}\n</b>"
     
-    response += "━━━━━━━━━\n\n - القائمة تتحدث كل 5:00 دقائق"
-
-    # إضافة رصيد لمستخدم الذي كتب "توب فلوس"
-    user_id = message.from_user.id
-    if user_id in bank_data['accounts']:
-        # قم بتحديث الرصيد هنا، على سبيل المثال، زيادة 100 وحدة
-        bank_data['accounts'][user_id]['balance'] += 100
-        save_bank_data(bank_data)
-        user_username = message.from_user.username if message.from_user.username else "مجهول"
-        response += f"\nتم إضافة 100 ‎💸 إلى حسابك، @{user_username}"
+    response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>"
+    your_account_id = message.from_user.id
+    if your_account_id in bank_data['accounts']:
+        your_balance = bank_data['accounts'][your_account_id]['balance']
+        your_username = message.from_user.username if message.from_user.username else "مجهول"
+        response += f" {your_balance} ‎💸 l @{your_username}\n"
+    else:
+        response += ""
     
-    # تحقق مما إذا كانت الرسالة التي تم الرد عليها تحتوي على رسالة قام بكتابتها شخص معين
-    if message.reply_to_message and message.reply_to_message.from_user.id != message.from_user.id:
-        # قم بإجراء الرد على الشخص الذي قام بكتابة "توب فلوس"
-        user_to_reply = message.reply_to_message.from_user.id
-        client.send_message(user_to_reply, "تم إضافة 100 ‎💸 إلى حسابك.")
-    
-    # إرسال الرد بدون إشارة إلى الشخص الذي كتب "توب فلوس"
     client.send_message(message.chat.id, response)
 
 def get_medal(index):
