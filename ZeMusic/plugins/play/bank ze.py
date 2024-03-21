@@ -975,22 +975,22 @@ def top_money(client, message):
 
     # تحقق من وجود الحسابات في بيانات البنك
     if 'accounts' not in bank_data:
-        client.send_message(message.chat.id, "<b>لا يوجد حسابات متاحة حاليًا.</b>")
+        client.send_message(message.chat.id, "لا يوجد حسابات متاحة حاليًا.")
         return
 
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
 
     top_accounts = sorted_accounts[:20]  # احصل على أول 20 حسابًا بأعلى أموال
-    response = "<b>توب 20 أغنى شخص:</b>\n\n"
+    response = "توب 20 أغنى شخص:\n\n"
 
     for index, account_id in enumerate(top_accounts, start=1):
         if account_id not in bank_data['accounts']:
             continue
         account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
         account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"<b>{get_medal(index)}) {account_balance} ‎💸 l @{account_username}\n</b>"
+        response += f"{get_medal(index)}) {account_balance} ‎💸 l @{account_username}\n"
     
-    response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>"
+    response += "━━━━━━━━━\n\n - القائمة تتحدث كل 5:00 دقائق"
 
     # إضافة رصيد لمستخدم الذي كتب "توب فلوس"
     user_id = message.from_user.id
@@ -999,10 +999,10 @@ def top_money(client, message):
         bank_data['accounts'][user_id]['balance'] += 100
         save_bank_data(bank_data)
         user_username = message.from_user.username if message.from_user.username else "مجهول"
-        response += f"تم إضافة 100 ‎💸 إلى حسابك، @{user_username}\n"
+        response += f"\nتم إضافة 100 ‎💸 إلى حسابك، @{user_username}"
     
     # إرسال الرد بدون إشارة إلى الشخص الذي كتب "توب فلوس"
-    client.send_message(message.chat.id, response, mention=False)
+    client.send_message(message.chat.id, response)
 
 def get_medal(index):
     medals = ["🥇", "🥈", "🥉"]
