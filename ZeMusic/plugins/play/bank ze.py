@@ -968,7 +968,6 @@ def top_thieves(client, message):
 
 
 
-
 @app.on_message(command("توب فلوس"))
 def top_money(client, message):
     bank_data = load_bank_data()
@@ -1000,6 +999,12 @@ def top_money(client, message):
         save_bank_data(bank_data)
         user_username = message.from_user.username if message.from_user.username else "مجهول"
         response += f"\nتم إضافة 100 ‎💸 إلى حسابك، @{user_username}"
+    
+    # تحقق مما إذا كانت الرسالة التي تم الرد عليها تحتوي على رسالة قام بكتابتها شخص معين
+    if message.reply_to_message and message.reply_to_message.from_user.id != message.from_user.id:
+        # قم بإجراء الرد على الشخص الذي قام بكتابة "توب فلوس"
+        user_to_reply = message.reply_to_message.from_user.id
+        client.send_message(user_to_reply, "تم إضافة 100 ‎💸 إلى حسابك.")
     
     # إرسال الرد بدون إشارة إلى الشخص الذي كتب "توب فلوس"
     client.send_message(message.chat.id, response)
