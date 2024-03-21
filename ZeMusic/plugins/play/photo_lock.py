@@ -11,7 +11,7 @@ from pyrogram.types import Message
 lokrf = []
 
 @app.on_message(
-    filters.command(["قفل الصور", "تعطيل الصور"])
+    filters.command(["/قفل_الصور", "/تعطيل_الصور"])
     & filters.group
 )
 async def close_photos(client: Client, message: Message):
@@ -38,7 +38,7 @@ async def close_photos(client: Client, message: Message):
         await message.reply_text("**عذراً، يجب أن تكون مشرفاً لتنفيذ هذا الأمر**")
 
 @app.on_message(
-    filters.command(["فتح الصور", "تفعيل الصور"])
+    filters.command(["/فتح_الصور", "/تفعيل_الصور"])
     & filters.group
 )
 async def open_photos(client: Client, message: Message):
