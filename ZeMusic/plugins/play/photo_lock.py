@@ -11,7 +11,7 @@ from pyrogram.types import Message
 lokrf = []
 
 
-   @app.on_message(
+@app.on_message(
      filters.command(["قفل الصور", "تعطيل الصور"])
      & filters.group
 )
