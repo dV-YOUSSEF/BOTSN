@@ -58,10 +58,10 @@ async def strcall(client, message):
         await message.reply(f"{text}")
 @app.on_message(filters.video_chat_started)
 async def brah(client, message):
-       await message.reply("𖠇 تم بدء المحادثه الصوتيه..✅\n│\n└𖠇 بواسطة الادمنيه 👨‍✈️ ", reply_markup=create_keyboard())
+       await message.reply("<b>𖠇 تم بدء المحادثه الصوتيه..✅</b>\n<b>│</b>\n<b>└𖠇 بواسطة الادمنيه 👨‍✈️ </b>", reply_markup=create_keyboard())
 @app.on_message(filters.video_chat_started)
 async def brah(client, message):
-       await message.reply("𖠇 تم بدء المحادثه الصوتيه..✅\n│\n└𖠇 بواسطة الادمنيه 👨‍✈️ ", reply_markup=create_keyboard())
+       await message.reply("<b>𖠇 تم بدء المحادثه الصوتيه..✅</b>\n<b>│</b>\n<b>└𖠇 بواسطة الادمنيه 👨‍✈️ </b>", reply_markup=create_keyboard())
 @app.on_message(filters.video_chat_ended)
 async def brah2(client, message):
     da = message.video_chat_ended.duration
@@ -69,7 +69,7 @@ async def brah2(client, message):
     ho = divmod(ma[0], 60)
     day = divmod(ho[0], 24)
     if da < 60:
-       await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {da} ثواني ", reply_markup=create_keyboard())        
+       await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {da} ثواني </b>", reply_markup=create_keyboard())        
     elif 60 < da < 3600:
         if 1 <= ma[0] < 2:
             await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : دقيقة ", reply_markup=create_keyboard())
@@ -96,7 +96,7 @@ async def brah2(client, message):
         elif 3 <= day[0] < 11:
             await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {day[0]} ايام ", reply_markup=create_keyboard())  
         else:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {day[0]} يوم", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {day[0]} يوم</b>", reply_markup=create_keyboard())
 @app.on_message(filters.video_chat_members_invited)
 async def fuckoff(client, message):
            text = f"• قــــام ← {message.from_user.mention}"
@@ -111,4 +111,3 @@ async def fuckoff(client, message):
              await message.reply(f"{text}")
            except:
              pass
-
