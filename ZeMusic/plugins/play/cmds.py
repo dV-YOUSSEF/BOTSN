@@ -120,7 +120,7 @@ async def mpdtsf(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "اوامر التسليه 1⃣", callback_data="tsluaoih"),
+                        "اوامر التسليه 1⃣", callback_data="zzjdkzsu"),
                     InlineKeyboardButton(
                         "اوامر التسليه 2⃣", callback_data="tsluaefgh"),
                 ],[
@@ -634,7 +634,7 @@ async def zzzbn(_, query: CallbackQuery):
     )
 
 
-@app.on_callback_query(filters.regex("zzzsu") & SUDOERS)
+@app.on_callback_query(filters.regex("zzjdkzsu") & SUDOERS)
 async def zzzsu(_, query: CallbackQuery):
    await query.edit_message_text(
        f"""
