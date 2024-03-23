@@ -69,7 +69,7 @@ async def huhh(client: Client, message: Message):
 )
 async def huhh(client: Client, message: Message):
     await message.reply_video(
-        video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
+        video="https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
         caption="╭═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╮\n★‹ [𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)\n★‹ [𝐀𝐒𝗞 𝗧𝐎 𝐌𝗘](https://t.me/M_Q_ll)\n★‹ [𝐓𝐨𝐱𝐢𝐂](https://t.me/M_Q_ll)\n★‹ [𝐓𝐎.𝐌𝐄](https://t.me/GROUP_CAPTAIN)\n╰═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╯",
         reply_markup=InlineKeyboardMarkup(
             [
