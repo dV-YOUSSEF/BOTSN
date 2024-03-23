@@ -62,29 +62,34 @@ async def huhh(client: Client, message: Message):
 
     )
     
+
 @app.on_message(
-    command=["سورس", "السورس"]
+    command(["سورس","السورس"])
+
 )
 async def huhh(client: Client, message: Message):
-    keyboard = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("𝙶𝚁𝙾𝚄𝙿", url="https://t.me/B_X_N1"), 
-                InlineKeyboardButton("𝙲𝙷𝙰𝙽𝙽𝙴𝙻", url="https://t.me/BPHEE"),
-            ],
-            [
-                InlineKeyboardButton("𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅", url="https://t.me/JOO_B_R_Z"),
-            ],
-            [
-                InlineKeyboardButton(".💘اضف البوت اللي مجموعتك", url=f"https://t.me/{app.username}?startgroup=true"),
-            ],
-        ]
-    )
-
     await message.reply_video(
-        video="https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
-        caption="""╭═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╮\n★‹ [𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)\n★‹ [𝐀𝐒𝗞 𝗧𝐎 𝐌𝗘](https://t.me/M_Q_ll)\n★‹ [𝐓𝐨𝐱𝐢𝐂](https://t.me/M_Q_ll)\n★‹ [𝐓𝐎.𝐌𝐄](https://t.me/GROUP_CAPTAIN)\n╰═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╯",
-        reply_markup=keyboard,
+        video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
+        caption=f"╭═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╮\n★‹ [𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)\n★‹ [𝐀𝐒𝗞 𝗧𝐎 𝐌𝗘](https://t.me/M_Q_ll)\n★‹ [𝐓𝐨𝐱𝐢𝐂](https://t.me/M_Q_ll)\n★‹ [𝐓𝐎.𝐌𝐄](https://t.me/GROUP_CAPTAIN)\n╰═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╯",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "𝙶𝚁𝙾𝚄𝙿", url=f"https://t.me/maro_pro"), 
+                    InlineKeyboardButton(
+                        "𝙲𝙷𝙰𝙽𝙽𝙴𝙻", url=f"https://t.me/BPHEE"),
+                  ],[
+                    InlineKeyboardButton(
+                        " 𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅 ", url=f"https://t.me/JOO_B_R_Z"),
+                  ],[
+                    InlineKeyboardButton(
+                        ".💘اضف البوت اللي مجموعتك", url=f"https://t.me/{app.username}?startgroup=true"),
+                ],
+
+            ]
+
+        ),
+
     )
 
 @app.on_message(command(["تخ"]) & filters.group)
