@@ -72,29 +72,29 @@ async def brah2(client, message):
        await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {da} ثواني </b>", reply_markup=create_keyboard())        
     elif 60 < da < 3600:
         if 1 <= ma[0] < 2:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : دقيقة ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : دقيقة </b>", reply_markup=create_keyboard())
         elif 2 <= ma[0] < 3:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : دقيقتين ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : دقيقتين </b>", reply_markup=create_keyboard())
         elif 3 <= ma[0] < 11:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {ma[0]} دقايق ", reply_markup=create_keyboard())  
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {ma[0]} دقايق </b>", reply_markup=create_keyboard())  
         else:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {ma[0]} دقيقه ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {ma[0]} دقيقه </b>", reply_markup=create_keyboard())
     elif 3600 < da < 86400:
         if 1 <= ho[0] < 2:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : ساعه ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : ساعه </b>", reply_markup=create_keyboard())
         elif 2 <= ho[0] < 3:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : ساعتين ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : ساعتين </b>", reply_markup=create_keyboard())
         elif 3 <= ho[0] < 11:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {ho[0]} ساعات ", reply_markup=create_keyboard())  
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {ho[0]} ساعات </b>", reply_markup=create_keyboard())  
         else:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\│\n└𖠇 وقت المحادثة : {ho[0]} ساعة ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {ho[0]} ساعة </b>", reply_markup=create_keyboard())
     else:
         if 1 <= day[0] < 2:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : يوم ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : يوم </b>", reply_markup=create_keyboard())
         elif 2 <= day[0] < 3:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : يومين ", reply_markup=create_keyboard())
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : يومين </b>", reply_markup=create_keyboard())
         elif 3 <= day[0] < 11:
-            await message.reply(f"𖠇 تم انهاء المحادثه الصوتيه..❎\n│\n└𖠇 وقت المحادثة : {day[0]} ايام ", reply_markup=create_keyboard())  
+            await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {day[0]} ايام </b>", reply_markup=create_keyboard())  
         else:
             await message.reply(f"<b>𖠇 تم انهاء المحادثه الصوتيه..❎</b>\n<b>│</b>\n<b>└𖠇 وقت المحادثة : {day[0]} يوم</b>", reply_markup=create_keyboard())
 @app.on_message(filters.video_chat_members_invited)
