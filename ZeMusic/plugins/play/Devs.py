@@ -68,14 +68,14 @@ async def huhh(client: Client, message: Message):
 )
 async def huhh(client: Client, message: Message):
     await message.reply_video(
-        video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
-        caption="""╭──── • ◈ • ────╮\n么 [᥉᥆υᖇᥴᥱ ᥉ꪀᎥρᥱᖇ](t.me/BPHEE)
-\n么 [ժᥱ᥎ J᥆᥆](t.me/JOO_B_R_Z)\n么 [᥉υρρ᥆ᖇƚ](t.me/B_X_N1)\n╰──── • ◈ • ────╯""",
-        reply_markup=InlineKeyboardMarkup(
+        video=f"╭═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╮\n★‹ [𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)\n★‹ [𝐀𝐒𝗞 𝗧𝐎 𝐌𝗘](https://t.me/M_Q_ll)\n★‹ [𝐓𝐨𝐱𝐢𝐂](https://t.me/M_Q_ll)\n★‹ [𝐓𝐎.𝐌𝐄](https://t.me/GROUP_CAPTAIN)\n╰═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╯",
+        reply_markup=keyboard,
+    
+)
             [
                 [
                     InlineKeyboardButton(
-                        "𝙶𝚁𝙾𝚄𝙿", url=f"https://t.me/maro_pro"), 
+                        "𝙶𝚁𝙾𝚄𝙿", url=f"https://t.me/B_X_N1"), 
                     InlineKeyboardButton(
                         "𝙲𝙷𝙰𝙽𝙽𝙴𝙻", url=f"https://t.me/BPHEE"),
                   ],[
