@@ -68,20 +68,16 @@ async def alivehi(client: Client, message):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                        "𝐓𝐨𝐗𝐢𝐜", url=f"https://t.me/M_Q_ll"), 
-                ],[
-                    InlineKeyboardButton(
-                        "𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂", url=f"https://t.me/CMG_5S"),
-                ],[
-                    InlineKeyboardButton(
-                        "𝒂𝒅𝒅 𝒎𝒆 ", url=f"https://t.me/KIMY0Bot?startgroup=true"),
+                InlineKeyboardButton("𝐓𝐨𝐗𝐢𝐜", url="https://t.me/M_Q_ll"), 
+            ],[
+                InlineKeyboardButton("𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂", url="https://t.me/CMG_5S"),
+            ],[
+                InlineKeyboardButton("𝒂𝒅𝒅 𝒎𝒆", url="https://t.me/KIMY0Bot?startgroup=true"),
             ]
         ]
     )
 
-
-        await message.reply_photo(
+    await message.reply_photo(
         photo="https://telegra.ph/file/cfdf272d1eb8fff6f0c5b.jpg",
         caption="╭═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╮\n★‹ [𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)\n★‹ [𝐀𝐒𝗞 𝗧𝐎 𝐌𝗘](https://t.me/M_Q_ll)\n★‹ [𝐓𝐨𝐱𝐢𝐂](https://t.me/M_Q_ll)\n★‹ [𝐓𝐎.𝐌𝐄](https://t.me/GROUP_CAPTAIN)\n╰═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╯",
         reply_markup=keyboard,
