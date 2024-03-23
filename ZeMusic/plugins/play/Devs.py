@@ -33,74 +33,72 @@ def get_file_id(msg: Message):
                 return obj
 
 @app.on_message(
-   command(["يوسف","المبرمج يوسف","جو","المطور يوسف","جولدن"])
-   
+    command(["المطور","جولدن","يوسف","مطور السورس","مبرمج السورس"])
+    & filters.group
+  
+)
+async def yas(client, message):
+    usr = await client.get_chat("JOO_B_R_Z")
+    name = usr.first_name
+    photo = await app.download_media(usr.photo.big_file_id)
+    await message.reply_photo(photo,       caption=f"– – – – – – – – – – – – – – – – – –\n↯︙𝖣𝖾𝗏 ↬ ⦗ {name} ⦘\n↯︙𝖴𝗌𝖤𝗋 ↬ ⦗ @{usr.username} ⦘\n↯︙𝖨𝖣 ↬ ⦗ {usr.id} ⦘\n↯︙𝖡𝗂𝖮 ↬ ⦗ {usr.bio} ⦘\n– – – – – – – – – – – – – – – – – –",  
+    reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        name, url=f"https://t.me/{usr.username}")
+                ],
+            ]
+        ),
+    )
     
+@app.on_message(
+    command(["سورس","السورس"])
+
 )
 async def huhh(client: Client, message: Message):
     await message.reply_video(
-        video=f"https://telegra.ph/file/0beba425b2965d6dea71e.mp4",
-        caption=f"""**[𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥 - - ‍💻🖤](t.me/BPHEE)**\n\n**{message.from_user.mention}\n•────‌‌‏──‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏────‌‌‏──‌‌─‌‌‏─•
-    ╔═══════ YOUSSEF ═══════╗  
-
-                𝗢𝗪𝗡𝗘𝗥 ➪ @JOO_B_R_Z                       
-
-    ╚═══════ YOUSSEF ═══════╝  
-ٴ•────‌‌‏──‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─‌‌‏─────‌‌‏──‌‌─•\nᥲ #ρᥱᖇ᥉᥆ꪀ Ꭵ᥉ #ժᥱ𝖋ᥱᥲƚᥱժ 𝖡ꪗ ƚᎻᥱ #ƚᎻᎥꪀᘜ᥉ Ꮋᥱ #ᥱꪎᥲᘜᘜᥱᖇᥲƚᥱ᥉ 𝐂𝐇 ⦂ J_GGC.t.me**""",
+        video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",
+        caption=f"""⍟ 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝚂𝙾𝚄𝚁𝙲𝙴 𝙾𝙽 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                   InlineKeyboardButton(
-                        "𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅", url=f"https://t.me/JOO_B_R_Z"), 
-                ],[
-                
-                 ],
+                    InlineKeyboardButton(
+                        "𝙶𝚁𝙾𝚄𝙿", url=f"https://t.me/B_X_N1"), 
+                    InlineKeyboardButton(
+                        "𝙲𝙷𝙰𝙽𝙽𝙴𝙻", url=f"https://t.me/BPHEE"),
+                  ],[
+                    InlineKeyboardButton(
+                        " 𝗬.𝗢.𝗨.𝗦.𝗦.𝗘.𝐅 ", url=f"https://t.me/JOO_B_R_Z"),
+                  ],[
+                    InlineKeyboardButton(
+                        ".💘اضف البوت اللي مجموعتك", url=f"https://t.me/{app.username}?startgroup=true"),
+                ],
 
             ]
 
         ),
 
     )
-    
 
-@app.on_message(filters.command(["سورس"], ""))
-async def alivehi(client: Client, message):
-    keyboard = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("𝐓𝐨𝐗𝐢𝐜", url="https://t.me/M_Q_ll"), 
-            ],[
-                InlineKeyboardButton("𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂", url="https://t.me/CMG_5S"),
-            ],[
-                InlineKeyboardButton("𝒂𝒅𝒅 𝒎𝒆", url="https://t.me/KIMY0Bot?startgroup=true"),
-            ]
-        ]
-    )
-
-    await message.reply_photo(
-        photo="https://telegra.ph/file/cfdf272d1eb8fff6f0c5b.jpg",
-        caption="╭═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╮\n★‹ [𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)\n★‹ [𝐀𝐒𝗞 𝗧𝐎 𝐌𝗘](https://t.me/M_Q_ll)\n★‹ [𝐓𝐨𝐱𝐢𝐂](https://t.me/M_Q_ll)\n★‹ [𝐓𝐎.𝐌𝐄](https://t.me/GROUP_CAPTAIN)\n╰═★⊷⌯⧼[𝐒𝐨𝐮𝐑𝐜𝐞𝐓𝐨𝐱𝐢𝐂](https://t.me/CMG_5S)⧽⌯⊶★═╯",
-        reply_markup=keyboard,
-    )
-
-@app.on_message(command(["تخ"]) & filters.group)
+@app.on_message(filters.command(["تخ"]) & filters.group)
 async def huhh(client, message):
+    ahmed = message.text
     to_id = int(ahmed.split("to")[-1].split("in")[0])
     from_id = int(ahmed.split("ahmed")[-1].split("to")[0])
-    in_id = int(caption.split("in")[-1])
+    in_id = int(ahmed.split("in")[-1])
     to_url = f"tg://openmessage?user_id={to_id}"
     from_url = f"tg://openmessage?user_id={from_id}"
-    ahmed = message.text
+    
     await message.reply_animation(
         animation=f"https://telegra.ph/file/5a18fe591860a8a98f39f.mp4",
-        caption=f"""↯︙قتل ↫ ⦗ {app.get_chat(to_id).first_name}]({to_url}) ⦘\nالضحيه دا 😢 ↫ ⦗ [{app.get_chat(from_id).first_name}]({from_url}) ⦘\nانا لله وانـا اليـه راجعـون 😢😢""",
-    )
-    reply_markup=InlineKeyboardMarkup(
-
-       [
+        caption=f"""↯︙قتل ↫ ⦗ {app.get_chat(to_id).first_name}]({to_url}) ⦘\nالضحية دا 😢 ↫ ⦗ [{app.get_chat(from_id).first_name}]({from_url}) ⦘\nانا لله وانـا اليـه راجعـون 😢😢""",
+        reply_markup=InlineKeyboardMarkup(
            [
-               InlineKeyboardButton(
-                   "‹ : 𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥 : ›", url=f"https://t.me/BPHEE"),
-           ],
-       ]
-    ),
+               [
+                   InlineKeyboardButton(
+                       "‹ : 𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥 : ›", url=f"https://t.me/BPHEE"),
+               ],
+           ]
+        ),
+    )
