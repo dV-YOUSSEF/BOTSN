@@ -1972,6 +1972,6 @@ async def top_money(client, message):
     
     # الجزء المضاف
     await message.reply_text(
-        "bank_data = load_bank_data()",
+        "top_accounts",
         quote=True
     )
