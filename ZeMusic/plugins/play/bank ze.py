@@ -1942,34 +1942,38 @@ def top_thieves(client, message):
 
 @app.on_message(command("توب فلوس"))
 async def top_money(client, message):
-    bank_data = load_bank_data()
+    try:
+        bank_data = load_bank_data()
 
-    # تحقق من وجود الحسابات في بيانات البنك
-    if 'accounts' not in bank_data:
-        await message.reply_text("<b>لا يوجد حسابات متاحة حاليًا.</b>")
-        return
+        # تحقق من وجود الحسابات في بيانات البنك
+        if 'accounts' not in bank_data:
+            await message.reply_text("<b>لا يوجد حسابات متاحة حاليًا.</b>")
+            return
 
-    sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
+        sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
 
-    top_accounts = sorted_accounts[:20]  # احصل على أول 20 حسابًا بأعلى أموال
-    response = "<b>توب 20 أغنى شخص:</b>\n\n"
+        top_accounts = sorted_accounts[:20]  # احصل على أول 20 حسابًا بأعلى أموال
+        response = "<b>توب 20 أغنى شخص:</b>\n\n"
 
-    for index, account_id in enumerate(top_accounts, start=1):
-        if account_id not in bank_data['accounts']:
-            continue
-        account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
-        response += f"<b>{get_medal(index)}) @{account_username}\n</b>"
-    
-    response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>"
-    your_account_id = message.from_user.id
-    if your_account_id in bank_data['accounts']:
-        your_username = message.from_user.username if message.from_user.username else "مجهول"
-        response += f" @{your_username}\n"
-    else:
-        response += ""
-    
-    await message.reply_text(response, quote=True)
-    await message.reply_text("source...", quote=True)
+        for index, account_id in enumerate(top_accounts, start=1):
+            if account_id not in bank_data['accounts']:
+                continue
+            account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
+            response += f"<b>{get_medal(index)}) @{account_username}\n</b>"
+
+        response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>"
+        your_account_id = message.from_user.id
+        if your_account_id in bank_data['accounts']:
+            your_username = message.from_user.username if message.from_user.username else "مجهول"
+            response += f" @{your_username}\n"
+        else:
+            response += ""
+
+        await message.reply_text(response, quote=True)
+        await message.reply_text("source...", quote=True)
+
+    except Exception as e:
+        print("An error occurred:", e)
 
 def get_medal(index):
     medals = ["🥇", "🥈", "🥉"]
