@@ -42,7 +42,7 @@ def namlop(client, message):
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🦗》", callback_data="youssef")]])
     )
 
-@app.on_callback_query(filters.CallbackQuery(data="youssef"))
+@app.on_callback_query(filters.callback_query & filters.regex("youssef"))
 def namlop(client, callback_query):
     video = "https://graph.org/file/2d20cb201e06612588136.mp4"
     callback_query.edit_message_media(
