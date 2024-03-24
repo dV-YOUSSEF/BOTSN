@@ -3695,7 +3695,7 @@ txt = [
         
 
 
-@app.on_message(filters.command(["كت","تويت"], ""))
+@app.on_message(filters.command(["كت","• تويت •","تويت"], ""))
 
 
 async def cutt(client: Client, message: Message):
