@@ -971,7 +971,7 @@ def top_thieves(client, message):
 
 @app.on_message(command("توب فلوس"))
 async def top_money(client, message):
-    bank_data = load_bank_data()
+    bank_data = await load_bank_data()
 
     # تحقق من وجود الحسابات في بيانات البنك
     if 'accounts' not in bank_data:
