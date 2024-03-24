@@ -969,13 +969,27 @@ def top_thieves(client, message):
 
 
 
-@app.on_message(command("توب فلوس"))
+# دالة تحميل بيانات البنك
+def load_bank_data():
+    # افتراضياً، سأعيد قامة بيانات فارغة
+    return {'accounts': {}}
+
+# دالة الزخرفة للميداليات
+def get_medal(index):
+    medals = ["🥇", "🥈", "🥉"]
+    if index <= 3:
+        return medals[index - 1]
+    else:
+        return f"{index:2d}"
+
+# دالة تنفيذ الأمر "توب فلوس"
+@app.on_message(filters.command("توب فلوس"))
 async def top_money(client, message):
     bank_data = load_bank_data()
 
     # تحقق من وجود الحسابات في بيانات البنك
     if 'accounts' not in bank_data:
-        await client.send_message(message.chat.id, "<b>لا يوجد حسابات متاحة حاليًا.</b>")
+        await message.reply("<b>لا يوجد حسابات متاحة حاليًا.</b>")
         return
 
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
@@ -999,15 +1013,10 @@ async def top_money(client, message):
     else:
         response += ""
     
-    await client.send_message(message.chat.id, response, quote=True)
+    await message.reply(response, quote=True)
 
     # إرسال "source..."
     await message.reply_text("source...", quote=True)
 
-
-def get_medal(index):
-    medals = ["🥇", "🥈", "🥉"]
-    if index <= 3:
-        return medals[index - 1]
-    else:
-        return f"{index:2d}"
+# تشغيل العميل
+app.run()
