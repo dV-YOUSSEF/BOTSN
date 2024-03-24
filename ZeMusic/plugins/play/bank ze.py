@@ -975,7 +975,7 @@ def top_money(client, message):
 
     # تحقق من وجود الحسابات في بيانات البنك
     if 'accounts' not in bank_data:
-        client.send_message_reply(message.chat.id, "<b>لا يوجد حسابات متاحة حاليًا.</b>")
+        client.send_message(message.chat.id, "<b>لا يوجد حسابات متاحة حاليًا.</b>")
         return
 
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
@@ -999,7 +999,7 @@ def top_money(client, message):
     else:
         response += ""
     
-    client.send_message_reply(message.chat.id, response)
+    client.send_message(message.chat.id, response)
 
 def get_medal(index):
     medals = ["🥇", "🥈", "🥉"]
