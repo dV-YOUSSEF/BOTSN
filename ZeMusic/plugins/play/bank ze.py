@@ -995,9 +995,7 @@ async def top_money(client, message):
     if your_account_id in bank_data['accounts']:
         your_balance = bank_data['accounts'][your_account_id]['balance']
         your_username = message.from_user.username if message.from_user.username else "مجهول"
-        response += f" {your_balance} ‎💸 l @{your_username}\n"
-    else:
-        response += ""
+        response += f"\n{your_balance} ‎💸 l @{your_username}"
     
     # إضافة رد على الشخص الذي كتب الأمر
     await message.reply_text(response, quote=True)
