@@ -33,7 +33,7 @@ async def admins(client, message):
       else:
         pass   
     lenAdminList= len(ownerList) + len(adminList)  
-    text2 = f"**مجموعة ستافي - {message.chat.title}**\n\n"
+    text2 = f"مجموعة ستافي - {message.chat.title}\n\n"
     try:
       owner = ownerList[0]
       if owner.username == None:
@@ -58,7 +58,7 @@ async def admins(client, message):
           text2 += f"└ {admin.mention}\n\n"
         else:
           text2 += f"└ @{admin.username}\n\n"
-      text2 += f"**✅ | العدد الإجمالي للمسؤولين: {lenAdminList}**"  
+      text2 += f"✅ | العدد الإجمالي للمسؤولين: {lenAdminList}"  
       await app.send_message(message.chat.id, text2)           
   except FloodWait as e:
     await asyncio.sleep(e.value)       
@@ -79,7 +79,7 @@ async def bots(client, message):
     else:    
       bot = botList.pop(0)
       text3 += f"└ @{bot.username}\n\n"
-      text3 += f"**✅ | مركز تجاري للبوتات: 1 {lenBotList}**"  
+      text3 += f"✅ | مركز تجاري للبوتات: 1 {lenBotList}"  
       await app.send_message(message.chat.id, text3)
   except FloodWait as e:
     await asyncio.sleep(e.value)
