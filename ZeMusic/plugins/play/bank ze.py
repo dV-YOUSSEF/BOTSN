@@ -1001,6 +1001,9 @@ def top_money(client, message):
     
     client.send_message(message.chat.id, response)
 
+    # إرسال رد إلى الشخص الذي قام بكتابة الرسالة الأصلية
+    client.send_message(your_account_id, "تم تنفيذ الأمر بنجاح.")
+
 def get_medal(index):
     medals = ["🥇", "🥈", "🥉"]
     if index <= 3:
