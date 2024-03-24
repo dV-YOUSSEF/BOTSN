@@ -129,3 +129,26 @@ def call_random_member(client:Client, message:Message):
         f"• انت ليش قمر هكي 🌚♥ {random_member_mention}"
     ])
     client.send_message(chat_id, random_message, reply_to_message_id= message.id)
+
+
+@app.on_message(filters.command(["تخ"]) & filters.group)
+async def huhh(client, message):
+    ahmed = message.text
+    to_id = int(ahmed.split("to")[-1].split("in")[0])
+    from_id = int(ahmed.split("ahmed")[-1].split("to")[0])
+    in_id = int(ahmed.split("in")[-1])
+    to_url = f"tg://openmessage?user_id={to_id}"
+    from_url = f"tg://openmessage?user_id={from_id}"
+    
+    await message.reply_animation(
+        animation=f"https://telegra.ph/file/5a18fe591860a8a98f39f.mp4",
+        caption=f"""↯︙قتل ↫ ⦗ {app.get_chat(to_id).first_name}]({to_url}) ⦘\nالضحية دا 😢 ↫ ⦗ [{app.get_chat(from_id).first_name}]({from_url}) ⦘\nانا لله وانـا اليـه راجعـون 😢😢""",
+        reply_markup=InlineKeyboardMarkup(
+           [
+               [
+                   InlineKeyboardButton(
+                       "‹ : 𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥 : ›", url=f"https://t.me/BPHEE"),
+               ],
+           ]
+        ),
+    )
