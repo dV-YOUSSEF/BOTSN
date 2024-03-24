@@ -15,7 +15,7 @@ async def zdatsr(client: Client, message: Message):
     usrnam = usr.username
     await message.reply_photo(
         photo=f"https://telegra.ph/file/b68edd6cc644f8b661bd6.jpg",
-        caption=f"""𝗦𝗢𝗨𝗥𝗖𝗘 𝗔𝗟𝗣𝗢𝗣
+        caption=f"""𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥
 \n\n⛥⋮ تنويه هام:- هذا ليس حقيقيا\nـ─────────────────ـ\n⛥⋮ وانما يعلم الغيب سيد الخلائق⁩""",
         reply_markup=InlineKeyboardMarkup(
             [
@@ -51,7 +51,7 @@ async def zdatsr(client: Client, message: Message):
                         "‹ القوس ›", callback_data="elqoos"),
                 ],[
                     InlineKeyboardButton(
-                        "𝗦𝗢𝗨𝗥𝗖𝗘 𝗔𝗟𝗣𝗢𝗣", url="https://t.me/BPHEE"),
+                        "𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥", url="https://t.me/BPHEE"),
                 ],
             ]
         ),
@@ -62,7 +62,7 @@ async def zdatsr(client: Client, message: Message):
 @app.on_callback_query(filters.regex("zzzbahck"))
 async def zzzbahck(_, query: CallbackQuery):
    await query.edit_message_text(
-       f"""𝗦𝗢𝗨𝗥𝗖𝗘 𝗔𝗟𝗣𝗢𝗣
+       f"""𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥
 \n\n⛥⋮ تنويه هام:- هذا ليس حقيقيا\nـ─────────────────ـ\n⛥⋮ وانما يعلم الغيب سيد الخلائق⁩""",
        reply_markup=InlineKeyboardMarkup(
             [
@@ -98,7 +98,7 @@ async def zzzbahck(_, query: CallbackQuery):
                         "‹ القوس ›", callback_data="elqoos"),
                 ],[
                     InlineKeyboardButton(
-                        "𝗦𝗢𝗨𝗥𝗖𝗘 𝗔𝗟𝗣𝗢𝗣", url="https://t.me/BPHEE"),
+                        "𝗦𝗢𝗨𝗥𝗖𝗘 𝗦𝗡𝗜𝗣𝗘𝗥", url="https://t.me/BPHEE"),
                 ],
             ]
        
