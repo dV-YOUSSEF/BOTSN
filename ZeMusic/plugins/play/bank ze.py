@@ -971,11 +971,11 @@ def top_thieves(client, message):
 
 @app.on_message(command("توب فلوس"))
 async def top_money(client, message):
-    bank_data = await load_bank_data()
+    bank_data = load_bank_data()
 
     # تحقق من وجود الحسابات في بيانات البنك
     if 'accounts' not in bank_data:
-        await message.reply_text("<b>لا يوجد حسابات متاحة حاليًا.</b>", quote=True)
+        await client.send_message(message.chat.id, "<b>لا يوجد حسابات متاحة حاليًا.</b>")
         return
 
     sorted_accounts = sorted(bank_data['accounts'], key=lambda x: bank_data['accounts'][x]['balance'], reverse=True)
@@ -988,8 +988,8 @@ async def top_money(client, message):
             continue
         account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
         account_balance = bank_data['accounts'][account_id]['balance']
-        response += f"<b>{get_medal(index)} {account_balance} ‎💸 l @{account_username}\n</b>"
-
+        response += f"<b>{get_medal(index)}) {account_balance} ‎💸 l @{account_username}\n</b>"
+    
     response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>"
     your_account_id = message.from_user.id
     if your_account_id in bank_data['accounts']:
@@ -998,8 +998,12 @@ async def top_money(client, message):
         response += f" {your_balance} ‎💸 l @{your_username}\n"
     else:
         response += ""
+    
+    await client.send_message(message.chat.id, response, quote=True)
 
-    await client.send_message(message.chat.id, response)
+    # إرسال "source..."
+    await message.reply_text("source...", quote=True)
+
 
 def get_medal(index):
     medals = ["🥇", "🥈", "🥉"]
