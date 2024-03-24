@@ -1958,7 +1958,7 @@ async def top_money(client, message):
         for index, account_id in enumerate(top_accounts, start=1):
             if account_id not in bank_data['accounts']:
                 continue
-            account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
+            account_username = client.get_chat(account_id).username if client.get_chat(account_id) else None
             if account_username:  # التحقق من وجود اسم المستخدم
                 response += f"<b>{get_medal(index)}) @{account_username}\n</b>"
 
