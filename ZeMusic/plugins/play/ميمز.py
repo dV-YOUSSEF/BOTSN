@@ -39,10 +39,10 @@ def zeqep(client, callback_query):
 def namlop(client, message):
     message.reply_photo(
         photo="https://graph.org/file/bd1024b2f29996675596d.jpg",
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🦗》", callback_data="modyll")]])
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🦗》", callback_data="youssef")]])
     )
 
-@app.on_callback_query(filters.command("modyll"))
+@app.on_callback_query(filters.command("youssef"))
 def namlop(client, callback_query):
     video = "https://graph.org/file/2d20cb201e06612588136.mp4"
     callback_query.edit_message_media(
