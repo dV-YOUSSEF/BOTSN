@@ -17,4 +17,4 @@ async def send_time(client, message):
     # الحصول على الوقت الحالي
     time = get_current_time()
     # إرسال الرسالة بالوقت المحدد إلى المحادثة
-    await client.send_message(message.chat.id, f"<b>≪━━━━𝘴ꪮꪊ𝘳ᥴꫀ 𝘴ꪀipꫀ𝘳━━━━≫\n\n{time}
+    await client.send_message(message.chat.id, f"<b>≪━━━━𝘴ꪮꪊ𝘳ᥴꫀ 𝘴ꪀipꫀ𝘳━━━━≫\n\n{time}")
