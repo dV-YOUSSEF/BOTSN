@@ -1959,15 +1959,13 @@ async def top_money(client, message):
             if account_id not in bank_data['accounts']:
                 continue
             account_username = client.get_chat(account_id).username if client.get_chat(account_id) else "مجهول"
-            response += f"<b>{get_medal(index)}) @{account_username}\n</b>"
+            if account_username:  # التحقق من وجود اسم المستخدم
+                response += f"<b>{get_medal(index)}) @{account_username}\n</b>"
 
         response += "<b>━━━━━━━━━</b>\n\n<b> - القائمة تتحدث كل 5:00 دقائق</b>"
         your_account_id = message.from_user.id
-        if your_account_id in bank_data['accounts']:
-            your_username = message.from_user.username if message.from_user.username else "مجهول"
-            response += f" @{your_username}\n"
-        else:
-            response += ""
+        your_username = message.from_user.username if message.from_user.username else "مجهول"
+        response += f" @{your_username}\n"
 
         await message.reply_text(response, quote=True)
         await message.reply_text("source...", quote=True)
