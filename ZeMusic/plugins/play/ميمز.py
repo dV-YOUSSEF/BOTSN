@@ -5,14 +5,14 @@ from pyrogram.types import CallbackQuery, InputMediaVideo, InlineKeyboardMarkup,
 from ZeMusic import app
 
 
-@app.on_message(filters.command(["صرصار"], ""))
+@app.on_message(filters.command(["صرصار"]))
 def mody(client, message):
     message.reply_photo(
         photo="https://graph.org/file/0331103b1c119716bad44.jpg",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🪳》", callback_data="mody")]])
     )
 
-@app.on_callback_query(filters.command("mody"))
+@app.on_callback_query(filters.callback_query("mody"))
 def modyy(client, callback_query):
     video = "https://graph.org/file/fb6ae3a43f73ef2aee8a9.mp4"
     callback_query.edit_message_media(
@@ -20,14 +20,14 @@ def modyy(client, callback_query):
     )
     
     
-@app.on_message(filters.command(["خنزير"], ""))
+@app.on_message(filters.command(["خنزير"]))
 def zeqe(client, message):
     message.reply_photo(
         photo="https://graph.org/file/c6234a6aedfbe638e0683.jpg",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🐖》", callback_data="modyl")]])
     )
 
-@app.on_callback_query(filters.command("modyl"))
+@app.on_callback_query(filters.callback_query("modyl"))
 def zeqep(client, callback_query):
     video = "https://graph.org/file/274b6971aeb298bdcd6fe.mp4"
     callback_query.edit_message_media(
@@ -35,16 +35,16 @@ def zeqep(client, callback_query):
     )    
     
     
-@app.on_message(filters.command(["نمله"], ""))
+@app.on_message(filters.command(["نمله"]))
 def namlo(client, message):
     message.reply_photo(
         photo="https://graph.org/file/bd1024b2f29996675596d.jpg",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🦗》", callback_data="modyll")]])
     )
 
-@app.on_callback_query(filters.command("modyll"))
+@app.on_callback_query(filters.callback_query("modyll"))
 def namlop(client, callback_query):
     video = "https://graph.org/file/2d20cb201e06612588136.mp4"
     callback_query.edit_message_media(
         media=InputMediaVideo(media=video, caption=f"⚡هو المعفن اللى صحي النمله يجماعه😂👇\n\n{callback_query.from_user.first_name}")
-    )        
+    )
