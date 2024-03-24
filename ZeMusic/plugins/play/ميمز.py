@@ -12,7 +12,7 @@ def mody(client, message):
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🪳》", callback_data="mody")]])
     )
 
-@app.on_callback_query(filters.callback_query("mody"))
+@app.on_callback_query(filters.create(lambda _, __, query: query.data == "mody"))
 def modyy(client, callback_query):
     video = "https://graph.org/file/fb6ae3a43f73ef2aee8a9.mp4"
     callback_query.edit_message_media(
@@ -27,7 +27,7 @@ def zeqe(client, message):
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🐖》", callback_data="modyl")]])
     )
 
-@app.on_callback_query(filters.callback_query("modyl"))
+@app.on_callback_query(filters.create(lambda _, __, query: query.data == "modyl"))
 def zeqep(client, callback_query):
     video = "https://graph.org/file/274b6971aeb298bdcd6fe.mp4"
     callback_query.edit_message_media(
@@ -42,7 +42,7 @@ def namlo(client, message):
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("《🦗》", callback_data="modyll")]])
     )
 
-@app.on_callback_query(filters.callback_query("modyll"))
+@app.on_callback_query(filters.create(lambda _, __, query: query.data == "modyll"))
 def namlop(client, callback_query):
     video = "https://graph.org/file/2d20cb201e06612588136.mp4"
     callback_query.edit_message_media(
