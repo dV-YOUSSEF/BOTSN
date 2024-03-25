@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from pyrogram import enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from ZeMusic import app
 
@@ -43,15 +44,16 @@ async def send_hms(client, message):
         
         hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
         
-        await message.reply_text("-> تم ارسال الهمسة.\n√")
+        await message.reply_text("<b>┇◍ تم ارسال الهمسه</b>\n<b>√</b>")
         
         await app.send_message(
-    chat_id=in_id,
-    text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}](tg://openmessage?user_id={to_id})\n╢ لديك همسة من البني آدم دا [{(await app.get_chat(from_id)).first_name}](tg://openmessage?user_id={from_id})\n╜انت فقط من يستطيع رؤيتها 🔐",
-    reply_markup=InlineKeyboardMarkup(
-        [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
-    ),
-)
+            chat_id=in_id,
+            text=f"⚙️╖ مرحبا عزيزي [{(await app.get_chat(to_id)).first_name}]({to_url})\n💬╢ لديك همسه من [{(await app.get_chat(from_id)).first_name}]({from_url})\n🔐╜ انت فقط من تستطيع رؤيتها",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
+            ),
+            parse_mode=ParseMode.MARKDOWN.value
+        )
         
         waiting_for_hms = False
      
