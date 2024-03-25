@@ -28,7 +28,6 @@ youtube-search-python
 telegraph
 pytz
 lyricsgenius
-enums
 wget
 types
 
