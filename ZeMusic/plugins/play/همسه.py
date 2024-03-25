@@ -43,15 +43,16 @@ async def send_hms(client, message):
         
         hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
         
-        await message.reply_text("<b>┇◍ تم ارسال الهمسه</b>\n<b>√</b>")
+        await message.reply_text("<b>┇◍ تم ارسال الهمسه</b>\n<b>√</b>", parse_mode="html")
         
         await app.send_message(
-    chat_id=in_id,
-    text=f"<b>⚙️╖ مرحبا عزيزي [{(await app.get_chat(to_id)).first_name}](tg://openmessage?user_id={to_id}))</b>\n<b>💬╢ لديك همسه من [{(await app.get_chat(from_id)).first_name}](tg://openmessage?user_id={from_id}))</b>\n<b>🔐╜ انت فقط من تستطيع رؤيتها</b>",
-    reply_markup=InlineKeyboardMarkup(
-        [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
-    ),
-)
+            chat_id=in_id,
+            text=f"⚙️╖ مرحبا عزيزي [{(await app.get_chat(to_id)).first_name}](tg://openmessage?user_id={to_id})\n💬╢ لديك همسه من [{(await app.get_chat(from_id)).first_name}](tg://openmessage?user_id={from_id})\n🔐╜ انت فقط من تستطيع رؤيتها",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
+            ),
+            parse_mode=enums.ParseMode.MARKDOWN
+        )
         
         waiting_for_hms = False
      
