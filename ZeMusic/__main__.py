@@ -40,6 +40,7 @@ async def init():
     LOGGER("ZeMusic.plugins").info("Successfully Imported Modules...")
     await userbot.start()
     await Mody.start()
+    await azan.start()
     try:
         await Mody.stream_call("https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4")
     except NoActiveGroupCall:
