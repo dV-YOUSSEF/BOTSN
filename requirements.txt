@@ -29,5 +29,4 @@ telegraph
 pytz
 lyricsgenius
 wget
-types
 
