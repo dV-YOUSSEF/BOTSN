@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram import enums
-from pyrogram import ParseMode
+from pyrogram.types import ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from ZeMusic import app
 
@@ -32,6 +32,10 @@ async def hms_start(client, message):
                 [[InlineKeyboardButton("إلغاء ❌️", callback_data="hms_cancel")]]
             ),
         )
+
+class ParseMode(Enum):
+    MARKDOWN = "markdown"
+    HTML = "html"
 
 @app.on_message(filters.private & filters.text & ~filters.command("start"), group=88)
 async def send_hms(client, message):
