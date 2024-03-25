@@ -33,6 +33,7 @@ async def hms_start(client, message):
             ),
         )
 
+
 @app.on_message(filters.private & filters.text & ~filters.command("start"), group=88)
 async def send_hms(client, message):
     global waiting_for_hms
@@ -53,7 +54,7 @@ async def send_hms(client, message):
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
             ),
-            parse_mode=ParseMode.MARKDOWN.value
+            parse_mode="markdown"
         )
         
         waiting_for_hms = False
