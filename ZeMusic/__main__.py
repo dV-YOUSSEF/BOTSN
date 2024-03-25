@@ -10,6 +10,7 @@ from ZeMusic.core.call import Mody
 from ZeMusic.misc import sudo
 from ZeMusic.plugins import ALL_MODULES
 from ZeMusic.utils.database import get_banned_users, get_gbanned
+from ZeMusic.plugins.play import azan
 from config import BANNED_USERS
 
 
