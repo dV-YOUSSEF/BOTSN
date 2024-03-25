@@ -31,3 +31,4 @@ lyricsgenius
 wget
 types
 enums
+ParseMode
