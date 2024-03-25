@@ -60,12 +60,12 @@ async def yas(client, message):
 )
 async def huhh(client: Client, message: Message):
     await message.reply_video(
-        video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",caption=f"╭──── • ◈ • ────╮\n么 [᥉᥆υᖇᥴᥱ ᥉ꪀᎥρᥱᖇ](t.me/BPHEE)\n么 [ժᥱ᥎ J᥆᥆](t.me/JOO_B_R_Z)\n么 [᥉υρρ᥆ᖇƚ](t.me/B_X_N1)\n╰──── • ◈ • ────╯\n\n⍟ 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝚂𝙾𝚄𝚁𝙲𝙴 𝙾𝙽 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼",
+        video=f"https://telegra.ph/file/48a480ba73bdc472b9de1.jpg",caption=f"╭──── • ◈ • ────╮\n么 [𝑠𝑜𝑢𝑟𝑐𝑒 𝑠𝑛𝑖𝑝𝑒𝑟](t.me/BPHEE) 💎 .\n么 [𝑑𝑒𝑣 𝑦𝑜𝑢𝑠𝑠𝑒𝑓](t.me/JOO_B_R_Z) 💎 .\n╰──── • ◈ • ────╯\n\n⍟ 𝚃𝙷𝙴 𝙱𝙴𝚂𝚃 𝚂𝙾𝚄𝚁𝙲𝙴 𝙾𝙽 𝚃𝙴𝙻𝙴𝙶𝚁𝙰𝙼   .",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "𝙶𝚁𝙾𝚄𝙿", url=f"https://t.me/maro_pro"), 
+                        "𝙶𝚁𝙾𝚄𝙿", url=f"https://t.me/B_X_N1"), 
                     InlineKeyboardButton(
                         "𝙲𝙷𝙰𝙽𝙽𝙴𝙻", url=f"https://t.me/BPHEE"),
                   ],[
