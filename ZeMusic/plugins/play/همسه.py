@@ -1,5 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram import enums
+from pyrogram.types import ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from ZeMusic import app
 
