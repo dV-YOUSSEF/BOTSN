@@ -28,7 +28,8 @@ youtube-search-python
 telegraph
 pytz
 lyricsgenius
-wget
-types
 enums
 ParseMode
+wget
+types
+
