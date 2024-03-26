@@ -1,7 +1,7 @@
 import asyncio
 import random
 from ZeMusic.misc import SUDOERS
-from pyrogram.types import (Message,InlineKeyboardButton,InlineKeyboardMarkup,CallbackQuery,ChatPrivileges)
+from pyrogram.types import (Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, ChatPrivileges)
 from pyrogram import filters, Client
 from ZeMusic import app
 from config import *
@@ -10,9 +10,9 @@ from config import *
 MUSIC_BOT_NAME = {}
 botname = {}
 
-name = "فاست"
+name = "الاسم الافتراضي"
 
-@app.on_message(filters.regex("تعيين اسم البوت")& filters.private & SUDOERS, group=7113)
+@app.on_message(filters.regex("تعيين اسم البوت") & filters.private & SUDOERS, group=7113)
 async def set_bot_name(client, message):
     global name
     ask = await app.ask(message.chat.id, "ارسل الاسم الجديد", timeout=300)
@@ -36,13 +36,15 @@ toxi_responses = [
     "ورحمة أبويا اسمي {name}",
 ]
 
-@app.on_message(filters.command(["بوت", "البوت"], ""), group=71135)
+@app.on_message(filters.command(["بوت", "البوت"], group=71135))
 async def toxi_bot(client, message):
     global name
     bot_username = (await app.get_me()).username
     bar = random.choice(toxi_responses).format(name=name)
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("خدني لجروبك والنبي🥺♥", url=f"https://t.me/{message.from_user.username")]
+        [
+            InlineKeyboardButton(
+                        message.from_user.first_name, url=f"https://t.me/{message.from_user.username}")]
     ])
 
     await message.reply_text(
