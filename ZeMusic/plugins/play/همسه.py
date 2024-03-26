@@ -32,30 +32,29 @@ async def hms_start(client, message):
             ),
         )
 
-@app.on_message(filters.private & filters.text & ~filters.command("start"), group=88)
-async def send_hms(client, message):
-    global waiting_for_hms
-    if waiting_for_hms:
-        to_id = int(hms_ids.split("to")[-1].split("in")[0])
-        from_id = int(hms_ids.split("hms")[-1].split("to")[0])
-        in_id = int(hms_ids.split("in")[-1])
-        to_url = f"tg://openmessage?user_id={to_id}"
-        from_url = f"tg://openmessage?user_id={from_id}"
-        
-        hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
-        
-        await message.reply_text("<b>┇◍ تم ارسال الهمسه</b>\n<b>√</b>", parse_mode="markdown")
-        
-        await app.send_message(
-            chat_id=in_id,
-            text=f"⚙️╖ مرحبا عزيزي [{(await app.get_chat(to_id)).first_name}](tg://openmessage?user_id={to_id})\n💬╢ لديك همسه من [{(await app.get_chat(from_id)).first_name}](tg://openmessage?user_id={from_id})\n🔐╜ انت فقط من تستطيع رؤيتها",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("- اضغط لرؤية الهمسة 👀", callback_data="hms_answer")]]
-            ),
-            parse_mode=enums.ParseMode.MARKDOWN
-        )
-        
-        waiting_for_hms = False
+@app.on_message(Filters.private & Filters.text & ~Filters.command("start"))
+def send_hms(client, message):
+  
+  global waiting_for_hms
+  if waiting_for_hms:    
+    to_id = int(hms_ids.split("to")[-1].split("in")[0])
+    from_id = int(hms_ids.split("hms")[-1].split("to")[0])
+    in_id = int(hms_ids.split("in")[-1])
+    to_url = f"tg://openmessage?user_id={to_id}"
+    from_url = f"tg://openmessage?user_id={from_id}"
+    
+    hmses[str(to_id)] = { "hms" : message.text, "bar" : in_id }
+    
+    message.reply_text("-> تم ارسال الهمسه.\n√")
+    
+    app.send_message(
+      chat_id = in_id,
+      text = f"╖ المستخدم [{app.get_chat(to_id).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{app.get_chat(from_id).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
+      reply_markup = InlineKeyboardMarkup ([[InlineKeyboardButton("- اضغط لرؤية الهمسه 👀", callback_data = "hms_answer")]]),
+      parse_mode=ParseMode.MARKDOWN
+    )
+    
+    waiting_for_hms = False
      
 @app.on_callback_query(filters.regex("hms_answer"))
 async def display_hms(client, callback):
