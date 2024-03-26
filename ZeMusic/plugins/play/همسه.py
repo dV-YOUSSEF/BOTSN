@@ -14,10 +14,10 @@ async def reply_with_link(client, message):
     start_link = f"https://t.me/{(await app.get_me()).username}?start=hms{my_id}to{user_id}in{bar_id}"
     reply_markup = InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("<b>أضغط علي الزر بالاسفل لارسال الهمسه الي {first_name}</b>\n<b>√</b>", url=start_link)]
+            [InlineKeyboardButton("اضغط لارسال الهمسة", url=start_link)]
         ]
     )
-    await message.reply_text(" اضغط لارسال الهمسة ", reply_markup=reply_markup)
+    await message.reply_text("<b>أضغط علي الزر بالاسفل لارسال الهمسه الي {first_name}</b>\n<b>√</b>", reply_markup=reply_markup)
 
 waiting_for_hms = False
 @app.on_message(filters.command("start"), group=89)
