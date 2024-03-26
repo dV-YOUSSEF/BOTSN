@@ -14,7 +14,7 @@ async def reply_with_link(client, message):
     start_link = f"https://t.me/{(await app.get_me()).username}?start=hms{my_id}to{user_id}in{bar_id}"
     reply_markup = InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("اضغط لارسال الهمسة", callback_data="hms_answer"),
+            [InlineKeyboardButton("‹ اضغط لارسال الهمسة 💘 ›", url=start_link)]
         ]
     )
     await message.reply_text("أضغط علي الزر بالاسفل لارسال الهمسه الي {first_name}\n√", reply_markup=reply_markup)
