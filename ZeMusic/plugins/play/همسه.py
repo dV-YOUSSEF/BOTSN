@@ -1,5 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import enums
+from pyrogram import types
 from ZeMusic import app
 
 hmses = {}
@@ -47,7 +49,7 @@ async def send_hms(client, message):
         
         await app.send_message(
     chat_id=in_id,
-    text=f"هناك همسه جديدة استعمل الازرار لرؤية الهمسه 💘 ⋅",
+    text=f"╖ المستخدم [{(await app.get_chat(to_id)).first_name}]({to_url})\n╢ لديك همسه من البني آدم دا [{(await app.get_chat(from_id)).first_name}]({from_url})\n╜انت فقط من يستطيع رؤيتها 🔐",
     reply_markup=InlineKeyboardMarkup(
         [
             [
@@ -62,7 +64,8 @@ async def send_hms(client, message):
         ]                   
 
          ),
-     )
+    parse_mode=enums.ParseMode.MARKDOWN
+    )
         
         waiting_for_hms = False
      
