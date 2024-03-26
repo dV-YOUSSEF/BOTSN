@@ -36,7 +36,7 @@ toxi_responses = [
     "ورحمة أبويا اسمي {name}",
 ]
 
-@app.on_message(filters.command(["بوت", "البوت"], group=71135))
+@app.on_message(filters.command(["بوت", "البوت"]))
 async def toxi_bot(client, message):
     global name
     bot_username = (await app.get_me()).username
