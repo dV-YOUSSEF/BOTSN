@@ -42,7 +42,7 @@ async def toxi_bot(client, message):
     bot_username = (await app.get_me()).username
     bar = random.choice(toxi_responses).format(name=name)
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("خدني لجروبك والنبي🥺♥", url=f"https://t.me/{bot_username}?startgroup=True")]
+        [InlineKeyboardButton("خدني لجروبك والنبي🥺♥", url=f"https://t.me/{message.from_user.username")]
     ])
 
     await message.reply_text(
