@@ -39,42 +39,42 @@ REPLY_MESSAGE = "**👋︙مـرحـبـا بـك عـزيـزي الـمـطـ�
 
 REPLY_MESSAGE_BUTTONS = [
     [
-        ("✭ WELCOME IN SOUCE  𝙰𝙻𝙼𝙾𝚁𝚃𝙰𝙶𝙴𝙻 ✭"),
+        ("✭ WELCOME IN 𝑆𝑂𝑈𝑅𝐶𝐸ᯠ𝑆𝑁𝐼𝑃𝐸𝑅 ✭"),
     ],
     [
-        ("✭ قسم الاذاعه"),
-        ("✭ تحكم الحساب المساعد"),
+        ("✭ قسم الاذاعه ✭"),
+        ("✭ تحكم الحساب المساعد ✭"),
     ],
     [
         
-        ("✭ قسم الجروبات"),
-        ("✭ قسم المطورين"),
+        ("✭ قسم الجروبات ✭"),
+        ("✭ قسم المطورين ✭"),
        
     ],
     [
-        ("✭ السورس"),
+        ("✭ السورس ✭"),
     ],
 ]
 
 
 
     
-@app.on_message(filters.command(["✭ قسم الاذاعه"], "") & SUDOERS)
+@app.on_message(filters.command(["✭ قسم الاذاعه ✭"], "") & SUDOERS)
 async def cast(client: app, message):
     kep = ReplyKeyboardMarkup([["✭ اذاعه عام","✭ اذاعه بالتوجيه"],["✭ رجوع"]], resize_keyboard=True)
     await message.reply_text("**أهلا بك عزيزي المطور **\n**هنا قسم الاذاعه تحكم بالازار**", reply_markup=kep)
     
-@app.on_message(filters.command(["✭ السورس"], "") & SUDOERS)
+@app.on_message(filters.command(["✭ السورس ✭"], "") & SUDOERS)
 async def cast(client: app, message):
     kep = ReplyKeyboardMarkup([["✭ قـنـاة الـسـورس","✭ للتواصل معنآ"], ["✭ مطور السورس"], ["✭ رجوع"]], resize_keyboard=True)
     await message.reply_text("**أهلا بك عزيزي المطور **\n**هنا قسم السورس تحكم بالازار**", reply_markup=kep)
     
-@app.on_message(filters.command(["✭ قسم المطورين"], "") & SUDOERS)
+@app.on_message(filters.command(["✭ قسم المطورين ✭"], "") & SUDOERS)
 async def cast(client: app, message):
     kep = ReplyKeyboardMarkup([["✭ مـطـوريـنـك","✭ للتواصل معنآ"],  ["✭ رجوع"]], resize_keyboard=True)
     await message.reply_text("**أهلا بك عزيزي المطور **\n**هنا قسم المطورين تحكم بالازار**", reply_markup=kep)
 
-@app.on_message(filters.command(["✭ قسم الجروبات"], "") & SUDOERS)
+@app.on_message(filters.command(["✭ قسم الجروبات ✭"], "") & SUDOERS)
 async def cast(client: app, message):
     kep = ReplyKeyboardMarkup([["✭ الجروبات المحظوره","✭ الاحصائيات","✭ حـظـر الـجـروبـات"], ["✭ رجوع","✭ جـروبـاتـك النـشـطـه"]], resize_keyboard=True)
     await message.reply_text("**أهلا بك عزيزي المطور **\n**هنا قسم الجروبات تحكم بالازار**", reply_markup=kep)
@@ -82,7 +82,7 @@ async def cast(client: app, message):
 
 
 
-@app.on_message(filters.regex("✭ قـنـاة الـسـورس"))
+@app.on_message(filters.regex("✭ قـنـاة الـسـورس ✭"))
 def reply_to_HEY(Client, message):
     message.reply_photo(
         photo=f"https://t.me/Almortagel_12",
@@ -97,25 +97,7 @@ def reply_to_HEY(Client, message):
   )
     
 
-@app.on_message(filters.regex("✭ مطور السورس"))
-def reply_to_HEY(Client, message):
-    message.reply_photo(
-        photo=f"https://t.me/Almortagel_12",
-        caption=f"""[THIS DEV MAIN SOURCE  𝙰𝙻𝙼𝙾𝚁𝚃𝙰𝙶𝙴𝙻 ](https://t.me/Almortagel_12)""",
-        reply_markup=InlineKeyboardMarkup(
-            [
-            [
-                InlineKeyboardButton("𓆩 🔻︙قـنـاة الـسـورس︙🔺️ 𓆪", url=f"https://t.me/AlmortagelTech"),
-            ]
-         ]
-     )
-  )
-
-
-    
-
-
-@app.on_message(filters.regex("✭ للتواصل معنآ"))
+@app.on_message(filters.regex("✭ للتواصل معنآ ✭"))
 def reply_to_HEY(Client, message):
     message.reply_photo(
         photo=f"https://t.me/AlmortagelTech",
@@ -130,7 +112,7 @@ def reply_to_HEY(Client, message):
      )
   )
     
-@app.on_message(filters.regex("✭ مطور السورس"))
+@app.on_message(filters.regex("✭ مطور السورس ✭"))
 def reply_to_HEY(Client, message):
     message.reply_photo(
         photo=f"https://t.me/Almortagel_12",
