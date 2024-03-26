@@ -6,13 +6,11 @@ from pyrogram import filters, Client
 from ZeMusic import app
 from config import *
 
-MUSIC_BOT_NAME = {}
 
-botname = {}
-
+MUSIC_BOT_NAME = {فاشت}
+botname = {فيفي}
 
 name = "فاست"
-
 
 @app.on_message(filters.regex("تعيين اسم البوت")& filters.private & SUDOERS, group=7113)
 async def set_bot_name(client, message):
