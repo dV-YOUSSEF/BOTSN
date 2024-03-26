@@ -1,5 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import ParseMode  # هنا الاستيراد الناقص
 from pyrogram import enums
 from pyrogram import types
 from pyrogram import filters
