@@ -6,10 +6,13 @@ from pyrogram import filters, Client
 from ZeMusic import app
 from config import *
 
-bot_name = {}
+MUSIC_BOT_NAME = {}
+
 botname = {}
 
+
 name = "فاست"
+
 
 @app.on_message(filters.regex("تعيين اسم البوت")& filters.private & SUDOERS, group=7113)
 async def set_bot_name(client, message):
@@ -18,7 +21,7 @@ async def set_bot_name(client, message):
     name = ask.text
     await message.reply_text("تم تعيين الاسم بنجاح")
 
-caesar_responses = [
+toxi_responses = [
     "اسمي {name} يصحبي",
     "يسطا قولتلك اسمي {name} الاه",
     "نعم يحب",
@@ -36,21 +39,16 @@ caesar_responses = [
 ]
 
 @app.on_message(filters.command(["بوت", "البوت"], ""), group=71135)
-async def caesar_bot(client, message):
+async def toxi_bot(client, message):
     global name
     bot_username = (await app.get_me()).username
-    bar = random.choice(caesar_responses).format(name=name)
+    bar = random.choice(toxi_responses).format(name=name)
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("خدني لجروبك 💚​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​🌝", url=f"https://t.me/{bot_username}?startgroup=True")]
+        [InlineKeyboardButton("خدني لجروبك والنبي🥺♥", url=f"https://t.me/{bot_username}?startgroup=True")]
     ])
 
     await message.reply_text(
-        text=f"**[{bar}](https://t.me/{bot_username}?startgroup=True)**",
+        text=f"{bar}",
         disable_web_page_preview=True,
         reply_markup=keyboard
     )
-    
-#𝙲𝙷.𝚂𝙾𝚄𝚁𝙲𝙴 : @WA_ADRENALEN
-#𝙳𝙴𝚅 𝙰𝙳𝚁𝙴𝙽𝙰𝙻𝙴𝙽 : @DEV_ADRENALEN
-#𝚂𝚄𝙿𝙿𝙾𝚁𝚃 : @BAR_ADRENALEN
-#Omar AdRenalen تم التعديل بواسطة 🎸 ⋅
