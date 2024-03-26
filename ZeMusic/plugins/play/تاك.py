@@ -25,12 +25,12 @@ array = []
 @app.on_message(filters.command(["@all", "تاك","all"], "") & ~filters.private, group=88)
 async def nummmm(client: app, message):
   if message.chat.id in array:
-     return await message.reply_text("♪ التاك قيد التشغيل الان  💎 .")
+     return await message.reply_text("<b>♪ التاك قيد التشغيل الان  💎 .</b>")
   chek = await client.get_chat_member(message.chat.id, message.from_user.id)
   if not chek.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
-    await message.reply("♪ عذرا عزيزي هذا الامر للادمن الجروب فقط  💎 .")
+    await message.reply("<b>♪ عذرا عزيزي هذا الامر للادمن الجروب فقط  💎 .</b>")
     return
-  await message.reply_text("♪ جاري بدأ المنشن ، لايقاف الامر اضغط /cancel  💎 .")
+  await message.reply_text("<b>♪ جاري بدأ المنشن ، لايقاف الامر اضغط /cancel  💎 .</b>")
   i = 0
   txt = ""
   zz = message.text
@@ -49,7 +49,7 @@ async def nummmm(client: app, message):
       if not x.user.is_deleted:
        i += 1
        txt += f" {x.user.mention} ›"
-       if i == 20:
+       if i == 300:
         try:
               if not message.photo:
                     await client.send_message(message.chat.id, f"{zz}\n{txt}")
@@ -72,12 +72,12 @@ async def nummmm(client: app, message):
 async def stop(client, message):
   chek = await client.get_chat_member(message.chat.id, message.from_user.id)
   if not chek.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
-    await message.reply("♪ عذرا عزيزي هذا الامر للادمن الجروب فقط  💎 .")
+    await message.reply("<b>♪ عذرا عزيزي هذا الامر للادمن الجروب فقط  💎 .</b>")
     return
   if message.chat.id not in array:
-     await message.reply("♪ المنشن متوقف بي الفعل  💎 .")
+     await message.reply("<b>♪ المنشن متوقف بي الفعل  💎 .</b>")
      return 
   if message.chat.id in array:
     array.remove(message.chat.id)
-    await message.reply("♪ تم ايقاف المنشن عزيزي  💎 .")
+    await message.reply("<b>♪ تم ايقاف المنشن عزيزي  💎 .</b>")
     return
