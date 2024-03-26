@@ -60,7 +60,8 @@ async def send_hms(client, message):
          ),
     parse_mode=enums.ParseMode.MARKDOWN
     )
-     
+        waiting_for_hms = False
+
 @app.on_callback_query(filters.regex("hms_answer"))
 async def display_hms(client, callback):
     print("Inside display_hms function")
@@ -82,5 +83,5 @@ async def cancel_hms(client, callback):
     await client.edit_message_text(
         chat_id=callback.message.chat.id,
         message_id=callback.message.message_id,
-        text="- تم الغاء الهمسه 💘 ⋅",
+        text="<b>┇◍ تم الالغاء</b>\n<b>√</b>",
     )
