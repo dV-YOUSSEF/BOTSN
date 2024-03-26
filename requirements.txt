@@ -30,3 +30,4 @@ pytz
 lyricsgenius
 wget
 enums
+ParseMode
