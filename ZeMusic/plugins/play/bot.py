@@ -7,8 +7,8 @@ from ZeMusic import app
 from config import *
 
 
-MUSIC_BOT_NAME = {فاشت}
-botname = {فيفي}
+MUSIC_BOT_NAME = {}
+botname = {}
 
 name = "فاست"
 
