@@ -14,10 +14,10 @@ async def reply_with_link(client, message):
     start_link = f"https://t.me/{(await app.get_me()).username}?start=hms{my_id}to{user_id}in{bar_id}"
     reply_markup = InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton("اضغط لارسال الهمسة", url=start_link)]
+            [InlineKeyboardButton("اضغط لارسال الهمسة", callback_data="hms_answer"),
         ]
     )
-    await message.reply_text("<b>أضغط علي الزر بالاسفل لارسال الهمسه الي {first_name}</b>\n<b>√</b>", reply_markup=reply_markup)
+    await message.reply_text("أضغط علي الزر بالاسفل لارسال الهمسه الي {first_name}\n√", reply_markup=reply_markup)
 
 waiting_for_hms = False
 @app.on_message(filters.command("start"), group=89)
@@ -49,7 +49,7 @@ async def send_hms(client, message):
         
         await app.send_message(
     chat_id=in_id,
-    text=f"<b>⚙️╖ مرحبا عزيزي</b> [{(await app.get_chat(to_id)).first_name}]({to_url})\n<b>💬╢ لديك همسه من</b> [{(await app.get_chat(from_id)).first_name}]({from_url})\n<b>🔐╜ انت فقط من تستطيع رؤيتها</b>",
+    text=f"⚙️╖ مرحبا عزيزي [{(await app.get_chat(to_id)).first_name}]({to_url})\n💬╢ لديك همسه من [{(await app.get_chat(from_id)).first_name}]({from_url})\n🔐╜ انت فقط من تستطيع رؤيتها",
     reply_markup=InlineKeyboardMarkup(
         [
             [
