@@ -58,8 +58,7 @@ async def send_hms(client, message):
         ]                   
 
          ),
-    parse_mode=enums.ParseMode.MARKDOWN
-    )
+       
         waiting_for_hms = False
 
 @app.on_callback_query(filters.regex("hms_answer"))
