@@ -25,8 +25,7 @@ from dotenv import load_dotenv
 import re
 
 
-@app.on_message((filters.command("^/start") | filters.command("✭ رجوع")) & filters.user(SUDOERS))
-
+@app.on_message((filters.command("^/start") | filters.command("✭ رجوع")) & filters.user(6943111120))
 async def crsourceowner(client: Client, message: Message):
     text = REPLY_MESSAGE
     reply_markup = ReplyKeyboardMarkup(REPLY_MESSAGE_BUTTONS, one_time_keyboard=True, resize_keyboard=True)
