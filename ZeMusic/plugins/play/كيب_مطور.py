@@ -25,14 +25,14 @@ from dotenv import load_dotenv
 import re
 
 
-@app.on_message(filters.command(["كيب", "✭ رجوع"]) & SUDOERS)
-async def crsourceowner(client: Client, message: Message):
-    text = REPLY_MESSAGE
-    reply_markup = ReplyKeyboardMarkup(REPLY_MESSAGE_BUTTONS, one_time_keyboard=True, resize_keyboard=True)
-    await message.reply(
-        text=text,
-        reply_markup=reply_markup
-    )
+@app.on_message(filters.regex("^/start"), group=39)
+async def cpanel(_, message: Message):             
+        text = REPLY_MESSAGE
+        reply_markup = ReplyKeyboardMarkup(REPLY_MESSAGE_BUTTONS, resize_keyboard=True, selective=True)
+        await message.reply(
+              text=text,
+              reply_markup=reply_markup
+        )
 
 
 REPLY_MESSAGE = "<b>👋︙مـرحـبـا بـك عـزيـزي الـمـطـور ♥️</b>\n<b>✨︙فــي قـائـمـة التحـكـم بـالـبـوت💞</b>"
