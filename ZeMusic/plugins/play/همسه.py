@@ -45,7 +45,7 @@ async def send_hms(client, message):
         
         hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
         
-        await message.reply_text("- تم ارسال الهمسة 💘 ⋅", reply_to_message_id=message.message_id)
+        await message.reply_text("- تم ارسال الهمسة 💘 ⋅")
         
         await app.send_message(
             chat_id=in_id,
