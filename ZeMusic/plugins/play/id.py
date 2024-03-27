@@ -188,7 +188,7 @@ async def muid(client: Client, message):
     
     idd = len(id[user.id])
     
-    caption = f"name : {first_name}\nid : {user_id}\nuser : [@{username}]\nbio : {bioo}"
+    caption = f"┇‌ ⤹•ɴᴀᴍᴇ : {first_name}\n┇‌ ⤹•ᴜsᴇʀ : @{username}\n┇‌ ═══════『♡』═══════\n┇‌ ⤹•ɪᴅ : {user_id}\n┇‌ ⤹•ʙɪᴏ : {bioo}\n┇‌═══════『♡』═══════\n┇‌ ⤹•ᴄʜᴀᴛ : {message.chat.title}\n┇‌ ⤹•ᴄʜᴀᴛ ɪᴅ : {message.chat.id}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(f"{idd} 🤍", callback_data=f"heart{user_id}")]])
     
     await message.reply_photo(photo=photo, caption=caption, reply_markup=reply_markup)
@@ -210,7 +210,7 @@ async def heart(client, query: CallbackQuery):
     
     idd = len(id[usr.id])
     
-    caption = f"name : {usr.first_name}\nid : {usr.id}\nuser : [@{usr.username}]\nbio : {usr.bio}"
+    caption = f"┇‌ ⤹•ɴᴀᴍᴇ : {first_name}\n┇‌ ⤹•ᴜsᴇʀ : @{username}\n┇‌ ═══════『♡』═══════\n┇‌ ⤹•ɪᴅ : {user_id}\n┇‌ ⤹•ʙɪᴏ : {bioo}\n┇‌═══════『♡』═══════\n┇‌ ⤹•ᴄʜᴀᴛ : {message.chat.title}\n┇‌ ⤹•ᴄʜᴀᴛ ɪᴅ : {message.chat.id}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(f"{idd} 🤍", callback_data=f"heart{usr.id}")]])
     
     await query.edit_message_text(caption, reply_markup=reply_markup)
