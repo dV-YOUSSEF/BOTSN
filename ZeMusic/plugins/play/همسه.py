@@ -43,21 +43,20 @@ async def send_hms(client, message):
         
         hmses[str(to_id)] = {"hms": message.text, "bar": in_id}
         
-        await message.reply_text("- تم ارسال الهمسة 💘 ⋅")
+        await message.reply_text("- تم ارسال الهمسة 💘 ⋅", reply_to_message_id=message.message_id)
         
         await app.send_message(
-    chat_id=in_id,
-    text=f"هناك همسه جديدة استعمل الازرار لرؤية الهمسه 💘 ⋅",
-    reply_markup=InlineKeyboardMarkup(
-        [
-            [
-                    InlineKeyboardButton("‹ اظغط لرؤية الهمسه 💘 ›", callback_data="hms_answer"),
-            ]
-        ]                   
-
-         ),
-       parse_mode=enums.ParseMode.MARKDOWN
-    )
+            chat_id=in_id,
+            text=f"هناك همسه جديدة استعمل الازرار لرؤية الهمسه 💘 ⋅",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("‹ اظغط لرؤية الهمسه 💘 ›", callback_data="hms_answer"),
+                    ]
+                ]                   
+            ),
+            parse_mode=enums.ParseMode.MARKDOWN
+        )
         
         waiting_for_hms = False
      
