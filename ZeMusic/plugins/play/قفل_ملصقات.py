@@ -4,6 +4,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.enums import ChatMemberStatus
 stiklok = []
+photos_lock = []
 
 @app.on_message(filters.text & filters.regex(r'^(/|!|)قفل الملصقات$'))
 async def block_stickers(client:Client, message:Message):
