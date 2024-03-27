@@ -7,6 +7,7 @@ stiklok = []
 photos_lock = []
 forward_lock = []
 link_lock = []
+mention_lock = []
 
 @app.on_message(filters.text & filters.regex(r'^(/|!|)قفل الملصقات$'))
 async def block_stickers(client:Client, message:Message):
@@ -117,5 +118,33 @@ async def unblock_links(client:Client, message:Message):
 @app.on_message(filters.text & filters.regex(r'https?://\S+'))
 async def delete_links(client:Client, message:Message):
     if message.chat.id in link_lock:
+        await message.delete()
+        
+
+@app.on_message(filters.text & filters.regex(r'^(/|!|)قفل المنشن$'))
+async def block_mentions(client:Client, message:Message):
+    get = await client.get_chat_member(message.chat.id, message.from_user.id)
+    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
+        if message.chat.id in mention_lock:
+            return await message.reply_text(f"يا {message.from_user.mention} المنشن مقفل من قبل")
+        mention_lock.append(message.chat.id)
+        return await message.reply_text(f"تم قفل المنشن \n\n من قبل ←{message.from_user.mention}")
+    else:
+        return await message.reply_text(f"يا {message.from_user.mention} انت لست مشرفا")
+
+@app.on_message(filters.text & filters.regex(r'^(/|!|)فتح المنشن$'))
+async def unblock_mentions(client:Client, message:Message):
+    get = await client.get_chat_member(message.chat.id, message.from_user.id)
+    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
+        if message.chat.id not in mention_lock:
+            return await message.reply_text(f"يا {message.from_user.mention} المنشن مفتوح من قبل")
+        mention_lock.remove(message.chat.id)
+        return await message.reply_text(f"تم فتح المنشن \n\n من قبل ←{message.from_user.mention}")
+    else:
+        return await message.reply_text(f"يا {message.from_user.mention} انت لست مشرفا")
+
+@app.on_message(filters.entity("mention"))
+async def delete_mentions(client:Client, message:Message):
+    if message.chat.id in mention_lock:
         await message.delete()
         
