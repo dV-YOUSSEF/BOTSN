@@ -25,7 +25,7 @@ from dotenv import load_dotenv
 import re
 
 
-@app.on_message(command("^/start") | command("✭ رجوع") & SUDOERS)
+@app.on_message((filters.command("^/start") | filters.command("✭ رجوع")) & filters.user(SUDOERS))
 
 async def crsourceowner(client: Client, message: Message):
     text = REPLY_MESSAGE
