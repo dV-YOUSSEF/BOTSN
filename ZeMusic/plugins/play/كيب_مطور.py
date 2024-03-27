@@ -24,7 +24,7 @@ OWNER = getenv("OWNER")
 from dotenv import load_dotenv
 import re
 
-@app.on_message(command(["start", "✭ رجوع"], "") & SUDOERS)
+@app.on_message(command(["start", "✭ رجوع"]) & SUDOERS)
 
 async def crsourceowner(client: Client, message: Message):
     text = REPLY_MESSAGE
