@@ -85,7 +85,7 @@ async def unblock_forwards(client:Client, message:Message):
     else:
         return await message.reply_text(f"يا {message.from_user.mention} انت لست مشرفا")
 
-@app.on_message(filters.forward)
+@app.on_message(filters.forwarded)
 async def delete_forwards(client:Client, message:Message):
     if message.chat.id in forward_lock:
         await message.delete()
