@@ -1,6 +1,8 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from AdRenalen import app
+from pyrogram import enums
+from pyrogram import types
+from ZeMusic import app
 
 hmses = {}
 
