@@ -177,7 +177,7 @@ async def muid(client: Client, message):
     first_name = user.first_name
     bioo = user.bio
     chat = {message.chat.title}  
-    chat id = {message.chat.id}
+    chat_id = {message.chat.id}
    
     photo = user.photo.big_file_id
     if photo:
