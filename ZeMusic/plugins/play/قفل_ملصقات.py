@@ -5,6 +5,7 @@ from pyrogram.types import Message
 from pyrogram.enums import ChatMemberStatus
 stiklok = []
 photos_lock = []
+forward_lock = []
 
 @app.on_message(filters.text & filters.regex(r'^(/|!|)قفل الملصقات$'))
 async def block_stickers(client:Client, message:Message):
@@ -59,4 +60,32 @@ async def unblock_photos(client:Client, message:Message):
 @app.on_message(filters.photo)
 async def delete_photos(client:Client, message:Message):
     if message.chat.id in photos_lock:
+        await message.delete()
+
+
+@app.on_message(filters.text & filters.regex(r'^(/|!|)قفل التوجيهات$'))
+async def block_forwards(client:Client, message:Message):
+    get = await client.get_chat_member(message.chat.id, message.from_user.id)
+    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
+        if message.chat.id in forward_lock:
+            return await message.reply_text(f"يا {message.from_user.mention} التوجيهات مقفلة من قبل")
+        forward_lock.append(message.chat.id)
+        return await message.reply_text(f"تم قفل التوجيهات \n\n من قبل ←{message.from_user.mention}")
+    else:
+        return await message.reply_text(f"يا {message.from_user.mention} انت لست مشرفا")
+
+@app.on_message(filters.text & filters.regex(r'^(/|!|)فتح التوجيهات$'))
+async def unblock_forwards(client:Client, message:Message):
+    get = await client.get_chat_member(message.chat.id, message.from_user.id)
+    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
+        if message.chat.id not in forward_lock:
+            return await message.reply_text(f"يا {message.from_user.mention} التوجيهات مفتوحة من قبل")
+        forward_lock.remove(message.chat.id)
+        return await message.reply_text(f"تم فتح التوجيهات \n\n من قبل ←{message.from_user.mention}")
+    else:
+        return await message.reply_text(f"يا {message.from_user.mention} انت لست مشرفا")
+
+@app.on_message(filters.forward)
+async def delete_forwards(client:Client, message:Message):
+    if message.chat.id in forward_lock:
         await message.delete()
