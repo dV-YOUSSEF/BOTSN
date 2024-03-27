@@ -143,7 +143,7 @@ async def unblock_mentions(client:Client, message:Message):
     else:
         return await message.reply_text(f"يا {message.from_user.mention} انت لست مشرفا")
 
-@app.on_message(filters.entity("mention"))
+@app.on_message(filters.mention)
 async def delete_mentions(client:Client, message:Message):
     if message.chat.id in mention_lock:
         await message.delete()
