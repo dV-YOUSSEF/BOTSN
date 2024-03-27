@@ -119,7 +119,7 @@ async def unblock_links(client:Client, message:Message):
 async def delete_links(client:Client, message:Message):
     if message.chat.id in link_lock:
         await message.delete()
-        
+
 
 @app.on_message(filters.text & filters.regex(r'^(/|!|)قفل المنشن$'))
 async def block_mentions(client:Client, message:Message):
@@ -143,7 +143,7 @@ async def unblock_mentions(client:Client, message:Message):
     else:
         return await message.reply_text(f"يا {message.from_user.mention} انت لست مشرفا")
 
-@app.on_message(filters.mention)
+@app.on_message(filters.mentioned)
 async def delete_mentions(client:Client, message:Message):
     if message.chat.id in mention_lock:
         await message.delete()
