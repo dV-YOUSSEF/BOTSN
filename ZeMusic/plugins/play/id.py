@@ -2,7 +2,7 @@ import asyncio
 import pyrogram
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery
-from pyrogram.types import ChatMemberStatus
+from pyrogram import ChatMemberStatus
 from strings.filters import command
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from ZeMusic import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
