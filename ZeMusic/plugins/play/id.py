@@ -148,22 +148,11 @@ id = {}
 @app.on_message(filters.command(["تعطيل الايدي", "قفل الايدي"], "") & filters.group)
 async def iddlock(client: Client, message):
     get = await client.get_chat_member(message.chat.id, message.from_user.id)
-    if get.status in ["creator", "administrator"]:
+    if get.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
         if message.chat.id in iddof:
             return await message.reply_text("♪ الامر معطل من قبل 💎 .")
         iddof.append(message.chat.id)
         return await message.reply_text("♪ تم تعطيل الايدي بنجاح 💎 .")
-    else:
-        return await message.reply_text("♪ عذرا عزيزي هذا الامر للادمن الجروب فقط 💎 .")
-
-@app.on_message(filters.command(["فتح الايدي", "تفعيل الايدي"], "") & filters.group)
-async def iddopen(client: Client, message):
-    get = await client.get_chat_member(message.chat.id, message.from_user.id)
-    if get.status in ["creator", "administrator"]:
-        if message.chat.id not in iddof:
-            return await message.reply_text("♪ الايدي مفعل من قبل 💎 .")
-        iddof.remove(message.chat.id)
-        return await message.reply_text("♪ تم تفعيل الايدي بنجاح 💎 .")
     else:
         return await message.reply_text("♪ عذرا عزيزي هذا الامر للادمن الجروب فقط 💎 .")
 
@@ -177,12 +166,7 @@ async def iddopen(client: Client, message):
         return await message.reply_text("♪ تم تفعيل الايدي بنجاح 💎 .")
     else:
         return await message.reply_text("♪ عذرا عزيزي هذا الامر للادمن الجروب فقط 💎 .")
-
-@app.on_message(filters.command(["ايدي"], ""))
-async def muid(client: Client, message):
-    if message.chat.id in iddof:
-        return await message.reply_text("♪ تم تعطيل امر الايدي من قبل المشرفين 💎 .")
-    
+        
     user = await client.get_chat(message.from_user.id)
     user_id = user.id
     username = user.username
