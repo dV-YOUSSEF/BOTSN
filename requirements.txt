@@ -31,3 +31,4 @@ lyricsgenius
 wget
 enums
 ParseMode
+ChatMemberStatus
